@@ -3,8 +3,10 @@ package com.squins.kwmdsl
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.util.string.Strings
+import java.nio.charset.Charset
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
+import kotlin.text.Charsets.UTF_8
 
 /**
  * Markup that provides functions to add child markup to it. For all HTML elements, and elements that only have a `class` attribute, convenience extension functions are provided.
@@ -14,6 +16,10 @@ import kotlin.reflect.KProperty1
  */
 @WicketMarkupBuilder
 abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor(protected val builder: StringBuilder) {
+    fun xmlDeclaration(version: String = "1.0", encoding: Charset = UTF_8) {
+        builder.append("""<?xml version="$version" encoding="${encoding.name()}"?>""")
+    }
+
     /**
      * Add a document type declaration to the markup.
      *
@@ -26,11 +32,6 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             .append('>')
     }
 
-    /**
-     * Add a document type declaration with document type `html` to the markup.
-     */
-    fun docTypeHtml() = docType("html")
-
     // TODO("Body: check if complete")
     /**
      * Add a `wicket:body` element to the markup.
@@ -39,9 +40,17 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         builder.append("<wicket:body></wicket:body>")
     }
 
-    // TODO("Border")
+    fun wicketBorder(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+        builder.append("<wicket:border>")
+        block()
+        builder.append("</wicket:border>")
+    }
 
-    // TODO("Child")
+    fun wicketChild(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null) {
+        builder.append("<wicket:child>")
+        block?.invoke(this)
+        builder.append("</wicket:child>")
+    }
 
     /**
      * Add a `wicket:container` element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
@@ -84,7 +93,11 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
 
     // TODO("Enclosure, with support for `child`. How to use a reference (to a possibly nested component) instead of a literal? Or skip it to force use of `EnclosureContainer`?")
 
-    // TODO("Extend")
+    fun wicketExtend(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
+        builder.append("<wicket:extend>")
+        block()
+        builder.append("</wicket:extend>")
+    }
 
     // TODO("Fragment, with `wicket:id`")
 
@@ -140,6 +153,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             block()
         }
         builder.append("</wicket:message>")
+    }
+
+    fun wicketPanel(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+        builder.append("<wicket:panel>")
+        block()
+        builder.append("</wicket:panel>")
     }
 
     /**
