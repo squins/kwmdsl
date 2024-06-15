@@ -13,7 +13,7 @@ class P5_4_1_SimpleLoginPage : KotlinWicketMarkupWebPage<P5_4_1_SimpleLoginPage>
     override fun getKotlinWicketMarkup() = myMarkup
 
     companion object {
-        private val myMarkup = markup< P5_4_1_SimpleLoginPage> {
+        private val myMarkup = markup<P5_4_1_SimpleLoginPage> {
             html {
                 head()
                 body {

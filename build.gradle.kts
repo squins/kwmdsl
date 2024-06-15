@@ -1,6 +1,6 @@
+import org.jetbrains.dokka.gradle.DokkaTask
 import java.io.PrintWriter
 import java.util.Locale
-import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     kotlin("jvm") version "2.0.0"
@@ -17,7 +17,8 @@ repositories {
 val examples by sourceSets.registering {
 }
 
-val convenienceFunctionsSourceDirectory = File(project.layout.buildDirectory.get().getAsFile(), "generated/main/convenience")
+val convenienceFunctionsSourceDirectory =
+    File(project.layout.buildDirectory.get().getAsFile(), "generated/main/convenience")
 
 val generateConvenienceFunctions by tasks.registering {
     inputs.property("voidElements", voidHtmlElements)

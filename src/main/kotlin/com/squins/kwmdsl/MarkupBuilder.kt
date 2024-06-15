@@ -16,6 +16,11 @@ import kotlin.text.Charsets.UTF_8
  */
 @WicketMarkupBuilder
 abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor(protected val builder: StringBuilder) {
+    /**
+     * Child elements that are associated with Wicket components that are to be retrieved during the addition of the root markup to the markup container.
+     */
+    private val children = mutableListOf<ChildMarkupBuilder<TSupplierFacade>>()
+
     fun xmlDeclaration(version: String = "1.0", encoding: Charset = UTF_8) {
         builder.append("""<?xml version="$version" encoding="${encoding.name()}"?>""")
     }
@@ -284,6 +289,8 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
 
     // TODO("Unescaped text?")
 
+    internal fun buildChildren(): List<ChildMarkup<TSupplierFacade>> = children.map { it.build() }
+
     /**
      * Add an element with the given name and associated with a Wicket component to the markup.
      *
@@ -393,11 +400,4 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             .append(name)
             .append('>')
     }
-
-    /**
-     * Child elements that are associated with Wicket components that are to be retrieved during the addition of the root markup to the markup container.
-     */
-    private val children = mutableListOf<ChildMarkupBuilder<TSupplierFacade>>()
-
-    internal fun buildChildren(): List<ChildMarkup<TSupplierFacade>> = children.map { it.build() }
 }

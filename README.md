@@ -24,7 +24,7 @@ TODO("No conditional markup: must use visibility")
 
 TODO("Companion object IMarkup...Provider")
 
-## Convenience Functions 
+## Convenience Functions
 
 ### HTML Elements
 

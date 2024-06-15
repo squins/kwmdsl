@@ -19,7 +19,7 @@ abstract class KotlinWicketMarkupBorder<TSupplierFacade : KotlinWicketMarkupBord
         getKotlinWicketMarkup().addTo(this as TSupplierFacade)
     }
 
-    override fun getMarkupResourceStream(container: MarkupContainer,containerClass: Class<*>) =
+    override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
         getKotlinWicketMarkup().stream
 
     companion object {

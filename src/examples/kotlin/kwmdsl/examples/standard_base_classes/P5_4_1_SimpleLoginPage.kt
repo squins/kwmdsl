@@ -21,7 +21,7 @@ class P5_4_1_SimpleLoginPage : WebPage(), IMarkupResourceStreamProvider {
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) = myMarkup.stream
 
     companion object {
-        private val myMarkup = markup< P5_4_1_SimpleLoginPage> {
+        private val myMarkup = markup<P5_4_1_SimpleLoginPage> {
             html {
                 head()
                 body {
