@@ -1,7 +1,7 @@
 pluginManagement {
     plugins {
-        // https://kotlinlang.org/docs/home.html
-        kotlin("jvm") version "2.0.0"
+        // Three years back: https://kotlinlang.org/docs/releases.html#kotlin-release-compatibility
+        kotlin("jvm") version "1.5.0"
 
         // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
         id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
@@ -21,7 +21,7 @@ plugins {
 }
 
 // https://wicket.apache.org/start/download.html
-val wicketVersion = "10.0.0"
+val wicketVersion = "8.0.0"
 
 dependencyResolutionManagement {
     versionCatalogs {
