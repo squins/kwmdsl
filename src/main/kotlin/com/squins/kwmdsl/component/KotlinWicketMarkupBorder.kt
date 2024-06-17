@@ -5,22 +5,14 @@ import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.border.Border
 import org.apache.wicket.model.IModel
 
-abstract class KotlinWicketMarkupBorder<TSupplierFacade : KotlinWicketMarkupBorder<TSupplierFacade>>(
+abstract class KotlinWicketMarkupBorder(
     id: String,
     model: IModel<*>?
-) : Border(id, model), IKotlinWicketMarkupProvider<TSupplierFacade>,
-    IMarkupResourceStreamProvider {
+) : Border(id, model), IMarkupResourceStreamProvider {
     constructor(id: String) : this(id, null)
 
-    override fun onInitialize() {
-        super.onInitialize()
-
-        @Suppress("UNCHECKED_CAST")
-        getKotlinWicketMarkup().addTo(this as TSupplierFacade)
-    }
-
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        getKotlinWicketMarkup().stream
+        findDslMarkup(containerClass)
 
     companion object {
         @JvmStatic

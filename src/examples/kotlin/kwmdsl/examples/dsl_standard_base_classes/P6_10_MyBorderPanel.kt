@@ -1,6 +1,8 @@
-package kwmdsl.examples.standard_base_classes
+package kwmdsl.examples.dsl_standard_base_classes
 
 import com.squins.kwmdsl.Wicket
+import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.component.findDslMarkup
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.span
@@ -23,13 +25,14 @@ class P6_10_MyBorderPanel(id: String) : Panel(id), IMarkupResourceStreamProvider
     override fun onInitialize() {
         super.onInitialize()
 
-        myMarkup.addTo(this)
+        dslMarkup.addTo(this)
     }
 
-    override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) = myMarkup.stream
+    override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
+        findDslMarkup(containerClass)
 
-    companion object {
-        private val myMarkup = markup {
+    companion object : IKotlinWicketMarkupProvider {
+        override val dslMarkup = markup {
             wicketPanel {
                 div(P6_10_MyBorderPanel::myBorder) {
                     span(P6_10_MyBorderPanel::childTag)

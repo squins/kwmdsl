@@ -15,6 +15,10 @@ repositories {
 }
 
 val examples by sourceSets.registering {
+    resources {
+        srcDir("src/examples/kotlin")
+        exclude("**/*.kt")
+    }
 }
 
 val convenienceFunctionsSourceDirectory =
@@ -271,6 +275,9 @@ dependencies {
     implementation(kotlin("reflect"))
 
     "examplesImplementation"(sourceSets.main.get().output)
+    "examplesImplementation"(libs.jettyEe8Servlet)
+    "examplesImplementation"(libs.jettyServer)
+    "examplesImplementation"(libs.logbackClassic)
 
     testImplementation(kotlin("test"))
 }

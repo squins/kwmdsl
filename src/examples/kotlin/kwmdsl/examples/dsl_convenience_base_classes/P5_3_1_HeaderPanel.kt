@@ -1,6 +1,8 @@
-package kwmdsl.examples.standard_base_classes
+package kwmdsl.examples.dsl_convenience_base_classes
 
 import com.squins.kwmdsl.body
+import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.component.KotlinWicketMarkupPanel
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.head
 import com.squins.kwmdsl.html
@@ -11,23 +13,18 @@ import com.squins.kwmdsl.table
 import com.squins.kwmdsl.tbody
 import com.squins.kwmdsl.td
 import com.squins.kwmdsl.tr
-import org.apache.wicket.MarkupContainer
-import org.apache.wicket.markup.IMarkupResourceStreamProvider
-import org.apache.wicket.markup.html.panel.Panel
 
 // https://nightlies.apache.org/wicket/guide/10.x/single.html#_divide_et_impera
 @Suppress("ClassName")
-class P5_3_1_HeaderPanel(id: String) : Panel(id), IMarkupResourceStreamProvider {
+class P5_3_1_HeaderPanel(id: String) : KotlinWicketMarkupPanel(id) {
     override fun onInitialize() {
         super.onInitialize()
 
-        myMarkup.addTo(this)
+        dslMarkup.addTo(this)
     }
 
-    override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) = myMarkup.stream
-
-    companion object {
-        private val myMarkup = markup {
+    companion object : IKotlinWicketMarkupProvider {
+        override val dslMarkup = markup<P5_3_1_HeaderPanel> {
             html {
                 head {
                     metaTextHtmlUtf8()

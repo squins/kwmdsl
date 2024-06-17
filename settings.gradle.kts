@@ -20,12 +20,20 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention")
 }
 
+// https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
+val jettyVersion = "12.0.10"
+// https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+val logbackVersion = "1.5.6"
 // https://wicket.apache.org/start/download.html
 val wicketVersion = "8.0.0"
 
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
+            library("jettyEe10Servlet", "org.eclipse.jetty.ee10:jetty-ee10-servlet:$jettyVersion")
+            library("jettyEe8Servlet", "org.eclipse.jetty.ee8:jetty-ee8-servlet:$jettyVersion")
+            library("jettyServer", "org.eclipse.jetty:jetty-server:$jettyVersion")
+            library("logbackClassic", "ch.qos.logback:logback-classic:$logbackVersion")
             library("wicketCore", "org.apache.wicket:wicket-core:$wicketVersion")
         }
     }

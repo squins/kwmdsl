@@ -1,0 +1,71 @@
+package kwmdsl.examples
+
+import com.squins.kwmdsl.a
+import com.squins.kwmdsl.body
+import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
+import com.squins.kwmdsl.component.linkPath
+import com.squins.kwmdsl.docTypeHtml
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.head
+import com.squins.kwmdsl.html
+import com.squins.kwmdsl.li
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.title
+import com.squins.kwmdsl.ul
+import kwmdsl.examples.dsl_standard_base_classes.P4_3_HomePage
+import kwmdsl.examples.dsl_standard_base_classes.P5_4_1_SimpleLoginPage
+import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
+import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
+
+class ExamplesListPage : KotlinWicketMarkupWebPage() {
+    override fun onInitialize() {
+        super.onInitialize()
+
+        dslMarkup.addTo(this)
+    }
+
+    companion object : IKotlinWicketMarkupProvider {
+        override val dslMarkup = markup<ExamplesListPage> {
+            docTypeHtml()
+            html {
+                head {
+                    title { text("Kotlin Wicket Markup DSL Examples")}
+                }
+                body {
+                    h1 { text("Kotlin Wicket Markup DSL Examples") }
+
+                    h2 { text("Standard") }
+
+                    wicketLink {
+                        ul {
+                            li { a("href" to SimpleInheritancePage::class.linkPath()) { text("Simple inheritance") } }
+                            li { a("href" to DeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
+                        }
+                    }
+
+                    h2 { text("DSL, Standard Base Classes") }
+
+                    wicketLink {
+                        ul {
+                            li { a("href" to kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
+                            li { a("href" to P4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
+                            li { a("href" to P5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
+                        }
+                    }
+
+                    h2 { text("DSL, Convenience Base Classes") }
+
+                    wicketLink {
+                        ul {
+                            li { a("href" to kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
+                            li { a("href" to kwmdsl.examples.dsl_convenience_base_classes.P4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
+                            li { a("href" to kwmdsl.examples.dsl_convenience_base_classes.P5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
