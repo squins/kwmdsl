@@ -12,7 +12,7 @@ abstract class KotlinWicketMarkupPanel(
     constructor(id: String) : this(id, null)
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(containerClass)
+        findDslMarkup(container, containerClass)
 
     companion object {
         @JvmStatic

@@ -14,7 +14,7 @@ abstract class KotlinWicketMarkupWebPage : WebPage, IMarkupResourceStreamProvide
     constructor(parameters: PageParameters) : super(parameters)
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(containerClass)
+        findDslMarkup(container, containerClass)
 
     companion object {
         @JvmStatic

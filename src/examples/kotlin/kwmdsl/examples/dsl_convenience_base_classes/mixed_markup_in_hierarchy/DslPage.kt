@@ -1,9 +1,10 @@
-package kwmdsl.examples.dsl_standard_base_classes.deep_inheritance
+package kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy
 
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.body
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.findDslMarkup
+import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
 import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.head
@@ -12,13 +13,12 @@ import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.title
-import org.apache.wicket.MarkupContainer
-import org.apache.wicket.markup.IMarkupResourceStreamProvider
-import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.basic.Label
 
-open class DeepInheritanceBaseTemplate : WebPage(), IMarkupResourceStreamProvider {
-    protected val baseTemplateLabel by Wicket { Label(it, "Deep inheritance, base template component") }
+abstract class DslPage : KotlinWicketMarkupWebPage() {
+    private val dslLabel by Wicket { newDslLabel(it) }
+
+    protected open fun newDslLabel(id: String) = Label(id, "DslPage")
 
     override fun onInitialize() {
         super.onInitialize()
@@ -26,20 +26,24 @@ open class DeepInheritanceBaseTemplate : WebPage(), IMarkupResourceStreamProvide
         dslMarkup.addTo(this)
     }
 
-    override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(container, containerClass)
-
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             docTypeHtml()
             html {
                 head {
-                    title { text("Deep Inheritance - Base Template") }
+                    title { text("Mixed Markup in Hierarchy - DSL, None, HTML, None, DSL") }
                 }
                 body {
-                    h1 { text("Deep Inheritance") }
+                    h1 { text("DSL, None, HTML, None, DSL") }
                     p {
-                        span(DeepInheritanceBaseTemplate::baseTemplateLabel)
+                        text("This is from ")
+                        code { text("DslPage") }
+                        text(".")
+                    }
+                    p {
+                        text("This is from ")
+                        code { span(DslPage::dslLabel) }
+                        text(".")
                     }
                     wicketChild()
                 }

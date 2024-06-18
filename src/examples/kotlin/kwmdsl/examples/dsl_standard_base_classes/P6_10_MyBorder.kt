@@ -16,7 +16,7 @@ import org.apache.wicket.markup.html.border.Border
 @Suppress("ClassName")
 class P6_10_MyBorder(id: String) : Border(id), IMarkupResourceStreamProvider {
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(containerClass)
+        findDslMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {

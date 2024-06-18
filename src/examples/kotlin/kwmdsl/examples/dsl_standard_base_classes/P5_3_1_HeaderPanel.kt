@@ -27,7 +27,7 @@ class P5_3_1_HeaderPanel(id: String) : Panel(id), IMarkupResourceStreamProvider 
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(containerClass)
+        findDslMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {

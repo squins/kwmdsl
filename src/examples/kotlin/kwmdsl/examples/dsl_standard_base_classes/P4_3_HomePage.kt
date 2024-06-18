@@ -28,7 +28,7 @@ class P4_3_HomePage : WebPage(), IMarkupResourceStreamProvider {
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(containerClass)
+        findDslMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
