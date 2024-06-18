@@ -15,13 +15,16 @@ import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.title
 import com.squins.kwmdsl.ul
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
+import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
 import kwmdsl.examples.dsl_convenience_base_classes.P4_3_HomePage as DslConvenienceP4_3_HomePage
 import kwmdsl.examples.dsl_convenience_base_classes.P5_4_1_SimpleLoginPage as DslConvenienceP5_4_1_SimpleLoginPage
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
+import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
 import kwmdsl.examples.dsl_standard_base_classes.P4_3_HomePage as DslStandardP4_3_HomePage
 import kwmdsl.examples.dsl_standard_base_classes.P5_4_1_SimpleLoginPage as DslStandardP5_4_1_SimpleLoginPage
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
+import kwmdsl.examples.dsl_standard_base_classes.enclosure.EnclosuresPage as DslStandardEnclosuresPage
 
 class ExamplesListPage : KotlinWicketMarkupWebPage() {
     override fun onInitialize() {
@@ -46,6 +49,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                         ul {
                             li { a("href" to SimpleInheritancePage::class.linkPath()) { text("Simple inheritance") } }
                             li { a("href" to DeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
+                            li { a("href" to EnclosuresPage::class.linkPath()) { text("Enclosures") } }
                         }
                     }
 
@@ -54,6 +58,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                     wicketLink {
                         ul {
                             li { a("href" to DslStandardDeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
+                            li { a("href" to DslStandardEnclosuresPage::class.linkPath()) { text("Enclosures") } }
                             li { a("href" to DslStandardP4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
                             li { a("href" to DslStandardP5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
                         }
@@ -64,6 +69,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                     wicketLink {
                         ul {
                             li { a("href" to DslConvenienceDeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
+                            li { a("href" to DslConvenienceEnclosuresPage::class.linkPath()) { text("Enclosures") } }
                             li { a("href" to DslConvenienceP4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
                             li { a("href" to DslConvenienceP5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
                         }

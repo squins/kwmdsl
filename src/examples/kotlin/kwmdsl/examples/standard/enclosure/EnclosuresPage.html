@@ -1,0 +1,34 @@
+<!DOCTYPE hmtl>
+<html>
+<head>
+    <title>Enclosures</title>
+</head>
+<body>
+<h1>Enclosures</h1>
+<p>
+    Refresh to update the visibility of child components.
+</p>
+<wicket:enclosure>
+    <p>
+        Auto:
+        <span wicket:id="autoSpan"></span>
+    </p>
+</wicket:enclosure>
+
+<wicket:enclosure child="directSpan">
+    <p>
+        Direct:
+        <span wicket:id="directSpan"></span>
+    </p>
+</wicket:enclosure>
+
+<wicket:enclosure child="twoSpans:secondSpan">
+    <p wicket:id="twoSpans">
+        First:
+        <span wicket:id="firstSpan"></span>
+        Second:
+        <span wicket:id="secondSpan"></span>
+    </p>
+</wicket:enclosure>
+</body>
+</html>

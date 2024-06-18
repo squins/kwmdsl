@@ -12,17 +12,25 @@ import kotlin.text.Charsets.UTF_8
  * Markup that provides functions to add child markup to it. For all HTML elements, and elements that only have a `class` attribute, convenience extension functions are provided.
  *
  * @param TSupplierFacade the markup container type having the properties and functions to get the Wicket components.
- * @param builder the string builder for the markup text.
  */
 @WicketMarkupBuilder
-abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor(protected val builder: StringBuilder) {
+abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor() {
+    internal var currentTextPart = TextPart<TSupplierFacade>()
+
+    private val parts = mutableListOf<MarkupPart<TSupplierFacade>>(currentTextPart)
+
     /**
      * Child elements that are associated with Wicket components that are to be retrieved during the addition of the root markup to the markup container.
      */
-    private val children = mutableListOf<ChildMarkupBuilder<TSupplierFacade>>()
+    internal val children = mutableListOf<ChildMarkupBuilder<TSupplierFacade>>()
 
     fun xmlDeclaration(version: String = "1.0", encoding: Charset = UTF_8) {
-        builder.append("""<?xml version="$version" encoding="${encoding.name()}"?>""")
+        currentTextPart
+            .append("""<?xml version="""")
+            .append(version)
+            .append("""" encoding="""")
+            .append(encoding.name())
+            .append(""""?>""")
     }
 
     /**
@@ -31,7 +39,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param value the document type. **Warning**: there is no validation and no escaping, so make sure the document type is valid and safe.
      */
     fun docType(value: String) {
-        builder
+        currentTextPart
             .append("<!DOCTYPE ")
             .append(value)
             .append('>')
@@ -42,19 +50,19 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * Add a `wicket:body` element to the markup.
      */
     fun wicketBody() {
-        builder.append("<wicket:body></wicket:body>")
+        currentTextPart.append("<wicket:body></wicket:body>")
     }
 
     fun wicketBorder(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
-        builder.append("<wicket:border>")
+        currentTextPart.append("<wicket:border>")
         block()
-        builder.append("</wicket:border>")
+        currentTextPart.append("</wicket:border>")
     }
 
     fun wicketChild(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null) {
-        builder.append("<wicket:child>")
+        currentTextPart.append("<wicket:child>")
         block?.invoke(this)
-        builder.append("</wicket:child>")
+        currentTextPart.append("</wicket:child>")
     }
 
     /**
@@ -96,17 +104,35 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         element(supplier, "wicket:container", emptyArray(), block)
     }
 
-    // TODO("Enclosure, with support for `child`. How to use a reference (to a possibly nested component) instead of a literal? Or skip it to force use of `EnclosureContainer`?")
+    fun wicketEnclosure(childSupplier: ((TSupplierFacade) -> Component)? = null, block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
+        startTagPrefix("wicket:enclosure")
+        if (childSupplier != null) {
+            currentTextPart.append(""" child="""")
+            parts += DescendentReferencePart(childSupplier)
+            currentTextPart = TextPart()
+            parts += currentTextPart
+            currentTextPart.append('"')
+        }
+        currentTextPart.append('>')
+        block()
+        endTag("wicket:enclosure")
+    }
 
     fun wicketExtend(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
-        builder.append("<wicket:extend>")
+        currentTextPart.append("<wicket:extend>")
         block()
-        builder.append("</wicket:extend>")
+        currentTextPart.append("</wicket:extend>")
     }
 
     // TODO("Fragment, with `wicket:id`")
+    // There is no supplier for the fragment
+    // What paths are allowed?
+    // - ..?
+    // - Are multi-part paths allowed?
 
-    // TODO("Header items. Only allowed in `<head>`")
+    fun wicketHeaderItems() {
+        currentTextPart.append("<wicket:header-items/>")
+    }
 
     /**
      * Add a `wicket:link` element to the markup.
@@ -114,9 +140,9 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the code for building the children of the element.
      */
     fun wicketLink(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
-        builder.append("<wicket:link>")
+        currentTextPart.append("<wicket:link>")
         block()
-        builder.append("</wicket:link>")
+        currentTextPart.append("</wicket:link>")
     }
 
     /**
@@ -148,22 +174,22 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         escape: Boolean = true,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        builder
-            .append("<wicket:message key=\"")
+        currentTextPart
+            .append("""<wicket:message key="""")
             .append(key)
-            .append("\" escape=\"")
+            .append("""" escape="""")
             .append(escape)
-            .append("\">")
+            .append("""">""")
         if (block != null) {
             block()
         }
-        builder.append("</wicket:message>")
+        currentTextPart.append("</wicket:message>")
     }
 
     fun wicketPanel(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
-        builder.append("<wicket:panel>")
+        currentTextPart.append("<wicket:panel>")
         block()
-        builder.append("</wicket:panel>")
+        currentTextPart.append("</wicket:panel>")
     }
 
     /**
@@ -171,11 +197,15 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param block the code for building the children of the element.
      */
+    // TODO("Can this go? The DSL is not useful for working with a designer. Commenting out can be done using Kotlin comments")
     fun wicketRemove(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
-        builder.append("<wicket:remove>")
+        currentTextPart.append("<wicket:remove>")
         block()
-        builder.append("</wicket:remove>")
+        currentTextPart.append("</wicket:remove>")
     }
+
+    // TODO("wicket:for attribute")
+    // Allows reference to component anywhere in the hierarchy: https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for
 
     /**
      * Add an element with the given name to the markup.
@@ -191,7 +221,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     ) {
         startTagPrefix(name)
         attributes(attributes)
-        builder.append('>')
+        currentTextPart.append('>')
         if (block != null) {
             block()
         }
@@ -212,7 +242,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         attributes: Array<out Pair<String, String>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier, builder)
+        val childMarkup = ChildMarkupBuilder(supplier)
         wicketElement(childMarkup, name, supplier.name, attributes, block)
     }
 
@@ -230,7 +260,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         attributes: Array<out Pair<String, String>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier, builder)
+        val childMarkup = ChildMarkupBuilder(supplier)
         wicketElement(childMarkup, name, supplier.name, attributes, block)
     }
 
@@ -243,7 +273,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun voidElement(name: String, attributes: Array<out Pair<String, String>>) {
         startTagPrefix(name)
         attributes(attributes)
-        builder.append('>')
+        currentTextPart.append('>')
     }
 
     /**
@@ -258,7 +288,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         name: String,
         attributes: Array<out Pair<String, String>>,
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier, builder)
+        val childMarkup = ChildMarkupBuilder(supplier)
         voidWicketElement(childMarkup, name, supplier.name, attributes)
     }
 
@@ -274,7 +304,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         name: String,
         attributes: Array<out Pair<String, String>>,
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier, builder)
+        val childMarkup = ChildMarkupBuilder(supplier)
         voidWicketElement(childMarkup, name, supplier.name, attributes)
     }
 
@@ -284,11 +314,26 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param text the text to add.
      */
     fun text(text: String) {
-        builder.append(Strings.escapeMarkup(text))
+        currentTextPart.append(Strings.escapeMarkup(text))
     }
 
     // TODO("Unescaped text?")
 
+    internal fun appendParts(builder: StringBuilder) {
+        parts.forEach { part ->
+            when (part) {
+                is ChildPart -> part.child.appendParts(builder)
+                // All of the children are searched, instead of only the children of the tag containing the reference,
+                // as it is more difficult to store which range of children must be searched when creating the
+                // reference. Although this does affect performance a bit, it is acceptable:
+                //
+                // * Not many pages have more than a few dozen components.
+                // * The search only runs once for all component instances.
+                is DescendentReferencePart -> builder.append(children.firstNotNullOf { child -> child.pathOf(part.supplier) })
+                is TextPart -> builder.append(part)
+            }
+        }
+    }
     internal fun buildChildren(): List<ChildMarkup<TSupplierFacade>> = children.map { it.build() }
 
     /**
@@ -310,8 +355,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         children += childMarkupBuilder
 
         startTagPrefix(name, wicketId, attributes)
-        builder.append('>')
+        currentTextPart.append('>')
         if (block != null) {
+            parts += ChildPart(childMarkupBuilder)
+            currentTextPart = TextPart()
+            parts += currentTextPart
+
             childMarkupBuilder.block()
         }
         endTag(name)
@@ -334,7 +383,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         children += childMarkupBuilder
 
         startTagPrefix(name, wicketId, attributes)
-        builder.append('>')
+        currentTextPart.append('>')
     }
 
     /**
@@ -346,8 +395,8 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      */
     private fun startTagPrefix(name: String, wicketId: String, attributes: Array<out Pair<String, String>>) {
         startTagPrefix(name)
-        builder
-            .append(" wicket:id=\"")
+        currentTextPart
+            .append(""" wicket:id="""")
             .append(wicketId)
             .append('"')
         attributes(attributes)
@@ -359,7 +408,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
      */
     private fun startTagPrefix(name: String) {
-        builder
+        currentTextPart
             .append('<')
             .append(name)
     }
@@ -381,10 +430,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param attribute the attribute to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
     private fun attribute(name: String, value: String) {
-        builder
+        currentTextPart
             .append(' ')
             .append(name)
-            .append("=\"")
+            .append("""="""")
             .append(value)
             .append('"')
     }
@@ -395,7 +444,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
      */
     private fun endTag(name: String) {
-        builder
+        currentTextPart
             .append("</")
             .append(name)
             .append('>')

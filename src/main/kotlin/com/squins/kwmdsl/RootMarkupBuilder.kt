@@ -3,12 +3,15 @@ package com.squins.kwmdsl
 import org.apache.wicket.MarkupContainer
 
 class RootMarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor() :
-    MarkupBuilder<TSupplierFacade>(StringBuilder(1_000)) {
+    MarkupBuilder<TSupplierFacade>() {
     fun wicketHead(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
-        builder.append("<wicket:head>")
+        currentTextPart.append("<wicket:head>")
         block()
-        builder.append("</wicket:head>")
+        currentTextPart.append("</wicket:head>")
     }
 
-    internal fun build() = RootMarkup<TSupplierFacade>(builder, buildChildren())
+    internal fun build() =
+        RootMarkup<TSupplierFacade>(StringBuilder(1_000).apply {
+            appendParts(this)
+        }, buildChildren())
 }
