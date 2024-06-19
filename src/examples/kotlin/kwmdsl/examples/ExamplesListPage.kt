@@ -21,12 +21,8 @@ import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlN
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
-import kwmdsl.examples.dsl_convenience_base_classes.P4_3_HomePage as DslConvenienceP4_3_HomePage
-import kwmdsl.examples.dsl_convenience_base_classes.P5_4_1_SimpleLoginPage as DslConvenienceP5_4_1_SimpleLoginPage
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
 import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
-import kwmdsl.examples.dsl_standard_base_classes.P4_3_HomePage as DslStandardP4_3_HomePage
-import kwmdsl.examples.dsl_standard_base_classes.P5_4_1_SimpleLoginPage as DslStandardP5_4_1_SimpleLoginPage
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
 import kwmdsl.examples.dsl_standard_base_classes.enclosure.EnclosuresPage as DslStandardEnclosuresPage
 
@@ -64,8 +60,6 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                             li { a("href" to DslStandardDeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
                             li { a("href" to DslStandardEnclosuresPage::class.linkPath()) { text("Enclosures") } }
                             li { a("href" to HtmlNoneDslNoneHtmlPage::class.linkPath()) { text("Mixed markup in hierarchy") } }
-                            li { a("href" to DslStandardP4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
-                            li { a("href" to DslStandardP5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
                         }
                     }
 
@@ -78,8 +72,6 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                             li { a("href" to DslNoneHtmlNoneDslPage::class.linkPath()) { text("Mixed markup in hierarchy") } }
                             li { a("href" to BorderPage::class.linkPath()) { text("Border") } }
                             li { a("href" to FragmentPage::class.linkPath()) { text("Fragments") } }
-                            li { a("href" to DslConvenienceP4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
-                            li { a("href" to DslConvenienceP5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
                         }
                     }
                 }
