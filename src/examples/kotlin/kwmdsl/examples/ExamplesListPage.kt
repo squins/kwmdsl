@@ -15,6 +15,7 @@ import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.title
 import com.squins.kwmdsl.ul
 import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage
+import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
@@ -76,6 +77,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                             li { a("href" to DslConvenienceEnclosuresPage::class.linkPath()) { text("Enclosures") } }
                             li { a("href" to DslNoneHtmlNoneDslPage::class.linkPath()) { text("Mixed markup in hierarchy") } }
                             li { a("href" to BorderPage::class.linkPath()) { text("Border") } }
+                            li { a("href" to FragmentPage::class.linkPath()) { text("Fragments") } }
                             li { a("href" to DslConvenienceP4_3_HomePage::class.linkPath()) { text("4.3 HomePage") } }
                             li { a("href" to DslConvenienceP5_4_1_SimpleLoginPage::class.linkPath()) { text("5.4.1 SimpleLoginPage") } }
                         }

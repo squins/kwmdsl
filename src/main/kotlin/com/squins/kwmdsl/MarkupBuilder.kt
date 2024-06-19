@@ -4,6 +4,7 @@ import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.util.string.Strings
 import java.nio.charset.Charset
+import kotlin.reflect.KCallable
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
 import kotlin.text.Charsets.UTF_8
@@ -124,11 +125,26 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         currentTextPart.append("</wicket:extend>")
     }
 
-    // TODO("Fragment, with `wicket:id`")
-    // There is no supplier for the fragment
-    // What paths are allowed?
-    // - ..?
-    // - Are multi-part paths allowed?
+    fun wicketFragment(markupSupplier: KCallable<IRootMarkup>) {
+        currentTextPart
+            .append("""<wicket:fragment wicket:id="""")
+            .append(markupSupplier.name)
+            .append("""">""")
+            .append(markupSupplier.call().stream.asString())
+            .append("</wicket:fragment>")
+    }
+
+    // TODO("Document: for DSL fragments with their own markup only")
+    // TODO("If a fragment supports multiple markups, the comment will be repeated. Use a separate FragmentRootMarkup (and builder)?")
+    fun wicketFragment(markupSupplier: KCallable<IRootMarkup>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+        currentTextPart
+            .append("""<!-- Searches for the fragments start at 1, so make sure there is at least 1 element before the fragments. --><wicket:fragment wicket:id="""")
+            .append(markupSupplier.name)
+            .append("""">""")
+        block()
+        currentTextPart
+            .append("</wicket:fragment>")
+    }
 
     fun wicketHead(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart.append("<wicket:head>")
