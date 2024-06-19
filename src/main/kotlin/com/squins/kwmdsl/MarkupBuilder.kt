@@ -130,6 +130,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     // - ..?
     // - Are multi-part paths allowed?
 
+    fun wicketHead(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+        currentTextPart.append("<wicket:head>")
+        block()
+        currentTextPart.append("</wicket:head>")
+    }
+
     fun wicketHeaderItems() {
         currentTextPart.append("<wicket:header-items/>")
     }
