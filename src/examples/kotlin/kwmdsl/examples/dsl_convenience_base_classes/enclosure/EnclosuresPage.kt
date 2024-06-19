@@ -41,7 +41,7 @@ class EnclosuresPage : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<EnclosuresPage> {
             docTypeHtml()
-            html {
+            html("lang" to "en") {
                 head {
                     title { text("Enclosures") }
                 }

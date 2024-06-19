@@ -53,7 +53,7 @@ class FragmentPage : KotlinWicketMarkupWebPage() {
 
         override val dslMarkup = markup {
             docTypeHtml()
-            html {
+            html("lang" to "en") {
                 head {
                     title { text("Fragment") }
                 }

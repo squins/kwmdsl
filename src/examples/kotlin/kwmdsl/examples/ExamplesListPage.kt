@@ -38,7 +38,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<ExamplesListPage> {
             docTypeHtml()
-            html {
+            html("lang" to "en") {
                 head {
                     title { text("Kotlin Wicket Markup DSL Examples") }
                 }

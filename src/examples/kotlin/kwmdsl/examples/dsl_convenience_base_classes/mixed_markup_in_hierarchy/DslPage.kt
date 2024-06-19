@@ -29,7 +29,7 @@ abstract class DslPage : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             docTypeHtml()
-            html {
+            html("lang" to "en") {
                 head {
                     title { text("Mixed Markup in Hierarchy - DSL, None, HTML, None, DSL") }
                 }

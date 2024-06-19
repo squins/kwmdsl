@@ -25,7 +25,7 @@ open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             docTypeHtml()
-            html {
+            html("lang" to "en") {
                 head {
                     title { text("Deep Inheritance - Sub Template") }
                 }
