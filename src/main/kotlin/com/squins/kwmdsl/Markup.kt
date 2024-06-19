@@ -1,12 +1,13 @@
 package com.squins.kwmdsl
 
+import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 
 /**
  * @param children child elements that are associated with Wicket components that are to be retrieved during the addition of the root markup to the markup container.
  */
 abstract class Markup<TSupplierFacade : MarkupContainer> internal constructor(
-    private val children: List<ChildMarkup<TSupplierFacade>>,
+    internal val children: List<ChildMarkup<TSupplierFacade>>,
 ) {
     /**
      * Adds the hierarchy of Wicket components, retrieved using the suppliers, to the given container. The suppliers will be invoked on the given supplier facade.
@@ -20,9 +21,17 @@ abstract class Markup<TSupplierFacade : MarkupContainer> internal constructor(
         children.forEach { childMarkup ->
             val component = childMarkup.retrieveComponent(supplierFacade)
             container.add(component)
-            if (component is MarkupContainer) {
-                childMarkup.addTo(supplierFacade, component)
-            }
+            addChildMarkupToComponentIfContainer(childMarkup, supplierFacade, component)
+        }
+    }
+
+    internal fun addChildMarkupToComponentIfContainer(
+        childMarkup: ChildMarkup<TSupplierFacade>,
+        supplierFacade: TSupplierFacade,
+        component: Component
+    ) {
+        if (component is MarkupContainer) {
+            childMarkup.addTo(supplierFacade, component)
         }
     }
 }

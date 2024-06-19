@@ -12,8 +12,8 @@ fun <TSupplierFacade : MarkupContainer> markup(block: RootMarkupBuilder<TSupplie
 class RootMarkup<TSupplierFacade : MarkupContainer> internal constructor(
     markupTextBuilder: StringBuilder,
     children: List<ChildMarkup<TSupplierFacade>>,
-) : Markup<TSupplierFacade>(children) {
-    val stream = StringResourceStream(markupTextBuilder.toString())
+) : Markup<TSupplierFacade>(children), IRootMarkup {
+    override val stream = StringResourceStream(markupTextBuilder.toString())
 
     fun addTo(rootComponent: TSupplierFacade) {
         addTo(rootComponent, rootComponent)
