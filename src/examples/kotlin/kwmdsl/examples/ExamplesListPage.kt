@@ -17,6 +17,8 @@ import com.squins.kwmdsl.ul
 import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage
 import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
+import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage
+import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
@@ -72,6 +74,8 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                             li { a("href" to DslNoneHtmlNoneDslPage::class.linkPath()) { text("Mixed markup in hierarchy") } }
                             li { a("href" to BorderPage::class.linkPath()) { text("Border") } }
                             li { a("href" to FragmentPage::class.linkPath()) { text("Fragments") } }
+                            li { a("href" to WebMarkupContainerPage::class.linkPath()) { text("Web markup container") } }
+                            li { a("href" to RepeatPage::class.linkPath()) { text("Repeat") } }
                         }
                     }
                 }
