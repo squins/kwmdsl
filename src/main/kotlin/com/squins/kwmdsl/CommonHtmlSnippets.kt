@@ -9,7 +9,7 @@ fun MarkupBuilder<*>.docTypeHtml() {
 
 fun MarkupBuilder<*>.metaTextHtmlUtf8() {
     meta(
-        "http-equiv" to "Content-Type",
-        "content" to "text/html; charset=UTF-8"
+        attr("http-equiv", "Content-Type"),
+        attr("content", "text/html; charset=UTF-8"),
     )
 }

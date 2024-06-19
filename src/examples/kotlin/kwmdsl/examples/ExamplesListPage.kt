@@ -1,6 +1,7 @@
 package kwmdsl.examples
 
 import com.squins.kwmdsl.a
+import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
@@ -38,7 +39,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<ExamplesListPage> {
             docTypeHtml()
-            html("lang" to "en") {
+            html(attr("lang", "en")) {
                 head {
                     title { text("Kotlin Wicket Markup DSL Examples") }
                 }
@@ -49,9 +50,9 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
 
                     wicketLink {
                         ul {
-                            li { a("href" to SimpleInheritancePage::class.linkPath()) { text("Simple inheritance") } }
-                            li { a("href" to DeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
-                            li { a("href" to EnclosuresPage::class.linkPath()) { text("Enclosures") } }
+                            li { a(attr("href", SimpleInheritancePage::class.linkPath())) { text("Simple inheritance") } }
+                            li { a(attr("href", DeepInheritanceSubPage::class.linkPath())) { text("Deep inheritance") } }
+                            li { a(attr("href", EnclosuresPage::class.linkPath())) { text("Enclosures") } }
                         }
                     }
 
@@ -59,9 +60,9 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
 
                     wicketLink {
                         ul {
-                            li { a("href" to DslStandardDeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
-                            li { a("href" to DslStandardEnclosuresPage::class.linkPath()) { text("Enclosures") } }
-                            li { a("href" to HtmlNoneDslNoneHtmlPage::class.linkPath()) { text("Mixed markup in hierarchy") } }
+                            li { a(attr("href", DslStandardDeepInheritanceSubPage::class.linkPath())) { text("Deep inheritance") } }
+                            li { a(attr("href", DslStandardEnclosuresPage::class.linkPath())) { text("Enclosures") } }
+                            li { a(attr("href", HtmlNoneDslNoneHtmlPage::class.linkPath())) { text("Mixed markup in hierarchy") } }
                         }
                     }
 
@@ -69,13 +70,13 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
 
                     wicketLink {
                         ul {
-                            li { a("href" to DslConvenienceDeepInheritanceSubPage::class.linkPath()) { text("Deep inheritance") } }
-                            li { a("href" to DslConvenienceEnclosuresPage::class.linkPath()) { text("Enclosures") } }
-                            li { a("href" to DslNoneHtmlNoneDslPage::class.linkPath()) { text("Mixed markup in hierarchy") } }
-                            li { a("href" to BorderPage::class.linkPath()) { text("Border") } }
-                            li { a("href" to FragmentPage::class.linkPath()) { text("Fragments") } }
-                            li { a("href" to WebMarkupContainerPage::class.linkPath()) { text("Web markup container") } }
-                            li { a("href" to RepeatPage::class.linkPath()) { text("Repeat") } }
+                            li { a(attr("href", DslConvenienceDeepInheritanceSubPage::class.linkPath())) { text("Deep inheritance") } }
+                            li { a(attr("href", DslConvenienceEnclosuresPage::class.linkPath())) { text("Enclosures") } }
+                            li { a(attr("href", DslNoneHtmlNoneDslPage::class.linkPath())) { text("Mixed markup in hierarchy") } }
+                            li { a(attr("href", BorderPage::class.linkPath())) { text("Border") } }
+                            li { a(attr("href", FragmentPage::class.linkPath())) { text("Fragments") } }
+                            li { a(attr("href", WebMarkupContainerPage::class.linkPath())) { text("Web markup container") } }
+                            li { a(attr("href", RepeatPage::class.linkPath())) { text("Repeat") } }
                         }
                     }
                 }

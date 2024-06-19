@@ -1,6 +1,7 @@
 package kwmdsl.examples.dsl_convenience_base_classes.border
 
 import com.squins.kwmdsl.Wicket
+import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
@@ -28,7 +29,7 @@ class BorderPage : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             docTypeHtml()
-            html("lang" to "en") {
+            html(attr("lang", "en")) {
                 head {
                     title { text("Border") }
                 }

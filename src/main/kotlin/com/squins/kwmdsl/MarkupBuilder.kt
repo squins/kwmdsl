@@ -76,7 +76,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         id: String,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        element("wicket:container", arrayOf("wicket:id" to id), block)
+        element("wicket:container", arrayOf(attr("wicket:id", id)), block)
     }
 
     /**
@@ -119,12 +119,18 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         endTag("wicket:enclosure")
     }
 
+    fun wicketEnclosureAttribute() = attr("wicket:enclosure", "")
+
+    fun wicketEnclosureAttribute(childSupplier: ((TSupplierFacade) -> Component)) =
+        "wicket:enclosure" to DescendentReference(childSupplier)
+
     fun wicketExtend(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
         currentTextPart.append("<wicket:extend>")
         block()
         currentTextPart.append("</wicket:extend>")
     }
 
+    // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment")
     fun wicketFragment(markupSupplier: KCallable<IRootMarkup>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
@@ -135,10 +141,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     // TODO("Document: for DSL fragments with their own markup only")
-    // TODO("If a fragment supports multiple markups, the comment will be repeated. Use a separate FragmentRootMarkup (and builder)?")
     fun wicketFragment(markupSupplier: KCallable<IRootMarkup>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart
-            .append("""<!-- Searches for the fragments start at 1, so make sure there is at least 1 element before the fragments. --><wicket:fragment wicket:id="""")
+            // Searches for the fragments start at 1, so make sure there is at least 1 element before the fragments.
+            .append("""<!-- --><wicket:fragment wicket:id="""")
             .append(markupSupplier.name)
             .append("""">""")
         block()
@@ -238,7 +244,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      */
     fun element(
         name: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         startTagPrefix(name)
@@ -261,7 +267,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun element(
         supplier: KFunction1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         val childMarkup = ChildMarkupBuilder(supplier)
@@ -279,7 +285,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun element(
         supplier: KProperty1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         val childMarkup = ChildMarkupBuilder(supplier)
@@ -292,7 +298,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    fun voidElement(name: String, attributes: Array<out Pair<String, String>>) {
+    fun voidElement(name: String, attributes: Array<out Pair<String, AttributeValue>>) {
         startTagPrefix(name)
         attributes(attributes)
         currentTextPart.append('>')
@@ -308,7 +314,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun voidElement(
         supplier: KFunction1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
     ) {
         val childMarkup = ChildMarkupBuilder(supplier)
         voidWicketElement(childMarkup, name, supplier.name, attributes)
@@ -324,7 +330,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun voidElement(
         supplier: KProperty1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
     ) {
         val childMarkup = ChildMarkupBuilder(supplier)
         voidWicketElement(childMarkup, name, supplier.name, attributes)
@@ -371,7 +377,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         childMarkupBuilder: ChildMarkupBuilder<TSupplierFacade>,
         name: String,
         wicketId: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)?
     ) {
         children += childMarkupBuilder
@@ -400,7 +406,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         childMarkupBuilder: ChildMarkupBuilder<TSupplierFacade>,
         name: String,
         wicketId: String,
-        attributes: Array<out Pair<String, String>>,
+        attributes: Array<out Pair<String, AttributeValue>>,
     ) {
         children += childMarkupBuilder
 
@@ -415,7 +421,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param wicketId the Wicket ID to assign to the element. **Warning**: there is no validation and no escaping, so make sure the ID is valid and safe.
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    private fun startTagPrefix(name: String, wicketId: String, attributes: Array<out Pair<String, String>>) {
+    private fun startTagPrefix(name: String, wicketId: String, attributes: Array<out Pair<String, AttributeValue>>) {
         startTagPrefix(name)
         currentTextPart
             .append(""" wicket:id="""")
@@ -440,7 +446,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    private fun attributes(attributes: Array<out Pair<String, String>>) {
+    private fun attributes(attributes: Array<out Pair<String, AttributeValue>>) {
         attributes.forEach { (name, value) ->
             attribute(name, value)
         }
@@ -451,12 +457,22 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param attribute the attribute to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    private fun attribute(name: String, value: String) {
+    private fun attribute(name: String, value: AttributeValue) {
         currentTextPart
             .append(' ')
             .append(name)
             .append("""="""")
-            .append(value)
+        when (value) {
+            is DescendentReference<*> -> {
+                @Suppress("UNCHECKED_CAST")
+                parts += DescendentReferencePart(value.childSupplier as (TSupplierFacade) -> Component)
+                currentTextPart = TextPart()
+                parts += currentTextPart
+            }
+            is Text -> currentTextPart.append(value.text)
+        }
+
+        currentTextPart
             .append('"')
     }
 

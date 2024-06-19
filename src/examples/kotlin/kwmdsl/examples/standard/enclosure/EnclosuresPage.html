@@ -8,6 +8,7 @@
 <p>
     Refresh to update the visibility of child components.
 </p>
+<h2>Tag</h2>
 <wicket:enclosure>
     <p>
         Auto:
@@ -30,5 +31,24 @@
         <span wicket:id="secondSpan"></span>
     </p>
 </wicket:enclosure>
+<h2>Attribute</h2>
+<p wicket:enclosure="">
+    Auto:
+    <span wicket:id="autoSpanAttribute"></span>
+</p>
+
+<p wicket:enclosure="directSpanAttribute">
+    Direct:
+    <span wicket:id="directSpanAttribute"></span>
+</p>
+
+<div wicket:enclosure="twoSpansAttribute:secondSpanAttribute">
+    <p wicket:id="twoSpansAttribute">
+        First:
+        <span wicket:id="firstSpanAttribute"></span>
+        Second:
+        <span wicket:id="secondSpanAttribute"></span>
+    </p>
+</div>
 </body>
 </html>

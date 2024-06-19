@@ -1,6 +1,7 @@
 package kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance
 
 import com.squins.kwmdsl.Wicket
+import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
@@ -26,7 +27,7 @@ open class DeepInheritanceBaseTemplate : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             docTypeHtml()
-            html("lang" to "en") {
+            html(attr("lang", "en")) {
                 head {
                     title { text("Deep Inheritance - Base Template") }
                 }

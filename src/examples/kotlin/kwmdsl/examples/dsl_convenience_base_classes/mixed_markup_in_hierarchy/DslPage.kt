@@ -1,6 +1,7 @@
 package kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy
 
 import com.squins.kwmdsl.Wicket
+import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
@@ -29,7 +30,7 @@ abstract class DslPage : KotlinWicketMarkupWebPage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             docTypeHtml()
-            html("lang" to "en") {
+            html(attr("lang", "en")) {
                 head {
                     title { text("Mixed Markup in Hierarchy - DSL, None, HTML, None, DSL") }
                 }

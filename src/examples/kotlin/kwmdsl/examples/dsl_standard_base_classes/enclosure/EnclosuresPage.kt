@@ -1,12 +1,14 @@
 package kwmdsl.examples.dsl_standard_base_classes.enclosure
 
 import com.squins.kwmdsl.Wicket
+import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findDslMarkup
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.head
 import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
@@ -26,6 +28,12 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
     private val twoSpans by Wicket { WebMarkupContainer(it) }
     private val firstSpan by Wicket { Label(it, "First") }
     private val secondSpan by Wicket { Label(it, "Second") }
+    private val autoSpanAttribute by Wicket { Label(it, "Auto") }
+    private val directSpanAttribute by Wicket { Label(it, "Direct") }
+    private val twoSpansAttribute by Wicket { WebMarkupContainer(it) }
+    // TODO("Unique names are now required as the whole hierarchy is flattened. Is that a problem?")
+    private val firstSpanAttribute by Wicket { Label(it, "First") }
+    private val secondSpanAttribute by Wicket { Label(it, "Second") }
 
     override fun onInitialize() {
         super.onInitialize()
@@ -39,6 +47,9 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
         autoSpan.isVisible = Random.nextBoolean()
         directSpan.isVisible = Random.nextBoolean()
         secondSpan.isVisible = Random.nextBoolean()
+        autoSpanAttribute.isVisible = Random.nextBoolean()
+        directSpanAttribute.isVisible = Random.nextBoolean()
+        secondSpanAttribute.isVisible = Random.nextBoolean()
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
@@ -47,7 +58,7 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<EnclosuresPage> {
             docTypeHtml()
-            html("lang" to "en") {
+            html(attr("lang", "en")) {
                 head {
                     title { text("Enclosures") }
                 }
@@ -55,6 +66,8 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
                     h1 { text("Enclosures") }
 
                     p { text("Refresh to update the visibility of child components.") }
+
+                    h2 { text("Tag") }
 
                     wicketEnclosure {
                         p {
@@ -76,6 +89,27 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
                             span(EnclosuresPage::firstSpan)
                             text(", second: ")
                             span(EnclosuresPage::secondSpan)
+                        }
+                    }
+
+                    h2 { text("Attribute") }
+
+                    p(wicketEnclosureAttribute()) {
+                        text("Auto: ")
+                        span(EnclosuresPage::autoSpanAttribute)
+                    }
+
+                    p(wicketEnclosureAttribute(EnclosuresPage::directSpanAttribute)) {
+                        text("Direct: ")
+                        span(EnclosuresPage::directSpanAttribute)
+                    }
+
+                    div(wicketEnclosureAttribute(EnclosuresPage::secondSpanAttribute)) {
+                        div(EnclosuresPage::twoSpansAttribute) {
+                            text("First: ")
+                            span(EnclosuresPage::firstSpanAttribute)
+                            text(", second: ")
+                            span(EnclosuresPage::secondSpanAttribute)
                         }
                     }
                 }
