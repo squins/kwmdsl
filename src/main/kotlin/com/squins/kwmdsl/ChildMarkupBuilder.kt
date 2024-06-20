@@ -13,6 +13,7 @@ import kotlin.reflect.KProperty1
  * @param supplier the function or property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
  */
 internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private constructor(
+    private val parent: MarkupBuilder<TSupplierFacade>,
     private val expectedWicketId: String,
     private val supplier: (TSupplierFacade) -> Component,
 ) : MarkupBuilder<TSupplierFacade>() {
@@ -21,22 +22,36 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
      *
      * @param supplier the function that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
-    internal constructor(supplier: KFunction1<TSupplierFacade, Component>) : this(supplier.name, supplier)
+    internal constructor(parent: MarkupBuilder<TSupplierFacade>, supplier: KFunction1<TSupplierFacade, Component>) :
+            this(parent, supplier.name, supplier)
 
     /**
      * Create an instance with a property supplier.
      *
      * @param supplier the property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
-    internal constructor(supplier: KProperty1<TSupplierFacade, Component>) : this(supplier.name, supplier)
+    internal constructor(parent: MarkupBuilder<TSupplierFacade>, supplier: KProperty1<TSupplierFacade, Component>) :
+            this(parent, supplier.name, supplier)
+
+    override fun getPathAsList() = (parent.getPathAsList() + expectedWicketId)
 
     internal fun build() = ChildMarkup(expectedWicketId, supplier, buildChildren())
 
-    internal fun pathOf(function: (TSupplierFacade) -> Component): String? =
-        if (function == supplier) {
+    internal fun pathOf(supplier: (TSupplierFacade) -> Component): String? =
+        if (supplier == this@ChildMarkupBuilder.supplier) {
             expectedWicketId
         } else {
-            children.firstNotNullOfOrNull { child -> child.pathOf(function) }
+            children.firstNotNullOfOrNull { child -> child.pathOf(supplier) }
                 ?.let { subPath -> "$expectedWicketId:$subPath" }
         }
+
+    internal fun pathOfAsList(supplier: (TSupplierFacade) -> Component): List<String>? =
+        if (supplier == this@ChildMarkupBuilder.supplier) {
+            listOf(expectedWicketId)
+        } else {
+            children.firstNotNullOfOrNull { child -> child.pathOfAsList(supplier) }
+                ?.let { subPath -> subPath.toMutableList().apply { add(0, expectedWicketId) } }
+        }
+
+    override fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component) = parent.pathFromRootOfAsList(supplier)
 }

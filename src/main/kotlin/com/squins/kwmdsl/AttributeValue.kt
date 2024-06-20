@@ -10,3 +10,7 @@ class Text(internal val text: String) : AttributeValue
 class DescendentReference<TSupplierFacade : MarkupContainer>(
     internal val childSupplier: (TSupplierFacade) -> Component,
 ) : AttributeValue
+
+class Reference<TSupplierFacade : MarkupContainer>(
+    internal val formComponentSupplier: (TSupplierFacade) -> Component,
+) : AttributeValue

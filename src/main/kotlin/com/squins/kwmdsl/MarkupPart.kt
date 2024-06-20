@@ -34,6 +34,11 @@ internal class TextPart<TSupplierFacade : MarkupContainer> : MarkupPart<TSupplie
 internal class ChildPart<TSupplierFacade : MarkupContainer>(val child: ChildMarkupBuilder<*>) :
     MarkupPart<TSupplierFacade>
 
+internal class ReferencePart<TSupplierFacade : MarkupContainer>(
+    val referencingComponentPath: List<String>,
+    val formComponentSupplier: (TSupplierFacade) -> Component,
+) : MarkupPart<TSupplierFacade>
+
 internal class DescendentReferencePart<TSupplierFacade : MarkupContainer>(
     val supplier: (TSupplierFacade) -> Component,
 ) : MarkupPart<TSupplierFacade>

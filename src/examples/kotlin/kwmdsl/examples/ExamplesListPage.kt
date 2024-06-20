@@ -17,6 +17,7 @@ import com.squins.kwmdsl.title
 import com.squins.kwmdsl.ul
 import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage
 import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
+import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
 import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage
 import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage
@@ -77,6 +78,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                             li { a(attr("href", FragmentPage::class.linkPath())) { text("Fragments") } }
                             li { a(attr("href", WebMarkupContainerPage::class.linkPath())) { text("Web markup container") } }
                             li { a(attr("href", RepeatPage::class.linkPath())) { text("Repeat") } }
+                            li { a(attr("href", LabelForPage::class.linkPath())) { text("Label for form component") } }
                         }
                     }
                 }

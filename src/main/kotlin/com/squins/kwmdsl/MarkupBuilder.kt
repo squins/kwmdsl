@@ -124,11 +124,20 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun wicketEnclosureAttribute(childSupplier: ((TSupplierFacade) -> Component)) =
         "wicket:enclosure" to DescendentReference(childSupplier)
 
+    fun wicketEnclosureAttribute(path: String) =
+        "wicket:enclosure" to Text(path)
+
     fun wicketExtend(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
         currentTextPart.append("<wicket:extend>")
         block()
         currentTextPart.append("</wicket:extend>")
     }
+
+    fun wicketForAttribute(formComponentSupplier: ((TSupplierFacade) -> Component)) =
+        "wicket:for" to Reference(formComponentSupplier)
+
+    fun wicketForAttribute(path: String) =
+        "wicket:for" to Text(path)
 
     // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment")
     fun wicketFragment(markupSupplier: KCallable<IRootMarkup>) {
@@ -160,6 +169,14 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
 
     fun wicketHeaderItems() {
         currentTextPart.append("<wicket:header-items/>")
+    }
+
+    fun wicketLabel(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null) {
+        currentTextPart.append("<wicket:label>")
+        if (block != null) {
+            block()
+        }
+        currentTextPart.append("</wicket:label>")
     }
 
     /**
@@ -232,9 +249,6 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         currentTextPart.append("</wicket:remove>")
     }
 
-    // TODO("wicket:for attribute")
-    // Allows reference to component anywhere in the hierarchy: https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for
-
     /**
      * Add an element with the given name to the markup.
      *
@@ -270,7 +284,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         attributes: Array<out Pair<String, AttributeValue>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier)
+        val childMarkup = ChildMarkupBuilder(this, supplier)
         wicketElement(childMarkup, name, supplier.name, attributes, block)
     }
 
@@ -288,7 +302,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         attributes: Array<out Pair<String, AttributeValue>>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier)
+        val childMarkup = ChildMarkupBuilder(this, supplier)
         wicketElement(childMarkup, name, supplier.name, attributes, block)
     }
 
@@ -316,7 +330,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         name: String,
         attributes: Array<out Pair<String, AttributeValue>>,
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier)
+        val childMarkup = ChildMarkupBuilder(this, supplier)
         voidWicketElement(childMarkup, name, supplier.name, attributes)
     }
 
@@ -332,7 +346,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         name: String,
         attributes: Array<out Pair<String, AttributeValue>>,
     ) {
-        val childMarkup = ChildMarkupBuilder(supplier)
+        val childMarkup = ChildMarkupBuilder(this, supplier)
         voidWicketElement(childMarkup, name, supplier.name, attributes)
     }
 
@@ -358,10 +372,21 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                 // * Not many pages have more than a few dozen components.
                 // * The search only runs once for all component instances.
                 is DescendentReferencePart -> builder.append(children.firstNotNullOf { child -> child.pathOf(part.supplier) })
+                is ReferencePart -> builder.append(
+                    relativizePath(
+                        part.referencingComponentPath,
+                        checkNotNull(pathFromRootOfAsList(part.formComponentSupplier))
+                    )
+                )
                 is TextPart -> builder.append(part)
             }
         }
     }
+
+    internal abstract fun getPathAsList(): List<String>
+
+    internal abstract fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component): List<String>?
+
     internal fun buildChildren(): List<ChildMarkup<TSupplierFacade>> = children.map { it.build() }
 
     /**
@@ -466,6 +491,16 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             is DescendentReference<*> -> {
                 @Suppress("UNCHECKED_CAST")
                 parts += DescendentReferencePart(value.childSupplier as (TSupplierFacade) -> Component)
+                currentTextPart = TextPart()
+                parts += currentTextPart
+            }
+            is Reference<*> -> {
+                @Suppress("UNCHECKED_CAST")
+                parts += ReferencePart(
+                    // The tag containing `wicket:for` is seen as a Wicket component, so add a path part for it.
+                    getPathAsList() + "",
+                    value.formComponentSupplier as (TSupplierFacade) -> Component
+                )
                 currentTextPart = TextPart()
                 parts += currentTextPart
             }
