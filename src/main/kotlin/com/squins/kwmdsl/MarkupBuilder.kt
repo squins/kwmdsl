@@ -403,6 +403,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                         checkNotNull(pathFromRootOfAsList(part.formComponentSupplier))
                     )
                 )
+
                 is TextPart -> builder.append(part)
             }
         }
@@ -519,6 +520,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                 currentTextPart = TextPart()
                 parts += currentTextPart
             }
+
             is Reference<*> -> {
                 @Suppress("UNCHECKED_CAST")
                 parts += ReferencePart(
@@ -529,6 +531,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                 currentTextPart = TextPart()
                 parts += currentTextPart
             }
+
             is Text -> currentTextPart.append(value.text)
         }
 

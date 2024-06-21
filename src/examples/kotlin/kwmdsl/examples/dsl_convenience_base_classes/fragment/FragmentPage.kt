@@ -25,8 +25,12 @@ class FragmentPage : KotlinWicketMarkupWebPage() {
     private val fragmentLabel by Wicket { Label(it, "unspecialized") }
     private val unspecializedFragmentInstance by WicketFragment(::unspecializedFragment)
     private val specializedFragmentInstance by WicketSpecializedFragment(::specializedFragment, ::SpecializedFragment)
-    private val ownMarkupStandardFragmentInstance by WicketOwnMarkupFragment(FragmentPage::ownMarkupStandardFragment, ::OwnMarkupStandardFragment)
-    private val ownMarkupDslFragmentInstance by WicketOwnMarkupFragment(OwnMarkupDslFragment::ownMarkupDslFragment, ::OwnMarkupDslFragment)
+    private val ownMarkupStandardFragmentInstance by WicketOwnMarkupFragment(
+        FragmentPage::ownMarkupStandardFragment, ::OwnMarkupStandardFragment
+    )
+    private val ownMarkupDslFragmentInstance by WicketOwnMarkupFragment(
+        OwnMarkupDslFragment::ownMarkupDslFragment, ::OwnMarkupDslFragment
+    )
 
     override fun onInitialize() {
         super.onInitialize()

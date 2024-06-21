@@ -5,7 +5,8 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 
-class SpecializedFragment(id: String, markupId: String, markupProvider: MarkupContainer) : Fragment(id, markupId, markupProvider) {
+class SpecializedFragment(id: String, markupId: String, markupProvider: MarkupContainer) :
+    Fragment(id, markupId, markupProvider) {
     val fragmentLabel by Wicket { Label(it, "specialized") }
 
     override fun onInitialize() {
