@@ -105,7 +105,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         element(supplier, "wicket:container", emptyArray(), block)
     }
 
-    fun wicketEnclosure(childSupplier: ((TSupplierFacade) -> Component)? = null, block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
+    fun wicketEnclosure(
+        childSupplier: ((TSupplierFacade) -> Component)? = null,
+        block: MarkupBuilder<TSupplierFacade>.() -> Unit
+    ) {
         startTagPrefix("wicket:enclosure")
         if (childSupplier != null) {
             currentTextPart.append(""" child="""")
@@ -121,19 +124,19 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
 
     fun wicketEnclosureAttribute() = attr("wicket:enclosure", "")
 
-    fun wicketEnclosureAttribute(childSupplier: ((TSupplierFacade) -> Component)) =
+    fun wicketEnclosureAttribute(childSupplier: (TSupplierFacade) -> Component) =
         "wicket:enclosure" to DescendentReference(childSupplier)
 
     fun wicketEnclosureAttribute(path: String) =
         "wicket:enclosure" to Text(path)
 
-    fun wicketExtend(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)) {
+    fun wicketExtend(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart.append("<wicket:extend>")
         block()
         currentTextPart.append("</wicket:extend>")
     }
 
-    fun wicketForAttribute(formComponentSupplier: ((TSupplierFacade) -> Component)) =
+    fun wicketForAttribute(formComponentSupplier: (TSupplierFacade) -> Component) =
         "wicket:for" to Reference(formComponentSupplier)
 
     fun wicketForAttribute(path: String) =
@@ -171,8 +174,30 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         currentTextPart.append("<wicket:header-items/>")
     }
 
-    fun wicketLabel(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null) {
-        currentTextPart.append("<wicket:label>")
+    fun wicketLabel(
+        formComponentSupplier: ((TSupplierFacade) -> Component)? = null,
+        key: String? = null,
+        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+    ) {
+        currentTextPart.append("<wicket:label")
+        if (formComponentSupplier != null) {
+            currentTextPart.append(""" for="""")
+            parts += ReferencePart(
+                // The `<wicket:label>` containing `for` is seen as a Wicket component, so add a path part for it.
+                getPathAsList() + "",
+                formComponentSupplier
+            )
+            currentTextPart = TextPart()
+            parts += currentTextPart
+            currentTextPart.append('"')
+        }
+        if (key != null) {
+            currentTextPart
+                .append(""" key="""")
+                .append(key)
+                .append('"')
+        }
+        currentTextPart.append(">")
         if (block != null) {
             block()
         }

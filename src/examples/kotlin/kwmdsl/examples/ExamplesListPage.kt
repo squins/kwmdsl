@@ -1,5 +1,6 @@
 package kwmdsl.examples
 
+import com.squins.kwmdsl.MarkupBuilder
 import com.squins.kwmdsl.a
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
@@ -18,6 +19,7 @@ import com.squins.kwmdsl.ul
 import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage
 import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage
+import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
 import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage
 import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage
@@ -25,6 +27,8 @@ import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlN
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
+import org.apache.wicket.markup.html.WebPage
+import kotlin.reflect.KClass
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
 import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
@@ -51,9 +55,9 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
 
                     wicketLink {
                         ul {
-                            li { a(attr("href", SimpleInheritancePage::class.linkPath())) { text("Simple inheritance") } }
-                            li { a(attr("href", DeepInheritanceSubPage::class.linkPath())) { text("Deep inheritance") } }
-                            li { a(attr("href", EnclosuresPage::class.linkPath())) { text("Enclosures") } }
+                            link(SimpleInheritancePage::class, "Simple inheritance")
+                            link(DeepInheritanceSubPage::class, "Deep inheritance")
+                            link(EnclosuresPage::class, "Enclosures")
                         }
                     }
 
@@ -61,9 +65,9 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
 
                     wicketLink {
                         ul {
-                            li { a(attr("href", DslStandardDeepInheritanceSubPage::class.linkPath())) { text("Deep inheritance") } }
-                            li { a(attr("href", DslStandardEnclosuresPage::class.linkPath())) { text("Enclosures") } }
-                            li { a(attr("href", HtmlNoneDslNoneHtmlPage::class.linkPath())) { text("Mixed markup in hierarchy") } }
+                            link(DslStandardDeepInheritanceSubPage::class, "Deep inheritance")
+                            link(DslStandardEnclosuresPage::class, "Enclosures")
+                            link(HtmlNoneDslNoneHtmlPage::class, "Mixed markup in hierarchy")
                         }
                     }
 
@@ -71,18 +75,23 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
 
                     wicketLink {
                         ul {
-                            li { a(attr("href", DslConvenienceDeepInheritanceSubPage::class.linkPath())) { text("Deep inheritance") } }
-                            li { a(attr("href", DslConvenienceEnclosuresPage::class.linkPath())) { text("Enclosures") } }
-                            li { a(attr("href", DslNoneHtmlNoneDslPage::class.linkPath())) { text("Mixed markup in hierarchy") } }
-                            li { a(attr("href", BorderPage::class.linkPath())) { text("Border") } }
-                            li { a(attr("href", FragmentPage::class.linkPath())) { text("Fragments") } }
-                            li { a(attr("href", WebMarkupContainerPage::class.linkPath())) { text("Web markup container") } }
-                            li { a(attr("href", RepeatPage::class.linkPath())) { text("Repeat") } }
-                            li { a(attr("href", LabelForPage::class.linkPath())) { text("Label for form component") } }
+                            link(DslConvenienceDeepInheritanceSubPage::class, "Deep inheritance")
+                            link(DslConvenienceEnclosuresPage::class, "Enclosures")
+                            link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
+                            link(BorderPage::class, "Border")
+                            link(FragmentPage::class, "Fragments")
+                            link(WebMarkupContainerPage::class, "Web markup container")
+                            link(RepeatPage::class, "Repeat")
+                            link(LabelForPage::class, "Label for form component")
+                            link(WicketLabelForPage::class, "Wicket label for form component")
                         }
                     }
                 }
             }
         }
     }
+}
+
+private fun MarkupBuilder<ExamplesListPage>.link(examplePageClass: KClass<out WebPage>, text: String) {
+    li { a(attr("href", examplePageClass.linkPath())) { text(text) } }
 }
