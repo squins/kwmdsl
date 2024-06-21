@@ -1,7 +1,6 @@
 package com.squins.kwmdsl
 
 import org.apache.wicket.MarkupContainer
-import org.apache.wicket.util.resource.StringResourceStream
 
 fun <TSupplierFacade : MarkupContainer> markup(block: RootMarkupBuilder<TSupplierFacade>.() -> Unit) =
     RootMarkupBuilder<TSupplierFacade>().run {
@@ -10,11 +9,9 @@ fun <TSupplierFacade : MarkupContainer> markup(block: RootMarkupBuilder<TSupplie
     }
 
 class RootMarkup<TSupplierFacade : MarkupContainer> internal constructor(
-    markupTextBuilder: StringBuilder,
+    markupText: String,
     children: List<ChildMarkup<TSupplierFacade>>,
-) : Markup<TSupplierFacade>(children), IRootMarkup {
-    override val stream = StringResourceStream(markupTextBuilder.toString())
-
+) : BaseRootMarkup<TSupplierFacade>(markupText, children) {
     fun addTo(rootComponent: TSupplierFacade) {
         addTo(rootComponent, rootComponent)
     }

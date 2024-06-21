@@ -10,6 +10,7 @@ import kotlin.reflect.full.companionObjectInstance
 /**
  * Adapted from [`DefaultMarkupResourceStreamProvider`](org.apache.wicket.markup.DefaultMarkupResourceStreamProvider).
  */
+// TODO("Better name. It also finds standard markup.")
 fun findDslMarkup(container: MarkupContainer, containerClass: Class<*>): IResourceStream? {
     val locator = Application.get().resourceSettings.resourceStreamLocator
 

@@ -1,7 +1,6 @@
 package com.squins.kwmdsl
 
 import org.apache.wicket.markup.html.border.Border
-import org.apache.wicket.util.resource.StringResourceStream
 
 fun <TSupplierFacade : Border> borderMarkup(block: BorderRootMarkupBuilder<TSupplierFacade>.() -> Unit) =
     BorderRootMarkupBuilder<TSupplierFacade>().run {
@@ -10,11 +9,9 @@ fun <TSupplierFacade : Border> borderMarkup(block: BorderRootMarkupBuilder<TSupp
     }
 
 class BorderRootMarkup<TSupplierFacade : Border> internal constructor(
-    markupTextBuilder: StringBuilder,
+    markupText: String,
     children: List<ChildMarkup<TSupplierFacade>>,
-) : Markup<TSupplierFacade>(children), IRootMarkup {
-    override val stream = StringResourceStream(markupTextBuilder.toString())
-
+) : BaseRootMarkup<TSupplierFacade>(markupText, children) {
     fun addToBorder(rootComponent: TSupplierFacade) {
         addToBorder(rootComponent, rootComponent)
     }
