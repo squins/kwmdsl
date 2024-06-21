@@ -1,13 +1,14 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
+import com.squins.kwmdsl.RootMarkup
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.WicketFragment
 import com.squins.kwmdsl.WicketOwnMarkupFragment
 import com.squins.kwmdsl.WicketSpecializedFragment
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
-import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
+import com.squins.kwmdsl.component.ReloadableKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
@@ -53,7 +54,9 @@ class FragmentPage : KotlinWicketMarkupWebPage() {
         dslMarkup.addTo(this)
     }
 
-    companion object : IKotlinWicketMarkupProvider {
+    // TODO("Can this be made shorter?")
+    companion object : ReloadableKotlinWicketMarkupProvider<RootMarkup<FragmentPage>>() {
+        // TODO("This should be reloadable too")
         val unspecializedFragment = markup {
             p {
                 text("Unspecialized fragment: ")
@@ -61,6 +64,7 @@ class FragmentPage : KotlinWicketMarkupWebPage() {
             }
         }
 
+        // TODO("This should be reloadable too")
         val specializedFragment = markup {
             p {
                 text("Specialized fragment: ")
@@ -71,7 +75,7 @@ class FragmentPage : KotlinWicketMarkupWebPage() {
         // TODO("Document: placed (instead of in `OwnMarkupStandardFragment`) here to show third-party, unmodifiable fragments with their own markup can be integrated without wrappers")
         val ownMarkupStandardFragment = ownMarkupFragmentMarkup
 
-        override val dslMarkup = markup {
+        override fun createDslMarkup() = markup {
             docTypeHtml()
             html(attr("lang", "en")) {
                 head {
