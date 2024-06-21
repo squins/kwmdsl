@@ -13,7 +13,7 @@ abstract class KotlinWicketMarkupFragment(
     constructor(id: String, markupId: String) : this(id, markupId, null)
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(container, containerClass)
+        findMarkup(container, containerClass)
 
     override fun chooseMarkup(provider: MarkupContainer?) = getAssociatedMarkup()
 

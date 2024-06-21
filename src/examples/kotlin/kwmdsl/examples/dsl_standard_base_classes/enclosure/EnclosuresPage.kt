@@ -4,7 +4,7 @@ import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.findDslMarkup
+import com.squins.kwmdsl.component.findMarkup
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
@@ -53,7 +53,7 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(container, containerClass)
+        findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<EnclosuresPage> {

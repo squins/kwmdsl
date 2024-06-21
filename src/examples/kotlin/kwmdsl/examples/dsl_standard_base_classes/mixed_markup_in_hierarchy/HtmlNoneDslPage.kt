@@ -3,7 +3,7 @@ package kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.findDslMarkup
+import com.squins.kwmdsl.component.findMarkup
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
@@ -23,7 +23,7 @@ abstract class HtmlNoneDslPage : HtmlNonePage(), IMarkupResourceStreamProvider {
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
-        findDslMarkup(container, containerClass)
+        findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
