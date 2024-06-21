@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org" lang="en">
-<head>
-    <title>Simple Inheritance - Template</title>
-</head>
-<body>
-<h1>Simple Inheritance</h1>
-<p><span wicket:id="templateLabel"></span></p>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <h1 class="title">Simple Inheritance</h1>
+    <div class="content">
+        <p><span wicket:id="templateLabel"></span></p>
+    </div>
 <wicket:child/>
-</body>
-</html>
+</wicket:extend>

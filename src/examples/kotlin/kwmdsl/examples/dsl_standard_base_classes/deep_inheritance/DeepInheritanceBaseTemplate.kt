@@ -2,23 +2,19 @@ package kwmdsl.examples.dsl_standard_base_classes.deep_inheritance
 
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.body
+import com.squins.kwmdsl.classDiv
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findMarkup
-import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
-import com.squins.kwmdsl.head
-import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.title
+import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
-import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.basic.Label
 
-open class DeepInheritanceBaseTemplate : WebPage(), IMarkupResourceStreamProvider {
+open class DeepInheritanceBaseTemplate : ExamplesStandardBasePage(), IMarkupResourceStreamProvider {
     protected val baseTemplateLabel by Wicket { Label(it, "Deep inheritance, base template component") }
 
     override fun onInitialize() {
@@ -32,13 +28,9 @@ open class DeepInheritanceBaseTemplate : WebPage(), IMarkupResourceStreamProvide
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Deep Inheritance - Base Template") }
-                }
-                body {
-                    h1 { text("Deep Inheritance") }
+            wicketExtend {
+                h1(attr("class", "title")) { text("Deep Inheritance") }
+                classDiv("content") {
                     p {
                         span(DeepInheritanceBaseTemplate::baseTemplateLabel)
                     }

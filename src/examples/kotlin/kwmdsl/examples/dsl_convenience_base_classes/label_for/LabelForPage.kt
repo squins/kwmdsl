@@ -2,28 +2,24 @@ package kwmdsl.examples.dsl_convenience_base_classes.label_for
 
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.body
+import com.squins.kwmdsl.classDiv
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
-import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.form
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.h3
-import com.squins.kwmdsl.head
-import com.squins.kwmdsl.html
 import com.squins.kwmdsl.i
 import com.squins.kwmdsl.input
 import com.squins.kwmdsl.label
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.title
+import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.Model
 
-class LabelForPage : KotlinWicketMarkupWebPage() {
+class LabelForPage : ExamplesConvenienceBasePage() {
     private val rootSibling by Wicket {
         TextField<String>(it).apply {
             label = Model.of("Sibling")
@@ -100,14 +96,10 @@ class LabelForPage : KotlinWicketMarkupWebPage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Label for Form Component") }
-                }
-                body {
-                    h1 { text("Label for Form Component") }
+            wicketExtend {
+                h1(attr("class", "title")) { text("Label for Form Component") }
 
+                classDiv("content") {
                     form {
                         h2 { text("At Root") }
 

@@ -2,21 +2,17 @@ package kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy
 
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.body
+import com.squins.kwmdsl.classDiv
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
-import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
-import com.squins.kwmdsl.head
-import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.title
+import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
 
-abstract class DslPage : KotlinWicketMarkupWebPage() {
+abstract class DslPage : ExamplesConvenienceBasePage() {
     private val dslLabel by Wicket { newDslLabel(it) }
 
     protected open fun newDslLabel(id: String) = Label(id, "DslPage")
@@ -29,13 +25,9 @@ abstract class DslPage : KotlinWicketMarkupWebPage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Mixed Markup in Hierarchy - DSL, None, HTML, None, DSL") }
-                }
-                body {
-                    h1 { text("DSL, None, HTML, None, DSL") }
+            wicketExtend {
+                h1(attr("class", "title")) { text("DSL, None, HTML, None, DSL") }
+                classDiv("content") {
                     p {
                         text("This is from ")
                         code { text("DslPage") }

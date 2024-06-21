@@ -476,6 +476,7 @@ private val elementNamesToQuote = setOf(
 
 private val classElements = listOf(
     "div",
+    "section",
     "span",
 )
 

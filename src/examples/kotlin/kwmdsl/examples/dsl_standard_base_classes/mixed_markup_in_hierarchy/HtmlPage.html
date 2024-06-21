@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org" lang="en">
-<head>
-    <title>Mixed Markup in Hierarchy - HTML, None, DSL, None, HTML</title>
-</head>
-<body>
-<h1>HTML, None, DSL, None, HTML</h1>
-<p>This is from <code>HtmlPage</code>.</p>
-<p>This is from <code><span wicket:id="htmlLabel"></span></code>.</p>
-<wicket:child/>
-</body>
-</html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <h1 class="title">HTML, None, DSL, None, HTML</h1>
+    <div class="content">
+        <p>This is from <code>HtmlPage</code>.</p>
+        <p>This is from <code><span wicket:id="htmlLabel"></span></code>.</p>
+        <wicket:child/>
+    </div>
+</wicket:extend>

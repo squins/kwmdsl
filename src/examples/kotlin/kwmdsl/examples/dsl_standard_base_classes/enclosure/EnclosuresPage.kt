@@ -2,27 +2,23 @@ package kwmdsl.examples.dsl_standard_base_classes.enclosure
 
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.body
+import com.squins.kwmdsl.classDiv
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findMarkup
 import com.squins.kwmdsl.div
-import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
-import com.squins.kwmdsl.head
-import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.title
+import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.WebMarkupContainer
-import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.basic.Label
 import kotlin.random.Random
 
-class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
+class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider {
     private val autoSpan by Wicket { Label(it, "Auto") }
     private val directSpan by Wicket { Label(it, "Direct") }
     private val twoSpans by Wicket { WebMarkupContainer(it) }
@@ -57,14 +53,10 @@ class EnclosuresPage : WebPage(), IMarkupResourceStreamProvider {
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<EnclosuresPage> {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Enclosures") }
-                }
-                body {
-                    h1 { text("Enclosures") }
+            wicketExtend {
+                h1(attr("class", "title")) { text("Enclosures") }
 
+                classDiv("content") {
                     p { text("Refresh to update the visibility of child components.") }
 
                     h2 { text("Tag") }

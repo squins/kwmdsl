@@ -1,9 +1,9 @@
 package kwmdsl.examples.standard.deep_inheritance
 
-import org.apache.wicket.markup.html.WebPage
+import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.markup.html.basic.Label
 
-open class DeepInheritanceBaseTemplate : WebPage() {
+open class DeepInheritanceBaseTemplate : ExamplesStandardBasePage() {
     override fun onInitialize() {
         super.onInitialize()
 

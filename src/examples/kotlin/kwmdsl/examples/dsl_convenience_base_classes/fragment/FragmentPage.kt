@@ -6,24 +6,20 @@ import com.squins.kwmdsl.WicketFragment
 import com.squins.kwmdsl.WicketOwnMarkupFragment
 import com.squins.kwmdsl.WicketSpecializedFragment
 import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.body
-import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
+import com.squins.kwmdsl.classDiv
 import com.squins.kwmdsl.component.ReloadableKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
-import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
-import com.squins.kwmdsl.head
-import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.ownMarkupFragmentMarkup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.title
+import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 
 
-class FragmentPage : KotlinWicketMarkupWebPage() {
+class FragmentPage : ExamplesConvenienceBasePage() {
     private val fragmentLabel by Wicket { Label(it, "unspecialized") }
 
     private val unspecializedFragmentInstance: Fragment =
@@ -76,13 +72,9 @@ class FragmentPage : KotlinWicketMarkupWebPage() {
         val ownMarkupStandardFragment = ownMarkupFragmentMarkup
 
         override fun createDslMarkup() = markup {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Fragment") }
-                }
-                body {
-                    h1 { text("Fragment") }
+            wicketExtend {
+                h1(attr("class", "title")) { text("Fragment") }
+                classDiv("content") {
                     p {
                         text("Unspecialized fragment instance:")
                     }

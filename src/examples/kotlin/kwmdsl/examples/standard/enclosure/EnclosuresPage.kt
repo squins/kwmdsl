@@ -1,11 +1,11 @@
 package kwmdsl.examples.standard.enclosure
 
+import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.markup.html.WebMarkupContainer
-import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.basic.Label
 import kotlin.random.Random
 
-class EnclosuresPage : WebPage() {
+class EnclosuresPage : ExamplesStandardBasePage() {
     private val autoSpan = Label("autoSpan", "Auto")
     private val directSpan = Label("directSpan", "Direct")
     private val firstSpan = Label("firstSpan", "First")

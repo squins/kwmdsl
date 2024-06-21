@@ -1,54 +1,50 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org" lang="en">
-<head>
-    <title>Enclosures</title>
-</head>
-<body>
-<h1>Enclosures</h1>
-<p>
-    Refresh to update the visibility of child components.
-</p>
-<h2>Tag</h2>
-<wicket:enclosure>
-    <p>
-        Auto:
-        <span wicket:id="autoSpan"></span>
-    </p>
-</wicket:enclosure>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <h1 class="title">Enclosures</h1>
+    <div class="content">
+        <p>
+            Refresh to update the visibility of child components.
+        </p>
+        <h2>Tag</h2>
+        <wicket:enclosure>
+            <p>
+                Auto:
+                <span wicket:id="autoSpan"></span>
+            </p>
+        </wicket:enclosure>
 
-<wicket:enclosure child="directSpan">
-    <p>
-        Direct:
-        <span wicket:id="directSpan"></span>
-    </p>
-</wicket:enclosure>
+        <wicket:enclosure child="directSpan">
+            <p>
+                Direct:
+                <span wicket:id="directSpan"></span>
+            </p>
+        </wicket:enclosure>
 
-<wicket:enclosure child="twoSpans:secondSpan">
-    <p wicket:id="twoSpans">
-        First:
-        <span wicket:id="firstSpan"></span>
-        Second:
-        <span wicket:id="secondSpan"></span>
-    </p>
-</wicket:enclosure>
-<h2>Attribute</h2>
-<p wicket:enclosure="">
-    Auto:
-    <span wicket:id="autoSpanAttribute"></span>
-</p>
+        <wicket:enclosure child="twoSpans:secondSpan">
+            <p wicket:id="twoSpans">
+                First:
+                <span wicket:id="firstSpan"></span>
+                Second:
+                <span wicket:id="secondSpan"></span>
+            </p>
+        </wicket:enclosure>
+        <h2>Attribute</h2>
+        <p wicket:enclosure="">
+            Auto:
+            <span wicket:id="autoSpanAttribute"></span>
+        </p>
 
-<p wicket:enclosure="directSpanAttribute">
-    Direct:
-    <span wicket:id="directSpanAttribute"></span>
-</p>
+        <p wicket:enclosure="directSpanAttribute">
+            Direct:
+            <span wicket:id="directSpanAttribute"></span>
+        </p>
 
-<div wicket:enclosure="twoSpansAttribute:secondSpanAttribute">
-    <p wicket:id="twoSpansAttribute">
-        First:
-        <span wicket:id="firstSpanAttribute"></span>
-        Second:
-        <span wicket:id="secondSpanAttribute"></span>
-    </p>
-</div>
-</body>
-</html>
+        <div wicket:enclosure="twoSpansAttribute:secondSpanAttribute">
+            <p wicket:id="twoSpansAttribute">
+                First:
+                <span wicket:id="firstSpanAttribute"></span>
+                Second:
+                <span wicket:id="secondSpanAttribute"></span>
+            </p>
+        </div>
+    </div>
+</wicket:extend>

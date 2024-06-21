@@ -1,9 +1,9 @@
 package kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy
 
-import org.apache.wicket.markup.html.WebPage
+import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.markup.html.basic.Label
 
-abstract class HtmlPage : WebPage() {
+abstract class HtmlPage : ExamplesStandardBasePage() {
     override fun onInitialize() {
         super.onInitialize()
 

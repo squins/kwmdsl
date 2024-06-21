@@ -2,21 +2,17 @@ package kwmdsl.examples.dsl_convenience_base_classes.link
 
 import com.squins.kwmdsl.a
 import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.body
+import com.squins.kwmdsl.classDiv
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
 import com.squins.kwmdsl.component.linkPath
-import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.h1
-import com.squins.kwmdsl.head
-import com.squins.kwmdsl.html
 import com.squins.kwmdsl.img
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
-import com.squins.kwmdsl.title
+import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
 
-class LinkPage : KotlinWicketMarkupWebPage() {
+class LinkPage : ExamplesConvenienceBasePage() {
     override fun onInitialize() {
         super.onInitialize()
 
@@ -25,14 +21,10 @@ class LinkPage : KotlinWicketMarkupWebPage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Link") }
-                }
-                body {
-                    h1 { text("Link") }
+            wicketExtend {
+                h1(attr("class", "title")) { text("Link") }
 
+                classDiv("content") {
                     p {
                         wicketLink {
                             text("In this package: ")
