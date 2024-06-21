@@ -44,6 +44,13 @@ class WicketLabelForPage : KotlinWicketMarkupWebPage() {
         }
     }
 
+    private val nestedSiblingRootContainer by Wicket { WebMarkupContainer(it) }
+    private val nestedSibling by Wicket {
+        TextField<String>(it).apply {
+            label = Model.of("Sibling")
+        }
+    }
+
     private val nestedSiblingOfParentRootContainer by Wicket { WebMarkupContainer(it) }
     private val nestedSiblingOfParentLabelContainer by Wicket { WebMarkupContainer(it) }
     private val nestedSiblingOfParent by Wicket {
@@ -135,11 +142,11 @@ class WicketLabelForPage : KotlinWicketMarkupWebPage() {
                         h3 { text("Sibling") }
 
                         p {
-                            text("This is the same case as ")
-                            i { text("At Root") }
-                            text(" » ")
-                            i { text("Child of Sibling") }
-                            text(" above ")
+                            span(WicketLabelForPage::nestedSiblingRootContainer) {
+                                wicketLabel(WicketLabelForPage::nestedSibling)
+                                text(": ")
+                                input(WicketLabelForPage::nestedSibling, attr("type", "text"))
+                            }
                         }
 
                         h3 { text("Sibling of Parent") }
