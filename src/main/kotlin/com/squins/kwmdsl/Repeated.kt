@@ -1,8 +1,8 @@
 package com.squins.kwmdsl
 
 import org.apache.wicket.Component
-import kotlin.reflect.KCallable
+import kotlin.reflect.KFunction
 
-class Repeated(supplier: KCallable<Component>) {
+class Repeated(supplier: KFunction<Component>) {
     val wicketId: String = supplier.name
 }
