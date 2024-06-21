@@ -19,16 +19,31 @@ import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.title
 import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.markup.html.panel.Fragment
 
 
 class FragmentPage : KotlinWicketMarkupWebPage() {
     private val fragmentLabel by Wicket { Label(it, "unspecialized") }
-    private val unspecializedFragmentInstance by WicketFragment(::unspecializedFragment)
-    private val specializedFragmentInstance by WicketSpecializedFragment(::specializedFragment, ::SpecializedFragment)
-    private val ownMarkupStandardFragmentInstance by WicketOwnMarkupFragment(
+
+    private val unspecializedFragmentInstance: Fragment =
+        Fragment(::unspecializedFragmentInstance.name, ::unspecializedFragment.name, this).apply {
+            unspecializedFragment.addTo(this@FragmentPage, this)
+        }
+    private val unspecializedFragmentInstance2 by WicketFragment(::unspecializedFragment)
+
+    private val specializedFragmentInstance: SpecializedFragment =
+        SpecializedFragment(::specializedFragmentInstance.name, ::specializedFragment.name, this)
+    private val specializedFragmentInstance2 by WicketSpecializedFragment(::specializedFragment, ::SpecializedFragment)
+
+    private val ownMarkupStandardFragmentInstance: OwnMarkupStandardFragment =
+        OwnMarkupStandardFragment(::ownMarkupStandardFragmentInstance.name, ::ownMarkupStandardFragment.name)
+    private val ownMarkupStandardFragmentInstance2 by WicketOwnMarkupFragment(
         FragmentPage::ownMarkupStandardFragment, ::OwnMarkupStandardFragment
     )
-    private val ownMarkupDslFragmentInstance by WicketOwnMarkupFragment(
+
+    private val ownMarkupDslFragmentInstance: OwnMarkupDslFragment =
+        OwnMarkupDslFragment(::ownMarkupDslFragmentInstance.name)
+    private val ownMarkupDslFragmentInstance2 by WicketOwnMarkupFragment(
         OwnMarkupDslFragment::ownMarkupDslFragment, ::OwnMarkupDslFragment
     )
 

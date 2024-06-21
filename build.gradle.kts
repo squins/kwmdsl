@@ -70,6 +70,14 @@ val generateConvenienceFunctions by tasks.registering {
                         println("    wicketId: String,")
                     }
 
+                    fun repeatedDoc() {
+                        println(" * @param repeated indicates that the component of this element will be added in a repeater. The Wicket ID of `repeated` is assigned to the element.")
+                    }
+
+                    fun repeatedDeclaration() {
+                        println("    repeated: Repeated,")
+                    }
+
                     fun functionSupplierDoc() {
                         println(" * @param supplier the function that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.")
                     }
@@ -108,6 +116,12 @@ val generateConvenienceFunctions by tasks.registering {
                         println(" *")
                     }
 
+                    fun repeatedElementDocStart(elementName: String) {
+                        println("/**")
+                        println(" * Add ${aOrAn(elementName)} `$elementName` element with the Wicket ID of the given supplier. The component of the element will be added during the population of the items of a repeater. It is the responsibility of the markup container to add a Wicket component with the same ID manually.")
+                        println(" *")
+                    }
+
                     fun supplierFunctionElementDocStart(elementName: String) {
                         println("/**")
                         println(" * Add ${aOrAn(elementName)} `$elementName` element with the Wicket ID equal to the name of the supplier function. The Wicket component will be retrieved, by invoking the supplier function, and added to the markup container when the root markup is added to the markup container.")
@@ -140,6 +154,17 @@ val generateConvenienceFunctions by tasks.registering {
                         attributesDeclaration()
                         println(") =")
                         println("""    voidElement("$elementName", arrayOf(attr("wicket:id", wicketId), *attributes))""")
+                        println()
+                        repeatedElementDocStart(elementName)
+                        supplierFacadeDoc()
+                        repeatedDoc()
+                        attributesDoc()
+                        docEnd()
+                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$elementName(")
+                        repeatedDeclaration()
+                        attributesDeclaration()
+                        println(") =")
+                        println("""    voidElement("$elementName", arrayOf(attr("wicket:id", repeated.wicketId), *attributes))""")
                         println()
                         supplierFunctionElementDocStart(elementName)
                         supplierFacadeDoc()
@@ -192,6 +217,19 @@ val generateConvenienceFunctions by tasks.registering {
                         blockDeclaration()
                         println(") =")
                         println("""    element("$elementName", arrayOf(attr("wicket:id", wicketId), *attributes), block)""")
+                        println()
+                        repeatedElementDocStart(elementName)
+                        supplierFacadeDoc()
+                        repeatedDoc()
+                        attributesDoc()
+                        blockDoc()
+                        docEnd()
+                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$functionName(")
+                        repeatedDeclaration()
+                        attributesDeclaration()
+                        blockDeclaration()
+                        println(") =")
+                        println("""    element("$elementName", arrayOf(attr("wicket:id", repeated.wicketId), *attributes), block)""")
                         println()
                         supplierFunctionElementDocStart(elementName)
                         supplierFacadeDoc()

@@ -9,7 +9,10 @@ import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import org.apache.wicket.markup.html.basic.Label
 
+// TODO("The primary constructor can be private if the `Wicket...` delegates are dropped.")
 class OwnMarkupDslFragment(id: String, markupId: String) : KotlinWicketMarkupFragment(id, markupId) {
+    constructor(id: String) : this(id, ::ownMarkupDslFragment.name)
+
     private val fragmentLabel by Wicket { Label(it, "own markup, DSL") }
 
     override fun onInitialize() {
