@@ -24,6 +24,8 @@ plugins {
 val jettyVersion = "12.0.10"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 val logbackVersion = "1.5.6"
+// https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
+val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html
 val wicketVersion = "8.0.0"
 
@@ -34,6 +36,7 @@ dependencyResolutionManagement {
             library("jettyEe8Servlet", "org.eclipse.jetty.ee8:jetty-ee8-servlet:$jettyVersion")
             library("jettyServer", "org.eclipse.jetty:jetty-server:$jettyVersion")
             library("logbackClassic", "ch.qos.logback:logback-classic:$logbackVersion")
+            library("serialysis", "io.github.eamonnmcmanus:serialysis:$serialysisVersion")
             library("wicketCore", "org.apache.wicket:wicket-core:$wicketVersion")
         }
     }

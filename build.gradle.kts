@@ -278,6 +278,7 @@ dependencies {
     "examplesImplementation"(libs.jettyEe8Servlet)
     "examplesImplementation"(libs.jettyServer)
     "examplesImplementation"(libs.logbackClassic)
+    "examplesImplementation"(libs.serialysis)
 
     testImplementation(kotlin("test"))
 }
