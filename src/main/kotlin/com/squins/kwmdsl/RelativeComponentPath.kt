@@ -2,7 +2,7 @@ package com.squins.kwmdsl
 
 // TODO("Document: assumption paths are not empty")
 // TODO("Document: assumption paths are not the same")
-internal fun relativizePath(basePath: List<String>, pathToRelativize: List<String>): String {
+internal fun relativizePath(basePath: List<String>, pathToRelativize: List<String>, separator: Char = ':'): String {
     val baseParentPathNumberOfElements = basePath.size - 1
 
     var firstPathElementNotInCommonIndex = 0
@@ -17,8 +17,8 @@ internal fun relativizePath(basePath: List<String>, pathToRelativize: List<Strin
 
     val parentOperators =
         (0 until numberOfParentOperators).fold(StringBuilder(numberOfParentOperators * 3)) { builder, _ ->
-            builder.append("..:")
+            builder.append("..$separator")
         }.toString()
     return parentOperators +
-            pathToRelativize.subList(firstPathElementNotInCommonIndex, pathToRelativize.size).joinToString(":")
+            pathToRelativize.subList(firstPathElementNotInCommonIndex, pathToRelativize.size).joinToString("$separator")
 }

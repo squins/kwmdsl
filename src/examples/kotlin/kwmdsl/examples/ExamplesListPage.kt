@@ -4,6 +4,7 @@ import com.squins.kwmdsl.MarkupBuilder
 import com.squins.kwmdsl.a
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
 import com.squins.kwmdsl.component.linkPath
@@ -12,14 +13,17 @@ import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.head
 import com.squins.kwmdsl.html
+import com.squins.kwmdsl.img
 import com.squins.kwmdsl.li
 import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
 import com.squins.kwmdsl.title
 import com.squins.kwmdsl.ul
 import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage
 import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage
+import kwmdsl.examples.dsl_convenience_base_classes.link.LinkPage
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
 import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage
 import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage
@@ -51,6 +55,27 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                 body {
                     h1 { text("Kotlin Wicket Markup DSL Examples") }
 
+                    p {
+                        text("This page also shows the use of ")
+                        code { text("<wicket:link>") }
+                        text(" for resources (images) and links.")
+                    }
+
+                    p {
+                        wicketLink {
+                            text("In this package: ")
+                            img(
+                                attr("src", "Apache Wicket.svg"),
+                                attr("width", "50")
+                            )
+                            text(", from a sub package: ")
+                            img(
+                                attr("src", ExamplesListPage::class.linkPath<LinkPage>("Apache Wicket.svg")),
+                                attr("width", "50")
+                            )
+                        }
+                    }
+
                     h2 { text("Standard") }
 
                     wicketLink {
@@ -80,6 +105,7 @@ class ExamplesListPage : KotlinWicketMarkupWebPage() {
                             link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
                             link(BorderPage::class, "Border")
                             link(FragmentPage::class, "Fragments")
+                            link(LinkPage::class, "Link")
                             link(WebMarkupContainerPage::class, "Web markup container")
                             link(RepeatPage::class, "Repeat")
                             link(LabelForPage::class, "Label for form component")
