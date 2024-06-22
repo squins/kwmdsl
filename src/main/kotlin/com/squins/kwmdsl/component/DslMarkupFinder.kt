@@ -4,9 +4,7 @@ import org.apache.wicket.Application
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.ContainerInfo
 import org.apache.wicket.markup.MarkupResourceStream
-import org.apache.wicket.util.resource.AbstractStringResourceStream
 import org.apache.wicket.util.resource.IResourceStream
-import org.apache.wicket.util.time.Time
 import kotlin.reflect.full.companionObjectInstance
 
 /**
@@ -29,17 +27,7 @@ fun findMarkup(container: MarkupContainer, containerClass: Class<*>): IResourceS
             currentContainerClass = currentContainerClass.superclass
         }
     }.firstNotNullOfOrNull { currentContainerClass ->
-        ((currentContainerClass.kotlin.companionObjectInstance as? IKotlinWicketMarkupProvider)
-            ?.let { markupProvider ->
-                if (container.application.usesDevelopmentConfig() && markupProvider is ReloadableKotlinWicketMarkupProvider<*>) {
-                    object : AbstractStringResourceStream() {
-                        override fun lastModifiedTime() = Time.now()
-                        override fun getString(): String = markupProvider.createDslMarkup().stream.asString()
-                    }
-                } else {
-                    markupProvider.dslMarkup.stream
-                }
-            }
+        ((currentContainerClass.kotlin.companionObjectInstance as? IKotlinWicketMarkupProvider)?.dslMarkup?.stream
             ?: locator.locate(
                 currentContainerClass,
                 currentContainerClass.getName().replace('.', '/'),

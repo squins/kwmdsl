@@ -1,13 +1,12 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
-import com.squins.kwmdsl.RootMarkup
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.WicketFragment
 import com.squins.kwmdsl.WicketOwnMarkupFragment
 import com.squins.kwmdsl.WicketSpecializedFragment
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.component.ReloadableKotlinWicketMarkupProvider
+import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.markup
@@ -33,7 +32,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     private val specializedFragmentInstance2 by WicketSpecializedFragment(::specializedFragment, ::SpecializedFragment)
 
     private val ownMarkupStandardFragmentInstance: OwnMarkupStandardFragment =
-        OwnMarkupStandardFragment(::ownMarkupStandardFragmentInstance.name, ::ownMarkupStandardFragment.name)
+        OwnMarkupStandardFragment(::ownMarkupStandardFragmentInstance.name, OwnMarkupStandardFragment.FRAGMENT_ID)
     private val ownMarkupStandardFragmentInstance2 by WicketOwnMarkupFragment(
         FragmentPage::ownMarkupStandardFragment, ::OwnMarkupStandardFragment
     )
@@ -50,9 +49,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
         dslMarkup.addTo(this)
     }
 
-    // TODO("Can this be made shorter?")
-    companion object : ReloadableKotlinWicketMarkupProvider<RootMarkup<FragmentPage>>() {
-        // TODO("This should be reloadable too")
+    companion object : IKotlinWicketMarkupProvider {
         val unspecializedFragment = markup {
             p {
                 text("Unspecialized fragment: ")
@@ -60,7 +57,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             }
         }
 
-        // TODO("This should be reloadable too")
         val specializedFragment = markup {
             p {
                 text("Specialized fragment: ")
@@ -68,10 +64,11 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             }
         }
 
-        // TODO("Document: placed (instead of in `OwnMarkupStandardFragment`) here to show third-party, unmodifiable fragments with their own markup can be integrated without wrappers")
+        // TODO("Document: placed here (instead of in `OwnMarkupStandardFragment`) to show third-party, unmodifiable fragments with their own markup can be integrated without wrappers")
+        // TODO("Only needed when working with the delegates. This can be removed if the delegates are removed")
         val ownMarkupStandardFragment = ownMarkupFragmentMarkup
 
-        override fun createDslMarkup() = markup {
+        override val dslMarkup = markup {
             wicketExtend {
                 h1(attr("class", "title")) { text("Fragment") }
                 classDiv("content") {
