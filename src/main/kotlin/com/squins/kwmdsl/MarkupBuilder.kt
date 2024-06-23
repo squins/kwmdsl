@@ -76,7 +76,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         id: String,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        element("wicket:container", arrayOf(attr("wicket:id", id)), block)
+        element("wicket:container", attr("wicket:id", id), block = block)
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         supplier: KFunction1<TSupplierFacade, Component>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        element(supplier, "wicket:container", emptyArray(), block)
+        element(supplier, "wicket:container", block = block)
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         supplier: KProperty1<TSupplierFacade, Component>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
-        element(supplier, "wicket:container", emptyArray(), block)
+        element(supplier, "wicket:container", block = block)
     }
 
     fun wicketEnclosure(
@@ -283,11 +283,11 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      */
     fun element(
         name: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         startTagPrefix(name)
-        attributes(attributes)
+        attributes(*attributes)
         currentTextPart.append('>')
         if (block != null) {
             block()
@@ -306,11 +306,11 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun element(
         supplier: KFunction1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         val childMarkup = ChildMarkupBuilder(this, supplier)
-        wicketElement(childMarkup, name, supplier.name, attributes, block)
+        wicketElement(childMarkup, name, supplier.name, attributes = attributes, block)
     }
 
     /**
@@ -324,11 +324,11 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun element(
         supplier: KProperty1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         val childMarkup = ChildMarkupBuilder(this, supplier)
-        wicketElement(childMarkup, name, supplier.name, attributes, block)
+        wicketElement(childMarkup, name, supplier.name, attributes = attributes, block)
     }
 
     /**
@@ -337,9 +337,9 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    fun voidElement(name: String, attributes: Array<out Pair<String, AttributeValue>>) {
+    fun voidElement(name: String, vararg attributes: Pair<String, AttributeValue>) {
         startTagPrefix(name)
-        attributes(attributes)
+        attributes(*attributes)
         currentTextPart.append('>')
     }
 
@@ -353,10 +353,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun voidElement(
         supplier: KFunction1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
     ) {
         val childMarkup = ChildMarkupBuilder(this, supplier)
-        voidWicketElement(childMarkup, name, supplier.name, attributes)
+        voidWicketElement(childMarkup, name, supplier.name, *attributes)
     }
 
     /**
@@ -369,10 +369,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun voidElement(
         supplier: KProperty1<TSupplierFacade, Component>,
         name: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
     ) {
         val childMarkup = ChildMarkupBuilder(this, supplier)
-        voidWicketElement(childMarkup, name, supplier.name, attributes)
+        voidWicketElement(childMarkup, name, supplier.name, *attributes)
     }
 
     /**
@@ -428,12 +428,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         childMarkupBuilder: ChildMarkupBuilder<TSupplierFacade>,
         name: String,
         wicketId: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)?
     ) {
         children += childMarkupBuilder
 
-        startTagPrefix(name, wicketId, attributes)
+        startTagPrefix(name, wicketId, *attributes)
         currentTextPart.append('>')
         if (block != null) {
             parts += ChildPart(childMarkupBuilder)
@@ -457,11 +457,11 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         childMarkupBuilder: ChildMarkupBuilder<TSupplierFacade>,
         name: String,
         wicketId: String,
-        attributes: Array<out Pair<String, AttributeValue>>,
+        vararg attributes: Pair<String, AttributeValue>,
     ) {
         children += childMarkupBuilder
 
-        startTagPrefix(name, wicketId, attributes)
+        startTagPrefix(name, wicketId, *attributes)
         currentTextPart.append('>')
     }
 
@@ -472,13 +472,13 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param wicketId the Wicket ID to assign to the element. **Warning**: there is no validation and no escaping, so make sure the ID is valid and safe.
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    private fun startTagPrefix(name: String, wicketId: String, attributes: Array<out Pair<String, AttributeValue>>) {
+    private fun startTagPrefix(name: String, wicketId: String, vararg attributes: Pair<String, AttributeValue>) {
         startTagPrefix(name)
         currentTextPart
             .append(""" wicket:id="""")
             .append(wicketId)
             .append('"')
-        attributes(attributes)
+        attributes(*attributes)
     }
 
     /**
@@ -497,7 +497,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
-    private fun attributes(attributes: Array<out Pair<String, AttributeValue>>) {
+    private fun attributes(vararg attributes: Pair<String, AttributeValue>) {
         attributes.forEach { (name, value) ->
             attribute(name, value)
         }
