@@ -384,7 +384,14 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         currentTextPart.append(Strings.escapeMarkup(text))
     }
 
-    // TODO("Unescaped text?")
+    /**
+     * Add text to the markup.
+     *
+     * @param text the text to add. **Warning**: there is no validation and no escaping, so make sure the text is valid and safe.
+     */
+    fun unsafeText(text: String) {
+        currentTextPart.append(text)
+    }
 
     internal fun appendParts(builder: StringBuilder) {
         parts.forEach { part ->
