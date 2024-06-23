@@ -14,10 +14,39 @@ import java.io.File
 import java.util.EnumSet
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.servlet.DispatcherType.*
-import kotlin.io.path.Path
+import kotlin.io.path.exists
+import kotlin.io.path.toPath
 
 @Suppress("unused")
 class Starter(private val restartRunnable: Runnable, private val mustStop: AtomicBoolean) : Runnable {
+    private val pathsToWatch = checkNotNull(Starter::class.java.getResource("Starter.class")).let { starterClassUrl ->
+        check(starterClassUrl.protocol == "file")
+
+        val starterClassPath = starterClassUrl.toURI().toPath()
+
+        val examplesPackageDirectory = checkNotNull(starterClassPath.parent)
+        val kwmdslPackageDirectory = checkNotNull(examplesPackageDirectory.parent)
+        val examplesSourceSetClassesDirectory = checkNotNull(kwmdslPackageDirectory.parent)
+        val kotlinClassesDirectory = checkNotNull(examplesSourceSetClassesDirectory.parent)
+        
+        val classesDirectory = checkNotNull(kotlinClassesDirectory.parent)
+        val buildDirectory = checkNotNull(classesDirectory.parent)
+
+        val resourcesDirectory = checkNotNull(buildDirectory.resolve("resources"))
+        
+        val mainSourceSetClassesDirectory = checkNotNull(kotlinClassesDirectory.resolve("main"))
+        val examplesSourceSetResourcesDirectory = checkNotNull(resourcesDirectory.resolve("examples"))
+        val mainSourceSetResourcesDirectory = checkNotNull(resourcesDirectory.resolve("main"))
+
+        listOf(
+            examplesSourceSetClassesDirectory,
+            examplesSourceSetResourcesDirectory,
+            mainSourceSetClassesDirectory,
+            mainSourceSetResourcesDirectory,
+        )
+            .filter { it.exists() }
+    }
+
     override fun run() {
         val jettyThreadPool = QueuedThreadPool()
         val wicketFilter = WicketFilter()
@@ -51,8 +80,7 @@ class Starter(private val restartRunnable: Runnable, private val mustStop: Atomi
         var isStoppingBecauseFilesChanged = false
         Scanner().apply {
             var isFirstScan = true
-            addDirectory(Path("D:\\JST\\ontw\\webappraamwerk\\kotlin-wicket-markup-dsl\\build\\classes\\kotlin\\examples"))
-            addDirectory(Path("D:\\JST\\ontw\\webappraamwerk\\kotlin-wicket-markup-dsl\\build\\classes\\kotlin\\main"))
+            pathsToWatch.forEach { addDirectory(it) }
             addListener(object : Scanner.BulkListener, Scanner.ScanCycleListener {
                 override fun filesChanged(filenames: Set<String>) {
                     if (isFirstScan) {
