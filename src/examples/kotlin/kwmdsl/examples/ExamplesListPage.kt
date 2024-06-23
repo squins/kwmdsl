@@ -4,10 +4,10 @@ import com.squins.kwmdsl.MarkupBuilder
 import com.squins.kwmdsl.a
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.img
 import com.squins.kwmdsl.li
@@ -43,7 +43,7 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Kotlin Wicket Markup DSL Examples") }
+                classH1("title") { text("Kotlin Wicket Markup DSL Examples") }
                 classDiv("content") {
                     p {
                         text("This page also shows the use of ")

@@ -3,9 +3,9 @@ package kwmdsl.examples.dsl_convenience_base_classes.label_for
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.form
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.h3
 import com.squins.kwmdsl.i
@@ -83,7 +83,7 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Wicket Label for Form Component") }
+                classH1("title") { text("Wicket Label for Form Component") }
 
                 classDiv("content") {
                     form {

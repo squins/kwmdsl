@@ -1,12 +1,11 @@
 package kwmdsl.examples.dsl_standard_base_classes.enclosure
 
 import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findMarkup
 import com.squins.kwmdsl.div
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
@@ -54,7 +53,7 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup<EnclosuresPage> {
             wicketExtend {
-                h1(attr("class", "title")) { text("Enclosures") }
+                classH1("title") { text("Enclosures") }
 
                 classDiv("content") {
                     p { text("Refresh to update the visibility of child components.") }

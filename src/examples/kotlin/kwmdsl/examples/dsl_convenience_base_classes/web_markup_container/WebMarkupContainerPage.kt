@@ -1,10 +1,9 @@
 package kwmdsl.examples.dsl_convenience_base_classes.web_markup_container
 
 import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
@@ -26,7 +25,7 @@ class WebMarkupContainerPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Web Markup Container") }
+                classH1("title") { text("Web Markup Container") }
 
                 classDiv("content") {
                     p(WebMarkupContainerPage::container) {

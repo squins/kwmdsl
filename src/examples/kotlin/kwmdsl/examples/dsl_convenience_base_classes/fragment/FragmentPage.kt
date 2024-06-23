@@ -4,11 +4,10 @@ import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.WicketFragment
 import com.squins.kwmdsl.WicketOwnMarkupFragment
 import com.squins.kwmdsl.WicketSpecializedFragment
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.ownMarkupFragmentMarkup
 import com.squins.kwmdsl.p
@@ -70,7 +69,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
 
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Fragment") }
+                classH1("title") { text("Fragment") }
                 classDiv("content") {
                     p {
                         text("Unspecialized fragment instance:")

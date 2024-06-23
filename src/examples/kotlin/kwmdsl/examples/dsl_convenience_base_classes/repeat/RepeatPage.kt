@@ -4,9 +4,9 @@ import com.squins.kwmdsl.Repeated
 import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.form
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.input
 import com.squins.kwmdsl.li
 import com.squins.kwmdsl.markup
@@ -79,7 +79,7 @@ class RepeatPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Repeat") }
+                classH1("title") { text("Repeat") }
                 classDiv("content") {
                     ul {
                         li(RepeatPage::firstThreeNumbers)

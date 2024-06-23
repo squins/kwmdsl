@@ -1,10 +1,9 @@
 package kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance
 
 import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
@@ -23,7 +22,7 @@ open class DeepInheritanceBaseTemplate : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Deep Inheritance") }
+                classH1("title") { text("Deep Inheritance") }
                 classDiv("content") {
                     p {
                         span(DeepInheritanceBaseTemplate::baseTemplateLabel)

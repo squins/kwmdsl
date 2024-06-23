@@ -3,9 +3,9 @@ package kwmdsl.examples.dsl_convenience_base_classes.link
 import com.squins.kwmdsl.a
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.img
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
@@ -22,7 +22,7 @@ class LinkPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val dslMarkup = markup {
             wicketExtend {
-                h1(attr("class", "title")) { text("Link") }
+                classH1("title") { text("Link") }
 
                 classDiv("content") {
                     p {

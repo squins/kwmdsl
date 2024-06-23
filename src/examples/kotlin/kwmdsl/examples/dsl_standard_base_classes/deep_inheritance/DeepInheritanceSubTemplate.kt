@@ -4,10 +4,10 @@ import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.classDiv
+import com.squins.kwmdsl.classH1
 import com.squins.kwmdsl.classSection
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.docTypeHtml
-import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.head
 import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
@@ -35,7 +35,7 @@ open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {
                 body {
                     classSection("section") {
                         classDiv("container") {
-                            h1(attr("class", "title")) { text("Deep Inheritance") }
+                            classH1("title") { text("Deep Inheritance") }
                             classDiv("content") {
                                 p {
                                     span(DeepInheritanceSubTemplate::subTemplateLabel)
