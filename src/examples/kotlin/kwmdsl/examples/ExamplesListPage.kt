@@ -27,6 +27,7 @@ import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
 import org.apache.wicket.markup.html.WebPage
+import java.nio.charset.Charset
 import kotlin.reflect.KClass
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
 import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
@@ -45,6 +46,21 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
             wicketExtend {
                 classH1("title") { text("Kotlin Wicket Markup DSL Examples") }
                 classDiv("content") {
+                    h2 { text("Encoding") }
+                    p {
+                        text("Are we happy about the encoding (")
+                        text(Charset.defaultCharset().displayName())
+                        text(")? \uD83D\uDE04")
+                        text(" If you do not see a happy face to the left, read about ")
+                        wicketLink {
+                            a(attr("href", EncodingPage::class.linkPath())) {
+                                text("Wicket and the default JVM encoding")
+                            }
+                        }
+                        text(".")
+                    }
+
+                    h2 { text("Wicket Links") }
                     p {
                         text("This page also shows the use of ")
                         code { text("<wicket:link>") }
