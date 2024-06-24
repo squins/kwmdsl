@@ -19,14 +19,14 @@ abstract class HtmlNoneDslPage : HtmlNonePage(), IMarkupResourceStreamProvider {
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
         findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 p {
                     text("This is from ")

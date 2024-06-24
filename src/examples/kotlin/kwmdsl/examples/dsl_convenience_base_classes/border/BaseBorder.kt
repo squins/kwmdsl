@@ -14,11 +14,11 @@ open class BaseBorder(id: String) : KotlinWicketMarkupBorder(id) {
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addToBorder(this)
+        noVariantMarkup.addToBorder(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = borderMarkup {
+        override val noVariantMarkup = borderMarkup {
             wicketBorder {
                 p {
                     text("Base border: ")

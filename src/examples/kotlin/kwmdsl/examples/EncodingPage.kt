@@ -9,7 +9,7 @@ import com.squins.kwmdsl.p
 
 class EncodingPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Wicket and the Default JVM Encoding") }
                 classDiv("content") {

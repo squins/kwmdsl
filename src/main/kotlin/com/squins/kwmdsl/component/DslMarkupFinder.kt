@@ -27,7 +27,9 @@ fun findMarkup(container: MarkupContainer, containerClass: Class<*>): IResourceS
             currentContainerClass = currentContainerClass.superclass
         }
     }.firstNotNullOfOrNull { currentContainerClass ->
-        ((currentContainerClass.kotlin.companionObjectInstance as? IKotlinWicketMarkupProvider)?.dslMarkup?.stream
+        ((currentContainerClass.kotlin.companionObjectInstance as? IKotlinWicketMarkupProvider)?.let { provider ->
+            (provider.getVariantMarkup(style, variation, locale) ?: provider.noVariantMarkup).stream
+        }
             ?: locator.locate(
                 currentContainerClass,
                 currentContainerClass.getName().replace('.', '/'),

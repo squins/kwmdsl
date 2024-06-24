@@ -33,7 +33,7 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     override fun onConfigure() {
@@ -51,7 +51,7 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
         findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup<EnclosuresPage> {
+        override val noVariantMarkup = markup<EnclosuresPage> {
             wicketExtend {
                 classH1("title") { text("Enclosures") }
 

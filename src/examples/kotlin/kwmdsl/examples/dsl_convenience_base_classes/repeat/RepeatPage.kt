@@ -73,11 +73,11 @@ class RepeatPage : ExamplesConvenienceBasePage() {
         listOf("One", "Two", "Three").forEach { number ->
             firstThreeNumbers.add(Label(firstThreeNumbers.newChildId(), number))
         }
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Repeat") }
                 classDiv("content") {

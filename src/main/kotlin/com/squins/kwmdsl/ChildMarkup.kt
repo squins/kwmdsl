@@ -4,8 +4,8 @@ import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 
 internal class ChildMarkup<TSupplierFacade : MarkupContainer>(
-    private val expectedWicketId: String,
-    private val supplier: (TSupplierFacade) -> Component,
+    val expectedWicketId: String,
+    val supplier: (TSupplierFacade) -> Component,
     children: List<ChildMarkup<TSupplierFacade>>,
 ) : Markup<TSupplierFacade>(children) {
     /**

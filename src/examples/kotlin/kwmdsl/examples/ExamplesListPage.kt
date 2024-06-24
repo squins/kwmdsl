@@ -26,11 +26,13 @@ import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlN
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
+import kwmdsl.examples.standard.variants.VariantsPage
 import org.apache.wicket.markup.html.WebPage
 import java.nio.charset.Charset
 import kotlin.reflect.KClass
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
 import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
+import kwmdsl.examples.dsl_convenience_base_classes.variants.VariantsPage as DslConvenienceVariantsPage
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
 import kwmdsl.examples.dsl_standard_base_classes.enclosure.EnclosuresPage as DslStandardEnclosuresPage
 
@@ -38,11 +40,11 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Kotlin Wicket Markup DSL Examples") }
                 classDiv("content") {
@@ -89,6 +91,7 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                             link(SimpleInheritancePage::class, "Simple inheritance")
                             link(DeepInheritanceSubPage::class, "Deep inheritance")
                             link(EnclosuresPage::class, "Enclosures")
+                            link(VariantsPage::class, "Variants")
                         }
                     }
 
@@ -116,6 +119,7 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                             link(RepeatPage::class, "Repeat")
                             link(LabelForPage::class, "Label for form component")
                             link(WicketLabelForPage::class, "Wicket label for form component")
+                            link(DslConvenienceVariantsPage::class, "Variants")
                         }
                     }
                 }

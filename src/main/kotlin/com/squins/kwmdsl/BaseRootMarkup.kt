@@ -8,4 +8,9 @@ abstract class BaseRootMarkup<TSupplierFacade : MarkupContainer> internal constr
     children: List<ChildMarkup<TSupplierFacade>>,
 ) : Markup<TSupplierFacade>(children), IRootMarkup {
     override val stream = StringResourceStream(markupText)
+
+    override fun isCompatibleVariant(variantMarkup: Markup<*>) = areCompatible(this, variantMarkup)
+
+    override fun getComponentHierarchyString() =
+        StringBuilder(500).also { getComponentHierarchyString(it, 0) }.toString()
 }

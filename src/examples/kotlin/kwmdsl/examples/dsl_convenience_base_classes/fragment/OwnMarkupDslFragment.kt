@@ -18,13 +18,13 @@ class OwnMarkupDslFragment(id: String, markupId: String) : KotlinWicketMarkupFra
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
         val ownMarkupDslFragment = ownMarkupFragmentMarkup
 
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketFragment(::ownMarkupDslFragment) {
                 p {
                     text("Own markup, DSL fragment: ")

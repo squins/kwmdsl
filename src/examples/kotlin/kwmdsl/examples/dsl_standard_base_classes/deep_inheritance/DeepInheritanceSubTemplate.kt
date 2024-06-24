@@ -22,11 +22,11 @@ open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             docTypeHtml()
             html(attr("lang", "en")) {
                 head {

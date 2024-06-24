@@ -45,7 +45,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
@@ -67,7 +67,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
         // TODO("Only needed when working with the delegates. This can be removed if the delegates are removed")
         val ownMarkupStandardFragment = ownMarkupFragmentMarkup
 
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Fragment") }
                 classDiv("content") {

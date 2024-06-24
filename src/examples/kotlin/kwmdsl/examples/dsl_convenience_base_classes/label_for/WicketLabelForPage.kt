@@ -77,11 +77,11 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Wicket Label for Form Component") }
 

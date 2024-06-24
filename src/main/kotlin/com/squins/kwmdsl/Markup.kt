@@ -17,7 +17,7 @@ abstract class Markup<TSupplierFacade : MarkupContainer> internal constructor(
      * @param supplierFacade the supplier facade having the supplier functions or properties used to retrieve the components.
      * @param container the container to which the add the child components.
      */
-    // TODO("Should be internal. Made public for `WicketFragment`")
+    // TODO("Should be internal. Made public so the components can be added when creating a standard Fragment without a delegate")
     fun addTo(supplierFacade: TSupplierFacade, container: MarkupContainer) {
         children.forEach { childMarkup ->
             val component = childMarkup.retrieveComponent(supplierFacade)
@@ -33,6 +33,17 @@ abstract class Markup<TSupplierFacade : MarkupContainer> internal constructor(
     ) {
         if (component is MarkupContainer) {
             childMarkup.addTo(supplierFacade, component)
+        }
+    }
+
+    internal fun getComponentHierarchyString(builder: StringBuilder, indentSize: Int) {
+        val indent = (0 until indentSize).joinToString("") { "    " }
+        children.sortedBy { it.expectedWicketId }.forEach { child ->
+            builder
+                .append(indent)
+                .append(child.expectedWicketId)
+                .append(System.lineSeparator())
+            child.getComponentHierarchyString(builder, indentSize + 1)
         }
     }
 }

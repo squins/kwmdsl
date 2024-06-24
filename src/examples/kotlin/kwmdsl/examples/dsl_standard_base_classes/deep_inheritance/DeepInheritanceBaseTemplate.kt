@@ -19,14 +19,14 @@ open class DeepInheritanceBaseTemplate : ExamplesStandardBasePage(), IMarkupReso
     override fun onInitialize() {
         super.onInitialize()
 
-        dslMarkup.addTo(this)
+        noVariantMarkup.addTo(this)
     }
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
         findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
-        override val dslMarkup = markup {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Deep Inheritance") }
                 classDiv("content") {
