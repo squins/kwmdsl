@@ -79,9 +79,9 @@ class VariantsPage : ExamplesConvenienceBasePage() {
                         text("Locale: ")
                         select(VariantsPage::overridingLocale)
                     }
-                    hr()
-                    div(VariantsPage::panel)
                 }
+                hr()
+                div(VariantsPage::panel)
             }
         }
     }
