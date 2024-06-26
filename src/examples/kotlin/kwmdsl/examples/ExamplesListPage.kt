@@ -14,25 +14,24 @@ import com.squins.kwmdsl.li
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.ul
-import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage
-import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
-import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage
-import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage
-import kwmdsl.examples.dsl_convenience_base_classes.link.LinkPage
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
-import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage
-import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
-import kwmdsl.examples.standard.simple_inheritance.SimpleInheritancePage
 import kwmdsl.examples.standard.variants.VariantsPage
 import org.apache.wicket.markup.html.WebPage
 import java.nio.charset.Charset
 import kotlin.reflect.KClass
+import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage as DslConvenienceBorderPage
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
 import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
+import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage as DslConvenienceFragmentPage
+import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage as DslConvenienceLabelForPage
+import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage as DslConvenienceWicketLabelForPage
+import kwmdsl.examples.dsl_convenience_base_classes.link.LinkPage as DslConvenienceLinkPage
+import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage as DslConvenienceRepeatPage
 import kwmdsl.examples.dsl_convenience_base_classes.variants.VariantsPage as DslConvenienceVariantsPage
+import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage as DslConvenienceWebMarkupContainerPage
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
 import kwmdsl.examples.dsl_standard_base_classes.enclosure.EnclosuresPage as DslStandardEnclosuresPage
 
@@ -78,7 +77,10 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                             )
                             text(", from a sub package: ")
                             img(
-                                attr("src", ExamplesListPage::class.linkPath<LinkPage>("Apache Wicket.svg")),
+                                attr(
+                                    "src",
+                                    ExamplesListPage::class.linkPath<DslConvenienceLinkPage>("Apache Wicket.svg")
+                                ),
                                 attr("width", "50")
                             )
                         }
@@ -88,7 +90,6 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
 
                     wicketLink {
                         ul {
-                            link(SimpleInheritancePage::class, "Simple inheritance")
                             link(DeepInheritanceSubPage::class, "Deep inheritance")
                             link(EnclosuresPage::class, "Enclosures")
                             link(VariantsPage::class, "Variants")
@@ -112,13 +113,13 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                             link(DslConvenienceDeepInheritanceSubPage::class, "Deep inheritance")
                             link(DslConvenienceEnclosuresPage::class, "Enclosures")
                             link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
-                            link(BorderPage::class, "Border")
-                            link(FragmentPage::class, "Fragments")
-                            link(LinkPage::class, "Link")
-                            link(WebMarkupContainerPage::class, "Web markup container")
-                            link(RepeatPage::class, "Repeat")
-                            link(LabelForPage::class, "Label for form component")
-                            link(WicketLabelForPage::class, "Wicket label for form component")
+                            link(DslConvenienceBorderPage::class, "Border")
+                            link(DslConvenienceFragmentPage::class, "Fragments")
+                            link(DslConvenienceLinkPage::class, "Link")
+                            link(DslConvenienceWebMarkupContainerPage::class, "Web markup container")
+                            link(DslConvenienceRepeatPage::class, "Repeat")
+                            link(DslConvenienceLabelForPage::class, "Label for form component")
+                            link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
                             link(DslConvenienceVariantsPage::class, "Variants")
                         }
                     }
