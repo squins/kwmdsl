@@ -58,7 +58,7 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
                 classDiv("content") {
                     p { text("Refresh to update the visibility of child components.") }
 
-                    h2 { text("Tag") }
+                    h2 { text("Element") }
 
                     wicketEnclosure {
                         p {
