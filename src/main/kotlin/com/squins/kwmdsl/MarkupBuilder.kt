@@ -2,37 +2,33 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.util.string.Strings
-import java.nio.charset.Charset
 import kotlin.reflect.KCallable
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
-import kotlin.text.Charsets.UTF_8
 
 /**
- * Markup that provides functions to add child markup to it. For all HTML elements, and elements that only have a `class` attribute, convenience extension functions are provided.
+ * Markup builder that provides functions to add child markup, possibly associated with Wicket components, to it. For all (non-deprecated) HTML elements convenience extension functions are provided. There are additional convenience extension functions for elements where often only a `class` attribute is used: `class<element name>(...)`.
  *
  * @param TSupplierFacade the markup container type having the properties and functions to get the Wicket components.
  */
 @WicketMarkupBuilder
 abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor() {
+    /**
+     * The text part to which new literal markup text must be added.
+     */
     internal var currentTextPart = TextPart<TSupplierFacade>()
 
+    /**
+     * The parts added to this markup builder.
+     */
     private val parts = mutableListOf<MarkupPart<TSupplierFacade>>(currentTextPart)
 
     /**
      * Child elements that are associated with Wicket components that are to be retrieved during the addition of the root markup to the markup container.
      */
     internal val children = mutableListOf<ChildMarkupBuilder<TSupplierFacade>>()
-
-    fun xmlDeclaration(version: String = "1.0", encoding: Charset = UTF_8) {
-        currentTextPart
-            .append("""<?xml version="""")
-            .append(version)
-            .append("""" encoding="""")
-            .append(encoding.name())
-            .append(""""?>""")
-    }
 
     /**
      * Add a document type declaration to the markup.
@@ -46,20 +42,29 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             .append('>')
     }
 
-    // TODO("Body: check if complete")
     /**
-     * Add a `wicket:body` element to the markup.
+     * Add a [`wicket:body`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_surrounding_existing_markup_with_border) element to the markup.
      */
     fun wicketBody() {
         currentTextPart.append("<wicket:body></wicket:body>")
     }
 
+    /**
+     * Add a [`wicket:border`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_surrounding_existing_markup_with_border) element to the markup, creating the children of the element using [block].
+     *
+     * @param block the code to build the children of the element.
+     */
     fun wicketBorder(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart.append("<wicket:border>")
         block()
         currentTextPart.append("</wicket:border>")
     }
 
+    /**
+     * Add a [`wicket:child`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_markup_inheritance_with_the_wicket_extend_tag) element to the markup, (optionally) creating the children of the element using [block].
+     *
+     * @param block the (optional) code to build the children of the element.
+     */
     fun wicketChild(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null) {
         currentTextPart.append("<wicket:child>")
         block?.invoke(this)
@@ -67,7 +72,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     /**
-     * Add a `wicket:container` element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
+     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
      *
      * @param id the Wicket ID of the container. **Warning**: there is no validation and no escaping, so make sure the ID is valid and safe.
      * @param block the (optional) code for building the children of the element.
@@ -80,7 +85,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     /**
-     * Add a `wicket:container` element to the markup, and use the given supplier function to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
+     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
      *
      * @param supplier the function that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
      * @param block the (optional) code for building the children of the element.
@@ -93,7 +98,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     /**
-     * Add a `wicket:container` element to the markup, and use the given supplier property to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
+     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
      *
      * @param supplier the property that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
      * @param block the (optional) code for building the children of the element.
@@ -105,6 +110,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         element(supplier, "wicket:container", block = block)
     }
 
+    /**
+     * Add a [`wicket:enclosure`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_hiding_decorating_elements_with_the_wicket_enclosure_tag) element to the markup, and, if given, using [childSupplier] to determine the component path to use for the `child` attribute.
+     *
+     * @param childSupplier the supplier of the child Wicket component that determines the visibility of this enclosure.
+     * @param block the code for building the children of the element.
+     */
     fun wicketEnclosure(
         childSupplier: ((TSupplierFacade) -> Component)? = null,
         block: MarkupBuilder<TSupplierFacade>.() -> Unit
@@ -122,27 +133,36 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         endTag("wicket:enclosure")
     }
 
-    fun wicketEnclosureAttribute() = attr("wicket:enclosure", "")
-
+    /**
+     * Add a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute, using [childSupplier] to determine the component path to use for this attribute.
+     *
+     * @param childSupplier the supplier of the child Wicket component that determines the visibility of the element with this attribute.
+     * @return an 'attribute': a pair of the attribute name and the attribute value.
+     */
     fun wicketEnclosureAttribute(childSupplier: (TSupplierFacade) -> Component) =
         "wicket:enclosure" to DescendentReference(childSupplier)
 
-    fun wicketEnclosureAttribute(path: String) =
-        "wicket:enclosure" to Text(path)
-
+    /**
+     * Add a [`wicket:extend`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_markup_inheritance_with_the_wicket_extend_tag) element to the markup, creating the children of the element using [block].
+     *
+     * @param block the code to build the children of the element.
+     */
     fun wicketExtend(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart.append("<wicket:extend>")
         block()
         currentTextPart.append("</wicket:extend>")
     }
 
-    fun wicketForAttribute(formComponentSupplier: (TSupplierFacade) -> Component) =
-        "wicket:for" to Reference(formComponentSupplier)
+    /**
+     * Add a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute, using [formComponentSupplier] to determine the component path to use for this attribute.
+     *
+     * @param formComponentSupplier the supplier of the Wicket form component that the label containing this attribute is for.
+     * @return an 'attribute': a pair of the attribute name and the attribute value.
+     */
+    fun wicketForAttribute(formComponentSupplier: (TSupplierFacade) -> FormComponent<*>) =
+        "wicket:for" to FormComponentReference(formComponentSupplier)
 
-    fun wicketForAttribute(path: String) =
-        "wicket:for" to Text(path)
-
-    // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment")
+    // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment. Embedded")
     fun wicketFragment(markupSupplier: KCallable<IRootMarkup>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
@@ -155,7 +175,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     // TODO("Document: for DSL fragments with their own markup only")
     fun wicketFragment(markupSupplier: KCallable<IRootMarkup>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart
-            // Searches for the fragments start at 1, so make sure there is at least 1 element before the fragments.
+            // Searches for the fragments start at 1, so make sure there is at least 1 node before the fragments.
             .append("""<!-- --><wicket:fragment wicket:id="""")
             .append(markupSupplier.name)
             .append("""">""")
@@ -182,7 +202,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         currentTextPart.append("<wicket:label")
         if (formComponentSupplier != null) {
             currentTextPart.append(""" for="""")
-            parts += ReferencePart(
+            parts += FormComponentReferencePart(
                 // The `<wicket:label>` containing `for` is seen as a Wicket component, so add a path part for it.
                 getPathAsList() + "",
                 formComponentSupplier
@@ -218,7 +238,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     /**
      * Add a `wicket:message` element to the markup.
      *
-     * A convenience function to keep code short and readable.
+     * A convenience function for [wicketMessage] to keep internationalization code short and readable.
      *
      * @param key the message key. **Warning**: there is no validation and no escaping, so make sure the key is valid and safe.
      * @param escape whether to escape the message. Optional, `true` by default.
@@ -397,14 +417,14 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         parts.forEach { part ->
             when (part) {
                 is ChildPart -> part.child.appendParts(builder)
-                // All of the children are searched, instead of only the children of the tag containing the reference,
-                // as it is more difficult to store which range of children must be searched when creating the
-                // reference. Although this does affect performance a bit, it is acceptable:
+                // All of the children are searched, instead of only the children of the element containing the
+                // reference, as it is more difficult to store which range of children must be searched when creating
+                // the reference. Although this does affect performance a bit, it is acceptable:
                 //
                 // * Not many pages have more than a few dozen components.
                 // * The search only runs once for all component instances.
                 is DescendentReferencePart -> builder.append(children.firstNotNullOf { child -> child.pathOf(part.supplier) })
-                is ReferencePart -> builder.append(
+                is FormComponentReferencePart -> builder.append(
                     relativizePath(
                         part.referencingComponentPath,
                         checkNotNull(pathFromRootOfAsList(part.formComponentSupplier))
@@ -416,8 +436,19 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         }
     }
 
+    /**
+     * Get the Wicket component path of this markup, as a list of strings.
+     *
+     * @return the Wicket component path, as a list.
+     */
     internal abstract fun getPathAsList(): List<String>
 
+    /**
+     * Get the Wicket component path of the given supplier relative to the Wicket component of this builder, as a list of strings. The supplier may appear anywhere in the markup hierarchy.
+     *
+     * @param supplier the suppler of the component for which to get the path.
+     * @return the Wicket component path of [supplier], as a list, or `null` if the supplier is not associated with a builder anywhere in the markup hierarchy.
+     */
     internal abstract fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component): List<String>?
 
     internal fun buildChildren(): List<ChildMarkup<TSupplierFacade>> = children.map { it.build() }
@@ -523,15 +554,15 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         when (value) {
             is DescendentReference<*> -> {
                 @Suppress("UNCHECKED_CAST")
-                parts += DescendentReferencePart(value.childSupplier as (TSupplierFacade) -> Component)
+                parts += DescendentReferencePart(value.descendentSupplier as (TSupplierFacade) -> Component)
                 currentTextPart = TextPart()
                 parts += currentTextPart
             }
 
-            is Reference<*> -> {
+            is FormComponentReference<*> -> {
                 @Suppress("UNCHECKED_CAST")
-                parts += ReferencePart(
-                    // The tag containing `wicket:for` is seen as a Wicket component, so add a path part for it.
+                parts += FormComponentReferencePart(
+                    // The element containing `wicket:for` is seen as a Wicket component, so add a path part for it.
                     getPathAsList() + "",
                     value.formComponentSupplier as (TSupplierFacade) -> Component
                 )

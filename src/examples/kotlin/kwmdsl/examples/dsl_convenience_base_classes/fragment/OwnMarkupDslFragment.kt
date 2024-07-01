@@ -9,6 +9,7 @@ import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import org.apache.wicket.markup.html.basic.Label
 
+// TODO("Document: the markup ID is hard-coded, because there is only 1 fragment in the markup. But if the component contained multiple fragments, it could be passed in. Just like `OwnMarkupStandardFragment` does")
 // TODO("The primary constructor can be private if the `Wicket...` delegates are dropped.")
 class OwnMarkupDslFragment(id: String, markupId: String) : KotlinWicketMarkupFragment(id, markupId) {
     constructor(id: String) : this(id, ::ownMarkupDslFragment.name)

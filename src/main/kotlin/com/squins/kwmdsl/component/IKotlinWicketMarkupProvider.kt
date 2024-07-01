@@ -60,7 +60,7 @@ abstract class IRootMarkupVariants<TRootMarkup : BaseRootMarkup<*>> internal con
     private fun add(identifier: String, rootMarkup: TRootMarkup) {
         check(!rootMarkupsByVariantIdentifier.containsKey(identifier)) { "Variant: $identifier, has already been added." }
         if (Application.get()?.usesDevelopmentConfig() == true) {
-            check(noVariantRootMarkup.isCompatibleVariant(rootMarkup)) {
+            check(noVariantRootMarkup.isCompatible(rootMarkup)) {
                 """The children of variant: $identifier, do not match the children of the no-variant markup. No-variant component hierarchy:
 ${noVariantRootMarkup.getComponentHierarchyString()}
 Variant component hierarchy:

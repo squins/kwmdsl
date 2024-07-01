@@ -2,15 +2,34 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.markup.html.form.FormComponent
 
+/**
+ * A value for an attribute.
+ */
 sealed interface AttributeValue
 
+/**
+ * A text value for an attribute.
+ *
+ * @param text the value.
+ */
 class Text(internal val text: String) : AttributeValue
 
+/**
+ * An attribute value referring to a descendent Wicket component. Used for [`wicket:enclosure`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_hiding_decorating_elements_with_the_wicket_enclosure_tag) elements and attributes.
+ *
+ * @param descendentSupplier the supplier of the descendent to refer to.
+ */
 class DescendentReference<TSupplierFacade : MarkupContainer>(
-    internal val childSupplier: (TSupplierFacade) -> Component,
+    internal val descendentSupplier: (TSupplierFacade) -> Component,
 ) : AttributeValue
 
-class Reference<TSupplierFacade : MarkupContainer>(
-    internal val formComponentSupplier: (TSupplierFacade) -> Component,
+/**
+ * An attribute value referring to a form component somewhere in the markup hierarchy. Used for [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attributes of HTML `label` elements, and `for` attributes of `wicket:label` elements.
+ *
+ * @param formComponentSupplier the supplier of the form component to refer to.
+ */
+class FormComponentReference<TSupplierFacade : MarkupContainer>(
+    internal val formComponentSupplier: (TSupplierFacade) -> FormComponent<*>,
 ) : AttributeValue
