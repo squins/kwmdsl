@@ -7,7 +7,7 @@ import kotlin.reflect.KProperty
 
 class WicketOwnMarkupFragment(
     @Transient
-    private val markupSupplier: KCallable<RootMarkup<*>>,
+    private val wicketIdSupplier: KCallable<Unit>,
     @Transient
     private val fragmentFactory: (String, String) -> Fragment
 ) : Serializable {
@@ -15,7 +15,7 @@ class WicketOwnMarkupFragment(
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): Fragment {
         if (!::fragment.isInitialized) {
-            fragment = fragmentFactory(property.name, markupSupplier.name)
+            fragment = fragmentFactory(property.name, wicketIdSupplier.name)
         }
         return fragment
     }

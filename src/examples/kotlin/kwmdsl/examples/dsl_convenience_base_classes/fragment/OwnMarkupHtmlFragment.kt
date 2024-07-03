@@ -4,8 +4,9 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 
-// TODO("Document: the markup ID is passed in, but if there is only 1 fragment in the markup, it can be hardcoded. Just like `OwnMarkupDslFragment` does")
-class OwnMarkupStandardFragment(id: String, markupId: String) : Fragment(id, markupId, null) {
+class OwnMarkupHtmlFragment(id: String, markupId: String) : Fragment(id, markupId, null) {
+    constructor(id: String) : this(id, VARIANT_1_ID)
+
     override fun onInitialize() {
         super.onInitialize()
 
@@ -15,6 +16,7 @@ class OwnMarkupStandardFragment(id: String, markupId: String) : Fragment(id, mar
     override fun chooseMarkup(provider: MarkupContainer?) = associatedMarkup
 
     companion object {
-        const val FRAGMENT_ID = "ownMarkupStandardFragment"
+        const val VARIANT_1_ID = "ownMarkupStandardFragmentVariant1"
+        const val VARIANT_2_ID = "ownMarkupStandardFragmentVariant2"
     }
 }

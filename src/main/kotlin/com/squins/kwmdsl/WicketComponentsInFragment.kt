@@ -6,7 +6,7 @@ import java.io.Serializable
 import kotlin.reflect.KCallable
 import kotlin.reflect.KProperty
 
-class WicketSpecializedFragment<TMarkupProvider : MarkupContainer, TSupplierFacade : Fragment>(
+class WicketComponentsInFragment<TMarkupProvider : MarkupContainer, TSupplierFacade : Fragment>(
     @Transient
     private val markupSupplier: KCallable<RootMarkup<TSupplierFacade>>,
     @Transient

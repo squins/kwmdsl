@@ -20,8 +20,7 @@ abstract class Markup<TSupplierFacade : MarkupContainer> internal constructor(
      * @param supplierFacade the supplier facade having the supplier functions or properties used to retrieve the components.
      * @param container the container to which the add the child components.
      */
-    // TODO("Should be internal. Made public so the components can be added when creating a standard Fragment without a delegate. Should/can this case be handled with a specific root markup?")
-    fun addTo(supplierFacade: TSupplierFacade, container: MarkupContainer) {
+    internal fun addTo(supplierFacade: TSupplierFacade, container: MarkupContainer) {
         children.forEach { childMarkup ->
             val component = childMarkup.retrieveComponent(supplierFacade)
             container.add(component)

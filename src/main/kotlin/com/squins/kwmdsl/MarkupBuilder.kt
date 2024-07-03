@@ -84,6 +84,13 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         element("wicket:container", attr("wicket:id", id), block = block)
     }
 
+    fun wicketContainer(
+        repeated: Repeated,
+        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+    ) {
+        element("wicket:container", attr("wicket:id", repeated.wicketId), block = block)
+    }
+
     /**
      * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
      *
@@ -134,6 +141,13 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     /**
+     * Create a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute without a child path.
+     *
+     * @return an 'attribute': a pair of the attribute name and the attribute value.
+     */
+    fun wicketEnclosureAttribute() = attr("wicket:enclosure", "")
+
+    /**
      * Add a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute, using [childSupplier] to determine the component path to use for this attribute.
      *
      * @param childSupplier the supplier of the child Wicket component that determines the visibility of the element with this attribute.
@@ -141,6 +155,15 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      */
     fun wicketEnclosureAttribute(childSupplier: (TSupplierFacade) -> Component) =
         "wicket:enclosure" to DescendentReference(childSupplier)
+
+    /**
+     * Create a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute with child path [path].
+     *
+     * @path the path to the child Wicket component that determines the visibility of the element with this attribute. The client is responsible for making sure the path references an actual Wicket component.
+     * @return an 'attribute': a pair of the attribute name and the attribute value.
+     */
+    fun wicketEnclosureAttribute(path: String) =
+        "wicket:enclosure" to Text(path)
 
     /**
      * Add a [`wicket:extend`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_markup_inheritance_with_the_wicket_extend_tag) element to the markup, creating the children of the element using [block].
@@ -162,8 +185,17 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun wicketForAttribute(formComponentSupplier: (TSupplierFacade) -> FormComponent<*>) =
         "wicket:for" to FormComponentReference(formComponentSupplier)
 
+    /**
+     * Create a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute with child path [path].
+     *
+     * @path the path to the Wicket form component that the label containing this attribute is for. The client is responsible for making sure the path references an actual Wicket component.
+     * @return an 'attribute': a pair of the attribute name and the attribute value.
+     */
+    fun wicketForAttribute(path: String) =
+        "wicket:for" to Text(path)
+
     // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment. Embedded")
-    fun wicketFragment(markupSupplier: KCallable<IRootMarkup>) {
+    fun embedWicketFragment(markupSupplier: KCallable<IRootMarkup>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
             .append(markupSupplier.name)
@@ -172,12 +204,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             .append("</wicket:fragment>")
     }
 
-    // TODO("Document: for DSL fragments with their own markup only")
-    fun wicketFragment(markupSupplier: KCallable<IRootMarkup>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    // TODO("Document: for defining DSL fragments outside of the component they are instantiated in: stand-alone")
+    fun wicketFragment(wicketIdSupplier: KCallable<Unit>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart
             // Searches for the fragments start at 1, so make sure there is at least 1 node before the fragments.
             .append("""<!-- --><wicket:fragment wicket:id="""")
-            .append(markupSupplier.name)
+            .append(wicketIdSupplier.name)
             .append("""">""")
         block()
         currentTextPart

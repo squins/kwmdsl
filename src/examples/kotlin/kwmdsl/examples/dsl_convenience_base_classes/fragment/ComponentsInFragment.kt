@@ -5,13 +5,13 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 
-class SpecializedFragment(id: String, markupId: String, markupProvider: MarkupContainer) :
+class ComponentsInFragment(id: String, markupId: String, markupProvider: MarkupContainer) :
     Fragment(id, markupId, markupProvider) {
-    val fragmentLabel by Wicket { Label(it, "specialized") }
+    val fragmentLabel by Wicket { Label(it, "component in fragment") }
 
     override fun onInitialize() {
         super.onInitialize()
 
-        FragmentPage.specializedFragment.addTo(this)
+        FragmentPage.componentsInFragmentVariant1.addTo(this)
     }
 }

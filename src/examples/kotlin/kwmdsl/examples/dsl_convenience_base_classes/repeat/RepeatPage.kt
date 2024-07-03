@@ -28,7 +28,7 @@ class RepeatPage : ExamplesConvenienceBasePage() {
     private val firstThreeNumbers2 by Wicket { RepeatingView(it) }
 
     private val group: CheckGroup<Person> = CheckGroup(::group.name, mutableListOf<Person>())
-    private val group2 by Wicket { CheckGroup(::group.name, mutableListOf<Person>()) }
+    private val group2 by Wicket { CheckGroup(it, mutableListOf<Person>()) }
 
     private fun checkbox(model: IModel<Person>): Check<Person> = Check(::checkbox.name, model)
     private fun name(model: IModel<String>): Label = Label(::name.name, model)
