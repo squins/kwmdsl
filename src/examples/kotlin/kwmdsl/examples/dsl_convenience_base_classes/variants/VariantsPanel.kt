@@ -26,62 +26,62 @@ class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
             variants.get(style, variation, locale)
 
         private val variants = RootMarkupVariants<VariantsPanel>(this).apply {
-            add(Locale.UK, markup<VariantsPanel> {
+            add(Locale.UK, markup {
                 wicketPanel {
                     text("English, United Kingdom.")
                 }
             })
-            add(Locale.FRENCH, markup<VariantsPanel> {
+            add(Locale.FRENCH, markup {
                 wicketPanel {
                     text("French.")
                 }
             })
-            add(Locale("nl"), markup<VariantsPanel> {
+            add(Locale("nl"), markup {
                 wicketPanel {
                     text("Dutch.")
                 }
             })
-            add(Locale("nl", "BE"), markup<VariantsPanel> {
+            add(Locale("nl", "BE"), markup {
                 wicketPanel {
                     text("Dutch, Belgium.")
                 }
             })
-            addStyle("style1", markup<VariantsPanel> {
+            addStyle("style1", markup {
                 wicketPanel {
                     text("Style 1.")
                 }
             })
-            addStyle("style2", markup<VariantsPanel> {
+            addStyle("style2", markup {
                 wicketPanel {
                     text("Style 2.")
                 }
             })
-            addVariation("variation1", markup<VariantsPanel> {
+            addVariation("variation1", markup {
                 wicketPanel {
                     text("Variation 1.")
                 }
             })
-            addStyleAndVariation("style2", "variation1", markup<VariantsPanel> {
+            addStyleAndVariation("style2", "variation1", markup {
                 wicketPanel {
                     text("Style 2, variation 1.")
                 }
             })
-            addStyleAndVariation("style3", "variation1", markup<VariantsPanel> {
+            addStyleAndVariation("style3", "variation1", markup {
                 wicketPanel {
                     text("Style 3, variation 1.")
                 }
             })
-            addVariation("variation2", markup<VariantsPanel> {
+            addVariation("variation2", markup {
                 wicketPanel {
                     text("Variation 2.")
                 }
             })
-            addStyleAndVariation("style2", "variation2", markup<VariantsPanel> {
+            addStyleAndVariation("style2", "variation2", markup {
                 wicketPanel {
                     text("Style 2, variation 2.")
                 }
             })
-            addStyleAndVariation("style3", "variation2", markup<VariantsPanel> {
+            addStyleAndVariation("style3", "variation2", markup {
                 wicketPanel {
                     text("Style 3, variation 2.")
                 }

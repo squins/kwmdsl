@@ -1,15 +1,8 @@
 package kwmdsl.examples.dsl_standard_base_classes.enclosure
 
-import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.classH1
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findMarkup
-import com.squins.kwmdsl.div
-import com.squins.kwmdsl.h2
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
-import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
@@ -18,17 +11,17 @@ import org.apache.wicket.markup.html.basic.Label
 import kotlin.random.Random
 
 class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider {
-    private val autoSpan by Wicket { Label(it, "Auto") }
-    private val directSpan by Wicket { Label(it, "Direct") }
-    private val twoSpans by Wicket { WebMarkupContainer(it) }
-    private val firstSpan by Wicket { Label(it, "First") }
-    private val secondSpan by Wicket { Label(it, "Second") }
-    private val autoSpanAttribute by Wicket { Label(it, "Auto") }
-    private val directSpanAttribute by Wicket { Label(it, "Direct") }
-    private val twoSpansAttribute by Wicket { WebMarkupContainer(it) }
+    private val autoSpan: Label = Label(::autoSpan.name, "Auto")
+    private val directSpan: Label = Label(::directSpan.name, "Direct")
+    private val twoSpans: WebMarkupContainer = WebMarkupContainer(::twoSpans.name)
+    private val firstSpan: Label = Label(::firstSpan.name, "First")
+    private val secondSpan: Label = Label(::secondSpan.name, "Second")
+    private val autoSpanAttribute: Label = Label(::autoSpanAttribute.name, "Auto")
+    private val directSpanAttribute: Label = Label(::directSpanAttribute.name, "Direct")
+    private val twoSpansAttribute: WebMarkupContainer = WebMarkupContainer(::twoSpansAttribute.name)
     // TODO("Unique names are now required as the whole hierarchy is flattened. Is that a problem?")
-    private val firstSpanAttribute by Wicket { Label(it, "First") }
-    private val secondSpanAttribute by Wicket { Label(it, "Second") }
+    private val firstSpanAttribute: Label = Label(::firstSpanAttribute.name, "First")
+    private val secondSpanAttribute: Label = Label(::secondSpanAttribute.name, "Second")
 
     override fun onInitialize() {
         super.onInitialize()
@@ -51,7 +44,7 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
         findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = markup<EnclosuresPage> {
+        override val noVariantMarkup = markup {
             wicketExtend {
                 classH1("title") { text("Enclosures") }
 

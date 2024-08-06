@@ -1,17 +1,7 @@
 package kwmdsl.examples.dsl_convenience_base_classes.repeat
 
-import com.squins.kwmdsl.Repeated
-import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.classH1
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.form
-import com.squins.kwmdsl.input
-import com.squins.kwmdsl.li
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.span
-import com.squins.kwmdsl.ul
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.form.Check
@@ -25,10 +15,8 @@ import org.apache.wicket.util.io.IClusterable
 
 class RepeatPage : ExamplesConvenienceBasePage() {
     private val firstThreeNumbers: RepeatingView = RepeatingView(::firstThreeNumbers.name)
-    private val firstThreeNumbers2 by Wicket { RepeatingView(it) }
 
     private val group: CheckGroup<Person> = CheckGroup(::group.name, mutableListOf<Person>())
-    private val group2 by Wicket { CheckGroup(it, mutableListOf<Person>()) }
 
     private fun checkbox(model: IModel<Person>): Check<Person> = Check(::checkbox.name, model)
     private fun name(model: IModel<String>): Label = Label(::name.name, model)
@@ -45,27 +33,10 @@ class RepeatPage : ExamplesConvenienceBasePage() {
         ) {
             override fun populateItem(item: ListItem<Person>) {
                 item.add(checkbox(item.getModel()))
-                item.add(name(PropertyModel<String>(item.getDefaultModel(), Person::name.name)))
-                item.add(lastName(PropertyModel<String>(item.getDefaultModel(), Person::lastName.name)))
+                item.add(name(PropertyModel(item.getDefaultModel(), Person::name.name)))
+                item.add(lastName(PropertyModel(item.getDefaultModel(), Person::lastName.name)))
             }
         }
-    private val persons2 by Wicket {
-        object : ListView<Person>(
-            it, listOf(
-                Person("Fritz", "Fritzel"),
-                Person("Ghan", "Phariounimn"),
-                Person("Jan", "Klaasen"),
-                Person("Hank", "Plaindweller"),
-            )
-        ) {
-            override fun populateItem(item: ListItem<Person>) {
-                item.add(checkbox(item.getModel()))
-                item.add(name(PropertyModel<String>(item.getDefaultModel(), Person::name.name)))
-                item.add(lastName(PropertyModel<String>(item.getDefaultModel(), Person::lastName.name)))
-            }
-        }
-    }
-
 
     override fun onInitialize() {
         super.onInitialize()

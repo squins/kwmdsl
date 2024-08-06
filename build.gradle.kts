@@ -3,12 +3,18 @@ import java.io.PrintWriter
 import java.util.Locale
 
 plugins {
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "1.9.25"
     id("org.jetbrains.dokka")
 }
 
 group = "com.squins"
 version = "1-SNAPSHOT"
+
+tasks.wrapper {
+    // https://gradle.org/releases/
+    gradleVersion = "8.9"
+    distributionType = Wrapper.DistributionType.ALL
+}
 
 repositories {
     mavenCentral()

@@ -6,17 +6,17 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.Model
-import java.util.Locale
+import java.util.*
 
 class VariantsPage : ExamplesStandardBasePage() {
     private val styleModel = Model.of("")
     private val variationModel = Model.of("")
     private val localeModel = Model.of("")
     private val variantsForm = Form<Unit>("variantsForm")
-    private val style = DropDownChoice<String>("style", styleModel, listOf("", "style1", "style2", "style3"))
-    private val overridingVariation = DropDownChoice<String>("variation", variationModel, listOf("", "variation1", "variation2"))
+    private val style = DropDownChoice("style", styleModel, listOf("", "style1", "style2", "style3"))
+    private val overridingVariation = DropDownChoice("variation", variationModel, listOf("", "variation1", "variation2"))
     private val overridingLocale =
-        DropDownChoice<String>("locale", localeModel, listOf("", "en", "en_GB", "fr", "fr_FR", "nl", "nl_BE", "nl_NL"))
+        DropDownChoice("locale", localeModel, listOf("", "en", "en_GB", "fr", "fr_FR", "nl", "nl_BE", "nl_NL"))
     private val panel = VariantsPanel("panel")
 
     override fun onInitialize() {
@@ -51,10 +51,8 @@ class VariantsPage : ExamplesStandardBasePage() {
         return if (variation.isEmpty()) null else variation
     }
 
-    override fun getLocale(): Locale? {
-        val locale = localesByDisplayValue[localeModel.`object`]
-        return if (locale == null) super.locale else locale
-    }
+    override fun getLocale() =
+        localesByDisplayValue[localeModel.`object`] ?: super.getLocale()
 }
 
 private val localesByDisplayValue = mapOf(

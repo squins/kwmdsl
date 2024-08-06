@@ -1,19 +1,9 @@
 package kwmdsl.examples
 
-import com.squins.kwmdsl.MarkupBuilder
-import com.squins.kwmdsl.a
-import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.classH1
-import com.squins.kwmdsl.code
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
-import com.squins.kwmdsl.h2
-import com.squins.kwmdsl.img
-import com.squins.kwmdsl.li
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
-import com.squins.kwmdsl.ul
+import com.squins.kwmdsl.component.resourcePath
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
@@ -79,7 +69,7 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                             img(
                                 attr(
                                     "src",
-                                    ExamplesListPage::class.linkPath<DslConvenienceLinkPage>("Apache Wicket.svg")
+                                    ExamplesListPage::class.resourcePath<DslConvenienceLinkPage>("Apache Wicket.svg")
                                 ),
                                 attr("width", "50")
                             )

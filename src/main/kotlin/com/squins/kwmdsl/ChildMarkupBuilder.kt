@@ -2,8 +2,12 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.markup.html.border.Border
+import kotlin.reflect.KCallable
+import kotlin.reflect.KClass
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
+import kotlin.reflect.full.isSubclassOf
 
 /**
  * Builder for markup that cannot be added directly to the parent markup builder, because the added element is associated with a Wicket component that is to be retrieved during the addition of the root markup to the markup container.
@@ -16,6 +20,7 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
     private val parent: MarkupBuilder<TSupplierFacade>,
     private val expectedWicketId: String,
     private val supplier: (TSupplierFacade) -> Component,
+    private val isForBorder: Boolean,
 ) : MarkupBuilder<TSupplierFacade>() {
     /**
      * Create an instance with a function supplier.
@@ -23,7 +28,8 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
      * @param supplier the function that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
     internal constructor(parent: MarkupBuilder<TSupplierFacade>, supplier: KFunction1<TSupplierFacade, Component>) :
-            this(parent, supplier.name, supplier)
+            this(parent, supplier.name, supplier, doesSupplierReturnBorder(supplier))
+
 
     /**
      * Create an instance with a property supplier.
@@ -31,9 +37,17 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
      * @param supplier the property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
     internal constructor(parent: MarkupBuilder<TSupplierFacade>, supplier: KProperty1<TSupplierFacade, Component>) :
-            this(parent, supplier.name, supplier)
+            this(parent, supplier.name, supplier, doesSupplierReturnBorder(supplier))
 
-    override fun getPathAsList() = (parent.getPathAsList() + expectedWicketId)
+    override fun getPathAsList() =
+        if (isForBorder) {
+            parent.getPathAsList().toMutableList().apply {
+                add(expectedWicketId)
+                add("${expectedWicketId}_body")
+            }
+        } else {
+            (parent.getPathAsList() + expectedWicketId)
+        }
 
     /**
      * Build the child markup specified using this builder.
@@ -67,8 +81,18 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
             listOf(expectedWicketId)
         } else {
             children.firstNotNullOfOrNull { child -> child.pathOfAsList(supplier) }
-                ?.let { subPath -> subPath.toMutableList().apply { add(0, expectedWicketId) } }
+                ?.let { subPath ->
+                    subPath.toMutableList().apply {
+                        if (isForBorder) {
+                            add(0, "${expectedWicketId}_body")
+                        }
+                        add(0, expectedWicketId)
+                    }
+                }
         }
 
     override fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component) = parent.pathFromRootOfAsList(supplier)
 }
+
+private fun doesSupplierReturnBorder(supplier: KCallable<Component>) =
+    (supplier.returnType.classifier as? KClass<*>)?.isSubclassOf(Border::class) == true

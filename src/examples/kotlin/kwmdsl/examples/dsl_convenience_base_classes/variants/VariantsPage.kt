@@ -1,31 +1,24 @@
 package kwmdsl.examples.dsl_convenience_base_classes.variants
 
-import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.classH1
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.div
-import com.squins.kwmdsl.form
-import com.squins.kwmdsl.hr
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
-import com.squins.kwmdsl.select
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.Model
-import java.util.Locale
+import java.util.*
 
 class VariantsPage : ExamplesConvenienceBasePage() {
     private val styleModel = Model.of("")
     private val variationModel = Model.of("")
     private val localeModel = Model.of("")
-    private val variantsForm by Wicket { Form<Unit>(it)}
-    private val style by Wicket { DropDownChoice<String>(it, styleModel, listOf("", "style1", "style2", "style3"))}
-    private val overridingVariation by Wicket { DropDownChoice<String>(it, variationModel, listOf("", "variation1", "variation2")) }
-    private val overridingLocale by Wicket { DropDownChoice<String>(it, localeModel, listOf("", "en", "en_GB", "fr", "fr_FR", "nl", "nl_BE", "nl_NL"))}
-    private val panel by Wicket { VariantsPanel(it) }
+    private val variantsForm: Form<Unit> = Form<Unit>(::variantsForm.name)
+    private val style: DropDownChoice<String> = DropDownChoice(::style.name, styleModel, listOf("", "style1", "style2", "style3"))
+    private val overridingVariation: DropDownChoice<String> = DropDownChoice(::overridingVariation.name, variationModel, listOf("", "variation1", "variation2"))
+    private val overridingLocale: DropDownChoice<String> = DropDownChoice(::overridingLocale.name, localeModel, listOf("", "en", "en_GB", "fr", "fr_FR", "nl", "nl_BE", "nl_NL"))
+    private val panel: VariantsPanel = VariantsPanel(::panel.name)
 
     override fun onInitialize() {
         super.onInitialize()
@@ -57,10 +50,8 @@ class VariantsPage : ExamplesConvenienceBasePage() {
         return if (variation.isEmpty()) null else variation
     }
 
-    override fun getLocale(): Locale? {
-        val locale = localesByDisplayValue[localeModel.`object`]
-        return if (locale == null) super.locale else locale
-    }
+    override fun getLocale() =
+        localesByDisplayValue[localeModel.`object`] ?: super.getLocale()
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {

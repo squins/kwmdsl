@@ -2,7 +2,6 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
-import org.apache.wicket.markup.html.form.FormComponent
 
 /**
  * A value for an attribute.
@@ -28,8 +27,8 @@ class DescendentReference<TSupplierFacade : MarkupContainer>(
 /**
  * An attribute value referring to a form component somewhere in the markup hierarchy. Used for [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attributes of HTML `label` elements, and `for` attributes of `wicket:label` elements.
  *
- * @param formComponentSupplier the supplier of the form component to refer to.
+ * @param forComponentSupplier the supplier of the form component to refer to.
  */
-class FormComponentReference<TSupplierFacade : MarkupContainer>(
-    internal val formComponentSupplier: (TSupplierFacade) -> FormComponent<*>,
+class ForComponentReference<TSupplierFacade : MarkupContainer>(
+    internal val forComponentSupplier: (TSupplierFacade) -> Component,
 ) : AttributeValue

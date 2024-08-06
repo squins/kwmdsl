@@ -1,20 +1,14 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
-import com.squins.kwmdsl.Wicket
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
-import com.squins.kwmdsl.div
-import com.squins.kwmdsl.externalComponentsFragmentMarkup
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
-import com.squins.kwmdsl.span
 import org.apache.wicket.markup.html.basic.Label
-import java.awt.SystemColor.text
 
 class OwnMarkupDslFragment(id: String, markupId: String) : KotlinWicketMarkupFragment(id, markupId) {
     constructor(id: String) : this(id, ::ownMarkupStandardFragmentVariant1.name)
 
-    private val fragmentLabel by Wicket { Label(it, "own markup, DSL") }
+    private val fragmentLabel: Label = Label(::fragmentLabel.name, "own markup, DSL")
 
     override fun onInitialize() {
         super.onInitialize()
@@ -43,6 +37,6 @@ class OwnMarkupDslFragment(id: String, markupId: String) : KotlinWicketMarkupFra
             div()
             embedWicketFragment(::ownMarkupStandardFragmentVariant1)
             embedWicketFragment(::ownMarkupStandardFragmentVariant2)
-        }.also { println(it.stream.asString()) }
+        }
     }
 }

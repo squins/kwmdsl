@@ -1,6 +1,5 @@
 package kwmdsl.examples.dsl_convenience_base_classes.border
 
-import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.borderMarkup
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupBorder
@@ -9,7 +8,7 @@ import com.squins.kwmdsl.span
 import org.apache.wicket.markup.html.basic.Label
 
 open class BaseBorder(id: String) : KotlinWicketMarkupBorder(id) {
-    private val baseLabel by Wicket { Label(it, "base") }
+    private val baseLabel: Label = Label(::baseLabel.name, "base")
 
     override fun onInitialize() {
         super.onInitialize()

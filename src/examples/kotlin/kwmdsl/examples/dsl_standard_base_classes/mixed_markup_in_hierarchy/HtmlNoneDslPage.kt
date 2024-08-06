@@ -1,6 +1,5 @@
 package kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy
 
-import com.squins.kwmdsl.Wicket
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findMarkup
@@ -12,7 +11,7 @@ import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.basic.Label
 
 abstract class HtmlNoneDslPage : HtmlNonePage(), IMarkupResourceStreamProvider {
-    private val htmlNoneDslLabel by Wicket { newHtmlNoneDslLabel(it) }
+    private val htmlNoneDslLabel: Label = newHtmlNoneDslLabel(::htmlNoneDslLabel.name)
 
     protected open fun newHtmlNoneDslLabel(id: String) = Label(id, "HtmlNoneDslPage")
 

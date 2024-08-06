@@ -1,18 +1,12 @@
 package kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy
 
-import com.squins.kwmdsl.Wicket
-import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.classH1
-import com.squins.kwmdsl.code
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
-import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
 
 abstract class DslPage : ExamplesConvenienceBasePage() {
-    private val dslLabel by Wicket { newDslLabel(it) }
+    private val dslLabel: Label = newDslLabel(::dslLabel.name)
 
     protected open fun newDslLabel(id: String) = Label(id, "DslPage")
 

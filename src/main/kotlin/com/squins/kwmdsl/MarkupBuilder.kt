@@ -2,7 +2,6 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
-import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.util.string.Strings
 import kotlin.reflect.KCallable
 import kotlin.reflect.KFunction1
@@ -177,13 +176,13 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     /**
-     * Add a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute, using [formComponentSupplier] to determine the component path to use for this attribute.
+     * Add a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute, using [forComponentSupplier] to determine the component path to use for this attribute.
      *
-     * @param formComponentSupplier the supplier of the Wicket form component that the label containing this attribute is for.
+     * @param forComponentSupplier the supplier of the Wicket form component that the label containing this attribute is for.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
-    fun wicketForAttribute(formComponentSupplier: (TSupplierFacade) -> FormComponent<*>) =
-        "wicket:for" to FormComponentReference(formComponentSupplier)
+    fun wicketForAttribute(forComponentSupplier: (TSupplierFacade) -> Component) =
+        "wicket:for" to ForComponentReference(forComponentSupplier)
 
     /**
      * Create a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute with child path [path].
@@ -195,6 +194,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         "wicket:for" to Text(path)
 
     // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment. Embedded")
+    // TODO("Rename to `embedFragmentSnippet`")
     fun embedWicketFragment(markupSupplier: KCallable<IRootMarkup>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
@@ -207,6 +207,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     // TODO("Document: for defining DSL fragments outside of the component they are instantiated in: stand-alone")
     fun wicketFragment(wicketIdSupplier: KCallable<Unit>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
         currentTextPart
+            // TODO("Remove the Kotlin and HTML comment, as `standaloneFragmentMarkup` must add the comment (or `wicket:remove`)")
             // Searches for the fragments start at 1, so make sure there is at least 1 node before the fragments.
             .append("""<!-- --><wicket:fragment wicket:id="""")
             .append(wicketIdSupplier.name)
@@ -227,17 +228,17 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     fun wicketLabel(
-        formComponentSupplier: ((TSupplierFacade) -> Component)? = null,
+        forComponentSupplier: ((TSupplierFacade) -> Component)? = null,
         key: String? = null,
         block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
     ) {
         currentTextPart.append("<wicket:label")
-        if (formComponentSupplier != null) {
+        if (forComponentSupplier != null) {
             currentTextPart.append(""" for="""")
-            parts += FormComponentReferencePart(
+            parts += ForComponentReferencePart(
                 // The `<wicket:label>` containing `for` is seen as a Wicket component, so add a path part for it.
                 getPathAsList() + "",
-                formComponentSupplier
+                forComponentSupplier
             )
             currentTextPart = TextPart()
             parts += currentTextPart
@@ -456,10 +457,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                 // * Not many pages have more than a few dozen components.
                 // * The search only runs once for all component instances.
                 is DescendentReferencePart -> builder.append(children.firstNotNullOf { child -> child.pathOf(part.supplier) })
-                is FormComponentReferencePart -> builder.append(
+                is ForComponentReferencePart -> builder.append(
                     relativizePath(
                         part.referencingComponentPath,
-                        checkNotNull(pathFromRootOfAsList(part.formComponentSupplier))
+                        checkNotNull(pathFromRootOfAsList(part.forComponentSupplier)) {
+                            "Could not find reference to: ${part.forComponentSupplier}, for referencing path: ${part.referencingComponentPath}"
+                        }
                     )
                 )
 
@@ -591,12 +594,12 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                 parts += currentTextPart
             }
 
-            is FormComponentReference<*> -> {
+            is ForComponentReference<*> -> {
                 @Suppress("UNCHECKED_CAST")
-                parts += FormComponentReferencePart(
+                parts += ForComponentReferencePart(
                     // The element containing `wicket:for` is seen as a Wicket component, so add a path part for it.
                     getPathAsList() + "",
-                    value.formComponentSupplier as (TSupplierFacade) -> Component
+                    value.forComponentSupplier as (TSupplierFacade) -> Component
                 )
                 currentTextPart = TextPart()
                 parts += currentTextPart

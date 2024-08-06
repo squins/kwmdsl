@@ -1,14 +1,9 @@
 package kwmdsl.examples.dsl_convenience_base_classes.link
 
-import com.squins.kwmdsl.a
-import com.squins.kwmdsl.attr
-import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.classH1
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
-import com.squins.kwmdsl.img
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
+import com.squins.kwmdsl.component.resourcePath
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
 
@@ -20,7 +15,7 @@ class LinkPage : ExamplesConvenienceBasePage() {
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = markup {
+        override val noVariantMarkup = markup<LinkPage> {
             wicketExtend {
                 classH1("title") { text("Link") }
 
@@ -34,7 +29,7 @@ class LinkPage : ExamplesConvenienceBasePage() {
                             )
                             text(", from (a sub package of) an ancestor package: ")
                             img(
-                                attr("src", LinkPage::class.linkPath<ExamplesListPage>("Apache Wicket.svg")),
+                                attr("src", LinkPage::class.resourcePath<ExamplesListPage>("Apache Wicket.svg")),
                                 attr("width", "50")
                             )
                         }
