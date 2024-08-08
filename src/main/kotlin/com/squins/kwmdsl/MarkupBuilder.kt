@@ -193,17 +193,16 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     fun wicketForAttribute(path: String) =
         "wicket:for" to Text(path)
 
-    // TODO("Delete")
-    fun embedWicketFragment(markupSupplier: KCallable<IRootMarkup>) {
+    fun wicketFragment(fragmentBodyMarkupSupplier: KCallable<IFragmentBodyMarkup<TSupplier>>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
-            .append(markupSupplier.name)
+            .append(fragmentBodyMarkupSupplier.name)
             .append("""">""")
-            .append(markupSupplier.call().stream.asString())
+            .append(fragmentBodyMarkupSupplier.call().markupText)
             .append("</wicket:fragment>")
     }
 
-    fun wicketFragment(fragmentBodyMarkupSupplier: KCallable<IFragmentBodyMarkup<TSupplier>>) {
+    fun wicketFragmentWithOwnComponents(fragmentBodyMarkupSupplier: KCallable<StandaloneFragmentBodyMarkup<*>>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
             .append(fragmentBodyMarkupSupplier.name)

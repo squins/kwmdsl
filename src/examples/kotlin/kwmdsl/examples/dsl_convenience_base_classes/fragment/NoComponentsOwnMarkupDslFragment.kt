@@ -4,10 +4,17 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
 import com.squins.kwmdsl.standaloneFragmentBodyMarkup
 import com.squins.kwmdsl.standaloneFragmentMarkup
+import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 
 class NoComponentsOwnMarkupDslFragment(id: String, markupId: String) :
     KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
+    override fun onInitialize() {
+        super.onInitialize()
+
+        add(AttributeAppender.append("class", "specialized"))
+    }
+
     companion object : IKotlinWicketMarkupProvider {
         val noComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup<NoComponentsOwnMarkupDslFragment> {
             text("No components, specialized DSL Fragment, fragment #1")

@@ -3,7 +3,7 @@ package com.squins.kwmdsl
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 
-abstract class BaseFragmentBodyMarkupBuilder<TSupplier: MarkupContainer, TMarkup : BaseFragmentBodyMarkup<TSupplier>> : MarkupBuilder<TSupplier>() {
+abstract class BaseFragmentBodyMarkupBuilder<TSupplier: MarkupContainer, TMarkup : IFragmentBodyMarkup<TSupplier>> : MarkupBuilder<TSupplier>() {
     // TODO("Check if this is correct for fragment bodies")
     override fun getPathAsList() = emptyList<String>()
 

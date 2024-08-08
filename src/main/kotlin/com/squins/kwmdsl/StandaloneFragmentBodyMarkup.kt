@@ -13,7 +13,7 @@ fun <TSupplier : Fragment> standaloneFragmentBodyMarkup(block: StandaloneFragmen
 class StandaloneFragmentBodyMarkup<TSupplier: Fragment> internal constructor(
     override val markupText: String,
     children: List<ChildMarkup<TSupplier>>,
-) : BaseFragmentBodyMarkup<TSupplier>(children) {
+) : Markup<TSupplier>(children), IFragmentBodyMarkup<TSupplier> {
     fun addToFragment(supplier: TSupplier) {
         addTo(supplier, supplier)
     }

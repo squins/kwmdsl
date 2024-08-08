@@ -5,6 +5,7 @@ import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.standaloneFragmentBodyMarkup
 import com.squins.kwmdsl.standaloneFragmentMarkup
+import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.basic.Label
 import java.time.ZonedDateTime
@@ -18,6 +19,8 @@ class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
 
     override fun onInitialize() {
         super.onInitialize()
+
+        add(AttributeAppender.append("class", "specialized"))
 
         ownComponentsOwnMarkupBody1.addToFragment(this)
     }

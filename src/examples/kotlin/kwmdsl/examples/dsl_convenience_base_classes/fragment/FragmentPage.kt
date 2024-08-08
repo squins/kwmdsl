@@ -3,31 +3,14 @@ package kwmdsl.examples.dsl_convenience_base_classes.fragment
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.OwnComponentsMarkupInParentFragment
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.random.Random
 
-// TODO("See if this is possible without changes to current design: external markup, own components")
 class FragmentPage : ExamplesConvenienceBasePage() {
-    // `fragmentBody` and `standaloneFragmentBody` must not be root markups. `wicketFragment` must only
-    // accept fragment body markups.
-    //
-    // - `fragmentBody`
-    //   - Supplier must be sub type of `MarkupContainer`
-    //   - `addToFragment(fragment, supplier)`
-    // - `wicketFragment`
-    //   - Provides `<wicket:fragment>...</wicket:fragment>`
-    //
-    // - `standAloneFragmentBody`
-    //   - Supplier must be sub type of `Fragment`
-    //   - `addToFragment(fragment)`
-    // - `standaloneFragmentMarkup`
-    //   - Provides `<!-- -->...`
-    //   - no 'addTo...(...)`
-    // - `wicketFragment`
-    //   - Provides `<wicket:fragment>...</wicket:fragment>`
-
-    // TODO: also show for Java Fragment with constants for the body variant IDs
     private val noComponentsOwnMarkupDslFragment: NoComponentsOwnMarkupDslFragment =
         NoComponentsOwnMarkupDslFragment(
             ::noComponentsOwnMarkupDslFragment.name,
@@ -46,19 +29,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                 NoComponentsOwnMarkupHtmlFragment.BODY_2_ID
             }
         )
-
-
-    // - 1 or more `fragmentBody`s, with parent as supplier, `addToFragment(fragment, supplier)` not invoked
-    // - Embedded in any (root) markup, using `wicketFragment(...)`
-    private val xyz_noComponentsMarkupInParentUnspecializedFragment = 0
-    // - Same as with unspecialized fragment
-    private val xyz_noComponentsMarkupInParentSpecializedFragment = 0
-
-    // - 1 or more `fragmentBody`s, with other component as supplier, `addToFragment(fragment, supplier)` not invoked
-    // - Embedded in any (root) markup, using `wicketFragment(...)`
-    private val xyz_noComponentsMarkupInOtherComponentUnspecializedFragment = 0
-    // - Same as with unspecialized fragment
-    private val xyz_noComponentsMarkupInOtherComponentSpecializedFragment = 0
 
     private val ownComponentsOwnMarkupDslFragment: OwnComponentsOwnMarkupDslFragment =
         OwnComponentsOwnMarkupDslFragment(
@@ -79,35 +49,128 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             }
         )
 
-    // - 1 or more `fragmentBody`s, with parent as supplier, `addToFragment(fragment, supplier)` invoked
-    // - Components from 1 of the `fragmentBody`s
-    // - Embedded in any (root) markup, using `wicketFragment(...)`
-    private val xyz_componentsInParentMarkupInParentUnspecializedFragment = 0
-    // - Same as with unspecialized fragment
-    private val xyz_componentsInParentMarkupInParentSpecializedFragment = 0
+    private val noComponentsMarkupInParentUnspecializedFragment: Fragment =
+        Fragment(
+            ::noComponentsMarkupInParentUnspecializedFragment.name,
+            if (Random.nextBoolean()) {
+                Companion::noComponentsMarkupInParentUnspecializedFragmentBody1.name
+            } else {
+                Companion::noComponentsMarkupInParentUnspecializedFragmentBody2.name
+            },
+            this
+        )
+    private val noComponentsMarkupInParentSpecializedFragment: NoComponentsNoMarkupFragment =
+        NoComponentsNoMarkupFragment(
+            ::noComponentsMarkupInParentSpecializedFragment.name,
+            if (Random.nextBoolean()) {
+                Companion::noComponentsMarkupInParentSpecializedFragmentBody1.name
+            } else {
+                Companion::noComponentsMarkupInParentSpecializedFragmentBody2.name
+            },
+            this
+        )
 
-    // - 1 or more `fragmentBody`s, with other component as supplier, `addToFragment(fragment, supplier)` invoked
-    // - Components from 1 of the `fragmentBody`s
-    // - Embedded in any (root) markup, using `wicketFragment(...)`
-    private val xyz_componentsInOtherComponentMarkupInOtherComponentUnspecializedFragment = 0
-    // - Same as with unspecialized fragment
-    private val xyz_componentsInOtherComponentMarkupInOtherComponentSpecializedFragment = 0
-
-
-    private val fragmentLabel: Label = Label(::fragmentLabel.name, "component in parent")
-
-    private val externalComponentsFragmentInstance: Fragment =
-        Fragment(::externalComponentsFragmentInstance.name, ::externalComponentsFragment.name, this).also {
-            externalComponentsFragment.addToFragment(it, this)
+    private val componentsInParentMarkupInParentCurrentTimeUnspecializedFragment: Label =
+        Label(::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment.name) {
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
+        }
+    private val componentsInParentMarkupInParentUnspecializedFragment: Fragment =
+        Fragment(
+            ::componentsInParentMarkupInParentUnspecializedFragment.name,
+            if (Random.nextBoolean()) {
+                Companion::componentsInParentMarkupInParentUnspecializedFragmentBody1.name
+            } else {
+                Companion::componentsInParentMarkupInParentUnspecializedFragmentBody2.name
+            },
+            this
+        ).apply {
+            componentsInParentMarkupInParentUnspecializedFragmentBody1.addToFragment(this, this@FragmentPage)
+        }
+    private val componentsInParentMarkupInParentCurrentTimeSpecializedFragment: Label =
+        Label(::componentsInParentMarkupInParentCurrentTimeSpecializedFragment.name) {
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
+        }
+    private val componentsInParentMarkupInParentSpecializedFragment: NoComponentsNoMarkupFragment =
+        NoComponentsNoMarkupFragment(
+            ::componentsInParentMarkupInParentSpecializedFragment.name,
+            if (Random.nextBoolean()) {
+                Companion::componentsInParentMarkupInParentSpecializedFragmentBody1.name
+            } else {
+                Companion::componentsInParentMarkupInParentSpecializedFragmentBody2.name
+            },
+            this
+        ).apply {
+            componentsInParentMarkupInParentSpecializedFragmentBody1.addToFragment(this, this@FragmentPage)
         }
 
-    private val componentsInFragmentInstance: ComponentsInFragment =
-        ComponentsInFragment(::componentsInFragmentInstance.name, ::componentsInFragmentVariant2.name, this)
+    private val noComponentsMarkupSupplyingPanelForUnspecialized: NoComponentsMarkupSupplyingDslPanel =
+        NoComponentsMarkupSupplyingDslPanel(::noComponentsMarkupSupplyingPanelForUnspecialized.name)
+    private val noComponentsMarkupInOtherComponentUnspecializedFragment: Fragment =
+        Fragment(
+            ::noComponentsMarkupInOtherComponentUnspecializedFragment.name,
+            if (Random.nextBoolean()) {
+                NoComponentsMarkupSupplyingDslPanel.Companion::noComponentsMarkupSupplyingForUnspecializedBody1.name
+            } else {
+                NoComponentsMarkupSupplyingDslPanel.Companion::noComponentsMarkupSupplyingForUnspecializedBody2.name
+            },
+            noComponentsMarkupSupplyingPanelForUnspecialized
+        )
+    private val noComponentsMarkupSupplyingPanelForSpecialized: NoComponentsMarkupSupplyingDslPanel =
+        NoComponentsMarkupSupplyingDslPanel(::noComponentsMarkupSupplyingPanelForSpecialized.name)
+    private val noComponentsMarkupInOtherComponentSpecializedFragment: NoComponentsNoMarkupFragment =
+        NoComponentsNoMarkupFragment(
+            ::noComponentsMarkupInOtherComponentSpecializedFragment.name,
+            if (Random.nextBoolean()) {
+                NoComponentsMarkupSupplyingDslPanel.Companion::noComponentsMarkupSupplyingForSpecializedBody1.name
+            } else {
+                NoComponentsMarkupSupplyingDslPanel.Companion::noComponentsMarkupSupplyingForSpecializedBody2.name
+            },
+            noComponentsMarkupSupplyingPanelForSpecialized
+        )
 
-    private val fragmentSupplyingPanel: FragmentSupplyingPanel =
-        FragmentSupplyingPanel(::fragmentSupplyingPanel.name)
-    private val panelSuppliedFragmentInstance: Fragment =
-        Fragment(::panelSuppliedFragmentInstance.name, FragmentSupplyingPanel.Companion::fragment.name, fragmentSupplyingPanel)
+    private val componentsAndMarkupSupplyingPanelForUnspecialized: ComponentsAndMarkupSupplyingDslPanel =
+        ComponentsAndMarkupSupplyingDslPanel(::componentsAndMarkupSupplyingPanelForUnspecialized.name)
+    private val componentsAndMarkupInOtherComponentUnspecializedFragment: Fragment =
+        Fragment(
+            ::componentsAndMarkupInOtherComponentUnspecializedFragment.name,
+            if (Random.nextBoolean()) {
+                ComponentsAndMarkupSupplyingDslPanel.Companion::componentsAndMarkupSupplyingForUnspecializedBody1.name
+            } else {
+                ComponentsAndMarkupSupplyingDslPanel.Companion::componentsAndMarkupSupplyingForUnspecializedBody2.name
+            },
+            componentsAndMarkupSupplyingPanelForUnspecialized
+        ).apply {
+            ComponentsAndMarkupSupplyingDslPanel.componentsAndMarkupSupplyingForUnspecializedBody1.addToFragment(
+                this, componentsAndMarkupSupplyingPanelForUnspecialized
+            )
+        }
+    private val componentsAndMarkupSupplyingPanelForSpecialized: ComponentsAndMarkupSupplyingDslPanel =
+        ComponentsAndMarkupSupplyingDslPanel(::componentsAndMarkupSupplyingPanelForSpecialized.name)
+    private val componentsAndMarkupInOtherComponentSpecializedFragment: NoComponentsNoMarkupFragment =
+        NoComponentsNoMarkupFragment(
+            ::componentsAndMarkupInOtherComponentSpecializedFragment.name,
+            if (Random.nextBoolean()) {
+                ComponentsAndMarkupSupplyingDslPanel.Companion::componentsAndMarkupSupplyingForSpecializedBody1.name
+            } else {
+                ComponentsAndMarkupSupplyingDslPanel.Companion::componentsAndMarkupSupplyingForSpecializedBody2.name
+            },
+            componentsAndMarkupSupplyingPanelForSpecialized
+        ).apply {
+            ComponentsAndMarkupSupplyingDslPanel.componentsAndMarkupSupplyingForSpecializedBody1.addToFragment(
+                this, componentsAndMarkupSupplyingPanelForSpecialized
+            )
+        }
+
+    private val ownComponentsMarkupInParentFragment: OwnComponentsMarkupInParentFragment =
+        OwnComponentsMarkupInParentFragment(
+            ::ownComponentsMarkupInParentFragment.name,
+            if (Random.nextBoolean()) {
+                Companion::ownComponentsMarkupInParentBody1.name
+            } else {
+                Companion::ownComponentsMarkupInParentBody2.name
+            },
+            this
+        )
 
     override fun onInitialize() {
         super.onInitialize()
@@ -116,36 +179,59 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        val externalComponentsFragmentWithDelegate = markup {
-            p {
-                text("External-components fragment: ")
-                span(FragmentPage::fragmentLabel)
-            }
+        val noComponentsMarkupInParentUnspecializedFragmentBody1 = fragmentBodyMarkup<FragmentPage> {
+            text("No components, unspecialized fragment, fragment #1")
         }
 
-        val externalComponentsFragment = externalComponentsFragmentMarkup {
-            p {
-                text("External-components fragment: ")
-                span(FragmentPage::fragmentLabel)
-            }
+        val noComponentsMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup<FragmentPage> {
+            text("No components, unspecialized fragment, fragment #2")
         }
 
-        // TODO("No check to make sure the markup hierarchies of variants are the same. This also applies to fragments with their own DSL markup")
-        val componentsInFragmentVariant1 = markup {
-            p {
-                text("Components in fragment, variant 1: ")
-                span(ComponentsInFragment::fragmentLabel)
-            }
+        val noComponentsMarkupInParentSpecializedFragmentBody1 = fragmentBodyMarkup<FragmentPage> {
+            text("No components, specialized fragment, fragment #1")
         }
 
-        val componentsInFragmentVariant2 = markup {
-            p {
-                text("Components in fragment, variant 2: ")
-                span(ComponentsInFragment::fragmentLabel)
-            }
+        val noComponentsMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup<FragmentPage> {
+            text("No components, specialized fragment, fragment #2")
+        }
+
+        val componentsInParentMarkupInParentUnspecializedFragmentBody1 = fragmentBodyMarkup {
+            text("Components in parent, unspecialized fragment, fragment #1. At: ")
+            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment)
+        }
+
+        val componentsInParentMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup {
+            text("Components in parent, unspecialized fragment, fragment #2. At: ")
+            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment)
+        }
+
+        val componentsInParentMarkupInParentSpecializedFragmentBody1 = fragmentBodyMarkup {
+            text("Components in parent, specialized fragment, fragment #1. At: ")
+            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
+        }
+
+        val componentsInParentMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup {
+            text("Components in parent, specialized fragment, fragment #2. At: ")
+            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
+        }
+
+        val ownComponentsMarkupInParentBody1 = standaloneFragmentBodyMarkup {
+            text("Own components, specialized fragment, fragment #1. At: ")
+            span(OwnComponentsMarkupInParentFragment::currentTime)
+        }
+
+        val ownComponentsMarkupInParentBody2 = standaloneFragmentBodyMarkup {
+            text("Own components, specialized fragment, fragment #2. At: ")
+            span(OwnComponentsMarkupInParentFragment::currentTime)
         }
 
         override val noVariantMarkup = markup {
+            wicketHead {
+                style {
+                    // language=css
+                    text(".specialized { color: coral; }")
+                }
+            }
             wicketExtend {
                 classH1("title") { text("Fragment") }
                 classDiv("content") {
@@ -170,13 +256,13 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                                 th { text("No components") }
                                 td { text("Specialized only") }
                                 td { text("(Un)specialized") }
-                                td { text("(Un)specialized") }
+                                td { text("-") }
                                 td { text("(Un)specialized") }
                             }
                             tr {
                                 th { text("Own components") }
                                 td { text("Specialized only") }
-                                td { text("-") }
+                                td { text("Specialized only") }
                                 td { text("-") }
                                 td { text("-") }
                             }
@@ -204,7 +290,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                         }
                     }
 
-                    // TODO("Rewrite cases and DSL to support above combinations as good as possible, update documentation below")
                     p { text("In all cases multiple fragment markup variants are supported. A random one is chosen in each example when the page is loaded and refreshed.") }
 
                     h2 { text("Examples") }
@@ -229,31 +314,60 @@ class FragmentPage : ExamplesConvenienceBasePage() {
 
                     h3 { text("Markup in Parent") }
 
-                    h3 { text("Markup in Other Component") }
-
-                    h3 { text("Old") }
+                    p {
+                        span(FragmentPage::noComponentsMarkupInParentUnspecializedFragment)
+                    }
 
                     p {
-                        text("Markup provided by another component than the fragment, external-components fragment instance:")
+                        span(FragmentPage::noComponentsMarkupInParentSpecializedFragment)
                     }
-                    div(FragmentPage::externalComponentsFragmentInstance)
-
-                    hr()
 
                     p {
-                        text("Markup provided by another component than the fragment, components-in-fragment instance:")
+                        span(FragmentPage::ownComponentsMarkupInParentFragment)
                     }
-                    div(FragmentPage::componentsInFragmentInstance)
 
-                    hr()
+                    p {
+                        span(FragmentPage::componentsInParentMarkupInParentUnspecializedFragment)
+                    }
 
-                    div(FragmentPage::fragmentSupplyingPanel)
-                    div(FragmentPage::panelSuppliedFragmentInstance)
+                    p {
+                        span(FragmentPage::componentsInParentMarkupInParentSpecializedFragment)
+                    }
 
-                    embedWicketFragment(::externalComponentsFragmentWithDelegate)
-                    embedWicketFragment(::externalComponentsFragment)
-                    embedWicketFragment(::componentsInFragmentVariant1)
-                    embedWicketFragment(::componentsInFragmentVariant2)
+                    h3 { text("Markup in Other Component, Also Supplying Components") }
+
+                    div(FragmentPage::componentsAndMarkupSupplyingPanelForUnspecialized)
+                    p {
+                        span(FragmentPage::componentsAndMarkupInOtherComponentUnspecializedFragment)
+                    }
+
+                    div(FragmentPage::componentsAndMarkupSupplyingPanelForSpecialized)
+                    p {
+                        span(FragmentPage::componentsAndMarkupInOtherComponentSpecializedFragment)
+                    }
+
+                    h3 { text("Markup in Other Component, Not Supplying Components") }
+
+                    div(FragmentPage::noComponentsMarkupSupplyingPanelForUnspecialized)
+                    p {
+                        span(FragmentPage::noComponentsMarkupInOtherComponentUnspecializedFragment)
+                    }
+
+                    div(FragmentPage::noComponentsMarkupSupplyingPanelForSpecialized)
+                    p {
+                        span(FragmentPage::noComponentsMarkupInOtherComponentSpecializedFragment)
+                    }
+
+                    wicketFragment(::noComponentsMarkupInParentUnspecializedFragmentBody1)
+                    wicketFragment(::noComponentsMarkupInParentUnspecializedFragmentBody2)
+                    wicketFragment(::noComponentsMarkupInParentSpecializedFragmentBody1)
+                    wicketFragment(::noComponentsMarkupInParentSpecializedFragmentBody2)
+                    wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody1)
+                    wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody2)
+                    wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody1)
+                    wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody2)
+                    wicketFragmentWithOwnComponents(::ownComponentsMarkupInParentBody1)
+                    wicketFragmentWithOwnComponents(::ownComponentsMarkupInParentBody2)
                 }
             }
         }
