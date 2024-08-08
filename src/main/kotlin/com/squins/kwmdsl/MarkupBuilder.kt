@@ -193,8 +193,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     fun wicketForAttribute(path: String) =
         "wicket:for" to Text(path)
 
-    // TODO("Document: for the location in container markup where to inline the markup of a DSL fragment. Embedded")
-    // TODO("Rename to `embedFragmentSnippet`")
+    // TODO("Delete")
     fun embedWicketFragment(markupSupplier: KCallable<IRootMarkup>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
@@ -204,16 +203,12 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
             .append("</wicket:fragment>")
     }
 
-    // TODO("Document: for defining DSL fragments outside of the component they are instantiated in: stand-alone")
-    fun wicketFragment(wicketIdSupplier: KCallable<Unit>, block: MarkupBuilder<TSupplier>.() -> Unit) {
+    fun wicketFragment(fragmentBodyMarkupSupplier: KCallable<IFragmentBodyMarkup<TSupplier>>) {
         currentTextPart
-            // TODO("Remove the Kotlin and HTML comment, as `standaloneFragmentMarkup` must add the comment (or `wicket:remove`)")
-            // Searches for the fragments start at 1, so make sure there is at least 1 node before the fragments.
-            .append("""<!-- --><wicket:fragment wicket:id="""")
-            .append(wicketIdSupplier.name)
+            .append("""<wicket:fragment wicket:id="""")
+            .append(fragmentBodyMarkupSupplier.name)
             .append("""">""")
-        block()
-        currentTextPart
+            .append(fragmentBodyMarkupSupplier.call().markupText)
             .append("</wicket:fragment>")
     }
 
@@ -435,6 +430,15 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      */
     fun text(text: String) {
         currentTextPart.append(Strings.escapeMarkup(text))
+    }
+
+    /**
+     * Add text as a comment to the markup. Contrary to the other functions, the text will be escaped before it is added.
+     *
+     * @param text the text to add as a comment.
+     */
+    fun comment(text: String) {
+        currentTextPart.append("<!--").append(Strings.escapeMarkup(text)).append("-->")
     }
 
     /**

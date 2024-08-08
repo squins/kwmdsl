@@ -1,17 +1,14 @@
 package com.squins.kwmdsl.component
 
-import com.squins.kwmdsl.BaseRootMarkup
-import com.squins.kwmdsl.BorderRootMarkup
-import com.squins.kwmdsl.IRootMarkup
-import com.squins.kwmdsl.RootMarkup
+import com.squins.kwmdsl.*
 import org.apache.wicket.Application
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.core.util.resource.locator.ResourceNameIterator
 import org.apache.wicket.markup.html.border.Border
-import java.util.Locale
+import java.util.*
 
 interface IKotlinWicketMarkupProvider {
-    val noVariantMarkup: IRootMarkup
+    val noVariantMarkup: IKotlinWicketMarkupResourceStreamProvider
 
     fun getVariantMarkup(style: String?, variation: String?, locale: Locale): IRootMarkup? = null
 }
@@ -59,7 +56,7 @@ abstract class IRootMarkupVariants<TRootMarkup : BaseRootMarkup<*>> internal con
 
     private fun add(identifier: String, rootMarkup: TRootMarkup) {
         check(!rootMarkupsByVariantIdentifier.containsKey(identifier)) { "Variant: $identifier, has already been added." }
-        if (Application.get()?.usesDevelopmentConfig() == true) {
+        if (Application.get()?.usesDevelopmentConfig() == true && noVariantRootMarkup is IRootMarkup) {
             check(noVariantRootMarkup.isCompatible(rootMarkup)) {
                 """The children of variant: $identifier, do not match the children of the no-variant markup. No-variant component hierarchy:
 ${noVariantRootMarkup.getComponentHierarchyString()}

@@ -2,99 +2,85 @@ package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
 class FragmentPage : ExamplesConvenienceBasePage() {
-    // `fragmentSnippet` and `standaloneFragmentSnippet` must not be root markups. `embedFragmentSnippet` must only
-    // accept snippet markups.
-
-    // Need a name for fragment variants:
-    // - Fragment variant (similar to the bundle variation parameter). Should `fragmentSnippet`,
-    //   `standaloneFragmentSnippet` and `embedFragmentSnippet(...)` be renamed?
-    // - Fragment snippet
+    // `fragmentBody` and `standaloneFragmentBody` must not be root markups. `wicketFragment` must only
+    // accept fragment body markups.
+    //
+    // - `fragmentBody`
+    //   - Supplier must be sub type of `MarkupContainer`
+    //   - `addToFragment(fragment, supplier)`
+    // - `wicketFragment`
+    //   - Provides `<wicket:fragment>...</wicket:fragment>`
+    //
+    // - `standAloneFragmentBody`
+    //   - Supplier must be sub type of `Fragment`
+    //   - `addToFragment(fragment)`
+    // - `standaloneFragmentMarkup`
+    //   - Provides `<!-- -->...`
+    //   - no 'addTo...(...)`
+    // - `wicketFragment`
+    //   - Provides `<wicket:fragment>...</wicket:fragment>`
 
     // TODO("Document this")
-    // There is not check to see if fragment variants have the same component hierarchy.
+    // There is no check to see if fragment markup bodies have the same component hierarchy.
 
-    // `standAloneFragmentMarkup` must not have an `addTo...(...)` function
+    // TODO: also show for Java Fragment with constants for the body variant IDs
+    private val xyz_noComponentsOwnMarkupFragment: NoComponentsFragment =
+        NoComponentsFragment(
+            ::xyz_noComponentsOwnMarkupFragment.name,
+            if (Random.nextBoolean()) {
+                NoComponentsFragment.Companion::noComponentsOwnMarkupBody1.name
+            } else {
+                NoComponentsFragment.Companion::noComponentsOwnMarkupBody2.name
+            }
+        )
 
 
-
-    // - 1 or more `standaloneFragmentSnippet`s, with fragment as supplier, `addToFragment(fragment)` not invoked
-    // - Embedded in `standAloneFragmentMarkup { ... }`, using `embedFragmentSnippet(...)`
-    /*
-
-    val noComponentsOwnMarkupVariant1 = standAloneFragmentVariant<NoComponentsFragment> {
-        ...
-    }
-
-    val noComponentsOwnMarkupVariant2 = standAloneFragmentVariant<NoComponentsFragment> {
-        ...
-    }
-
-    override val noVariantMarkup = standAloneFragmentMarkup<NoComponentsFragment> {
-        embedFragmentVariant(::noComponentsOwnMarkupVariant1)
-        embedFragmentVariant(::noComponentsOwnMarkupVariant2)
-    }
-
-    */
-    private val xyz_noComponentsOwnMarkupFragmentInstance = 0
-
-    // - 1 or more `fragmentSnippet`s, with parent as supplier, `addToFragment(fragment, supplier)` not invoked
-    // - Embedded in any (root) markup, using `embedFragmentSnippet(...)`
-    private val xyz_noComponentsMarkupInParentUnspecializedFragmentInstance = 0
+    // - 1 or more `fragmentBody`s, with parent as supplier, `addToFragment(fragment, supplier)` not invoked
+    // - Embedded in any (root) markup, using `wicketFragment(...)`
+    private val xyz_noComponentsMarkupInParentUnspecializedFragment = 0
     // - Same as with unspecialized fragment
-    private val xyz_noComponentsMarkupInParentSpecializedFragmentInstance = 0
+    private val xyz_noComponentsMarkupInParentSpecializedFragment = 0
 
-    // - 1 or more `fragmentSnippet`s, with other component as supplier, `addToFragment(fragment, supplier)` not invoked
-    // - Embedded in any (root) markup, using `embedFragmentSnippet(...)`
-    private val xyz_noComponentsMarkupInOtherComponentUnspecializedFragmentInstance = 0
+    // - 1 or more `fragmentBody`s, with other component as supplier, `addToFragment(fragment, supplier)` not invoked
+    // - Embedded in any (root) markup, using `wicketFragment(...)`
+    private val xyz_noComponentsMarkupInOtherComponentUnspecializedFragment = 0
     // - Same as with unspecialized fragment
-    private val xyz_noComponentsMarkupInOtherComponentSpecializedFragmentInstance = 0
+    private val xyz_noComponentsMarkupInOtherComponentSpecializedFragment = 0
 
-    // - 1 or more `standaloneFragmentSnippet`s, with fragment as supplier, `addToFragment(fragment)` invoked
-    // - Components from 1 of the `standaloneFragmentSnippet`s
-    // - Embedded in `standAloneFragmentMarkup { ... }`
-    /*
+    // TODO: also show for Java Fragment with constants for the body variant IDs
+    private val xyz_ownComponentsOwnMarkupFragment: OwnComponentsFragment =
+        OwnComponentsFragment(
+            ::xyz_ownComponentsOwnMarkupFragment.name,
+            if (Random.nextBoolean()) {
+                OwnComponentsFragment.Companion::ownComponentsOwnMarkupBody1.name
+            } else {
+                OwnComponentsFragment.Companion::ownComponentsOwnMarkupBody2.name
+            }
+        )
 
-    val withComponentsOwnMarkupVariant1 = standAloneFragmentVariant {
-        ...
-    }
-
-    // TODO: If another variant is supplied, the component hierarchies can be compared
-    val withComponentsOwnMarkupVariant2 = standAloneFragmentVariant {
-        ...
-    }
-
-    // TODO: Is it possible to remove the generic argument?
-    override val noVariantMarkup = standAloneFragmentMarkup<WithComponentsFragment> {
-        embedFragmentVariant(::withComponentsOwnMarkupVariant1)
-        embedFragmentVariant(::withComponentsOwnMarkupVariant2)
-    }
-
-    override val onInitialize() {
-        super.onInitialize()
-
-        withComponentsOwnMarkupVariant1.addToFragment(this)
-    }
-    */
-    private val xyz_ownComponentsOwnMarkupFragmentInstance = 0
-
-    // - 1 or more `fragmentSnippet`s, with parent as supplier, `addToFragment(fragment, supplier)` invoked
-    // - Components from 1 of the `fragmentSnippet`s
-    // - Embedded in any (root) markup, using `embedFragmentSnippet(...)`
-    private val xyz_componentsInParentMarkupInParentUnspecializedFragmentInstance = 0
+    // - 1 or more `fragmentBody`s, with parent as supplier, `addToFragment(fragment, supplier)` invoked
+    // - Components from 1 of the `fragmentBody`s
+    // - Embedded in any (root) markup, using `wicketFragment(...)`
+    private val xyz_componentsInParentMarkupInParentUnspecializedFragment = 0
     // - Same as with unspecialized fragment
-    private val xyz_componentsInParentMarkupInParentSpecializedFragmentInstance = 0
+    private val xyz_componentsInParentMarkupInParentSpecializedFragment = 0
 
-    // - 1 or more `fragmentSnippet`s, with other component as supplier, `addToFragment(fragment, supplier)` invoked
-    // - Components from 1 of the `fragmentSnippet`s
-    // - Embedded in any (root) markup, using `embedFragmentSnippet(...)`
-    private val xyz_componentsInOtherComponentMarkupInOtherComponentUnspecializedFragmentInstance = 0
+    // - 1 or more `fragmentBody`s, with other component as supplier, `addToFragment(fragment, supplier)` invoked
+    // - Components from 1 of the `fragmentBody`s
+    // - Embedded in any (root) markup, using `wicketFragment(...)`
+    private val xyz_componentsInOtherComponentMarkupInOtherComponentUnspecializedFragment = 0
     // - Same as with unspecialized fragment
-    private val xyz_componentsInOtherComponentMarkupInOtherComponentSpecializedFragmentInstance = 0
+    private val xyz_componentsInOtherComponentMarkupInOtherComponentSpecializedFragment = 0
 
 
     private val fragmentLabel: Label = Label(::fragmentLabel.name, "component in parent")
@@ -172,7 +158,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                 classDiv("content") {
                     h2 { text("Introduction") }
                     // TODO("also put this in the documentation")
-                    p { text("Wicket is very flexible when it comes to fragments, and supports all possible combinations of the table below (and more). But the DSL only supports the combinations specifying what type of fragment can be used:") }
+                    p { text("Wicket is very flexible when it comes to fragments, and supports most combinations of the table below (and more). But the DSL only supports the combinations specifying what type of fragment can be used:") }
                     table {
                         thead {
                           tr {
@@ -232,6 +218,14 @@ class FragmentPage : ExamplesConvenienceBasePage() {
 
                     h3 { text("Own Markup") }
 
+                    p {
+                        span(FragmentPage::xyz_noComponentsOwnMarkupFragment)
+                    }
+
+                    p {
+                        span(FragmentPage::xyz_ownComponentsOwnMarkupFragment)
+                    }
+
                     h3 { text("Markup in Parent") }
 
                     h3 { text("Markup in Other Component") }
@@ -275,6 +269,54 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                     embedWicketFragment(::componentsInFragmentVariant2)
                 }
             }
+        }
+    }
+}
+
+class NoComponentsFragment(id: String, markupId: String) :
+    KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
+    companion object : IKotlinWicketMarkupProvider {
+        val noComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup<NoComponentsFragment> {
+            text("No components, specialized Fragment, fragment #1")
+        }
+
+        val noComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup<NoComponentsFragment> {
+            text("No components, specialized Fragment, fragment #2")
+        }
+
+        override val noVariantMarkup = standaloneFragmentMarkup {
+            wicketFragment(::noComponentsOwnMarkupBody1)
+            wicketFragment(::noComponentsOwnMarkupBody2)
+        }
+    }
+}
+
+class OwnComponentsFragment(id: String, markupId: String) :
+    KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
+    private val currentTime: Label = Label(::currentTime.name) {
+        DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
+    }
+
+    override fun onInitialize() {
+        super.onInitialize()
+
+        ownComponentsOwnMarkupBody1.addToFragment(this)
+    }
+
+    companion object : IKotlinWicketMarkupProvider {
+        val ownComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup {
+            text("Own components, specialized Fragment, fragment #1. At: ")
+            span(OwnComponentsFragment::currentTime)
+        }
+
+        val ownComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup {
+            text("Own components, specialized Fragment, fragment #2. At: ")
+            span(OwnComponentsFragment::currentTime)
+        }
+
+        override val noVariantMarkup = standaloneFragmentMarkup {
+            wicketFragment(::ownComponentsOwnMarkupBody1)
+            wicketFragment(::ownComponentsOwnMarkupBody2)
         }
     }
 }
