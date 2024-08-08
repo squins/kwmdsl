@@ -24,7 +24,7 @@ class PageParametersWithValPropertiesPage(pageParameters: PageParameters) : Exam
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             wicketExtend {
-                classH1("title") { text("Wicket Label for Form Component") }
+                classH1("title") { text("Components Defined by Val Properties Accessing Page Parameters") }
 
                 classDiv("content") {
                     p {

@@ -25,7 +25,7 @@ class PageParametersWithLateinitVarPropertiesPage : ExamplesConvenienceBasePage(
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             wicketExtend {
-                classH1("title") { text("Wicket Label for Form Component") }
+                classH1("title") { text("Components Defined by Lateinit Var Properties Accessing Page Parameters") }
 
                 classDiv("content") {
                     p {
