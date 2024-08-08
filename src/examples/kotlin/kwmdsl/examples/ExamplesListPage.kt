@@ -10,6 +10,7 @@ import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.variants.VariantsPage
 import org.apache.wicket.markup.html.WebPage
+import org.apache.wicket.request.mapper.parameter.PageParameters
 import java.nio.charset.Charset
 import kotlin.reflect.KClass
 import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage as DslConvenienceBorderPage
@@ -25,7 +26,7 @@ import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMark
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
 import kwmdsl.examples.dsl_standard_base_classes.enclosure.EnclosuresPage as DslStandardEnclosuresPage
 
-class ExamplesListPage : ExamplesConvenienceBasePage() {
+class ExamplesListPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     override fun onInitialize() {
         super.onInitialize()
 

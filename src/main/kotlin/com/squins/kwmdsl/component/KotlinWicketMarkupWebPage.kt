@@ -3,15 +3,11 @@ package com.squins.kwmdsl.component
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.WebPage
-import org.apache.wicket.model.IModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
 
-abstract class KotlinWicketMarkupWebPage : WebPage, IMarkupResourceStreamProvider {
-    constructor() : super()
-
-    constructor(model: IModel<*>?) : super(model)
-
-    constructor(parameters: PageParameters) : super(parameters)
+// TODO("Document that page parameters are required so that they can be used in property initializers")
+abstract class KotlinWicketMarkupWebPage(parameters: PageParameters) : WebPage(parameters),
+    IMarkupResourceStreamProvider {
 
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
         findMarkup(container, containerClass)

@@ -6,8 +6,9 @@ import com.squins.kwmdsl.component.linkPath
 import com.squins.kwmdsl.component.resourcePath
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class LinkPage : ExamplesConvenienceBasePage() {
+class LinkPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     override fun onInitialize() {
         super.onInitialize()
 

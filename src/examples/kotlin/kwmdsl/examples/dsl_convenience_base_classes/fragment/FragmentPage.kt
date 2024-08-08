@@ -5,8 +5,9 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class FragmentPage : ExamplesConvenienceBasePage() {
+class FragmentPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     // `fragmentSnippet` and `standaloneFragmentSnippet` must not be root markups. `embedFragmentSnippet` must only
     // accept snippet markups.
 

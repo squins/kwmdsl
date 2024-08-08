@@ -8,8 +8,9 @@ import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.border.Border
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.Model
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class LabelForPage : ExamplesConvenienceBasePage() {
+class LabelForPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     private val rootSibling: TextField<String> =
         TextField<String>(::rootSibling.name).apply {
             label = Model.of("Sibling")

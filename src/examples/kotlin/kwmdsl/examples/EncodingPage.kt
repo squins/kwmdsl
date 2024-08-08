@@ -6,8 +6,9 @@ import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class EncodingPage : ExamplesConvenienceBasePage() {
+class EncodingPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             wicketExtend {

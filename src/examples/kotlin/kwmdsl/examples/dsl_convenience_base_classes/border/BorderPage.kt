@@ -4,8 +4,9 @@ import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class BorderPage : ExamplesConvenienceBasePage() {
+class BorderPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     private val border: SubBorder = SubBorder(::border.name)
     private val pageLabel: Label = Label(::pageLabel.name, "page")
 

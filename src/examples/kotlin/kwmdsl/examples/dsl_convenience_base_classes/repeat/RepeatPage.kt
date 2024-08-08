@@ -11,9 +11,10 @@ import org.apache.wicket.markup.html.list.ListView
 import org.apache.wicket.markup.repeater.RepeatingView
 import org.apache.wicket.model.IModel
 import org.apache.wicket.model.PropertyModel
+import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.apache.wicket.util.io.IClusterable
 
-class RepeatPage : ExamplesConvenienceBasePage() {
+class RepeatPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     private val firstThreeNumbers: RepeatingView = RepeatingView(::firstThreeNumbers.name)
 
     private val group: CheckGroup<Person> = CheckGroup(::group.name, mutableListOf<Person>())

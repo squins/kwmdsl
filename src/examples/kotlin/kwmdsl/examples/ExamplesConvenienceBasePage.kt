@@ -11,8 +11,9 @@ import com.squins.kwmdsl.head
 import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.title
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-abstract class ExamplesConvenienceBasePage : KotlinWicketMarkupWebPage() {
+abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters) : KotlinWicketMarkupWebPage(pageParameters) {
     override fun onInitialize() {
         super.onInitialize()
 

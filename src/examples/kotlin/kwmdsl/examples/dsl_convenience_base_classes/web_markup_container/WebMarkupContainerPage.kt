@@ -5,8 +5,9 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class WebMarkupContainerPage : ExamplesConvenienceBasePage() {
+class WebMarkupContainerPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     private val container: WebMarkupContainer = WebMarkupContainer(::container.name)
     private val firstName: Label = Label(::firstName.name, "John")
     private val lastName: Label = Label(::lastName.name, "Doe")
