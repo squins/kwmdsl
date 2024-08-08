@@ -2,13 +2,9 @@ package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
 import kwmdsl.examples.ExamplesConvenienceBasePage
-import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import kotlin.random.Random
 
 class FragmentPage : ExamplesConvenienceBasePage() {
@@ -34,13 +30,13 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     // There is no check to see if fragment markup bodies have the same component hierarchy.
 
     // TODO: also show for Java Fragment with constants for the body variant IDs
-    private val xyz_noComponentsOwnMarkupFragment: NoComponentsFragment =
-        NoComponentsFragment(
-            ::xyz_noComponentsOwnMarkupFragment.name,
+    private val xyz_noComponentsOwnMarkupDslFragment: NoComponentsOwnMarkupDslFragment =
+        NoComponentsOwnMarkupDslFragment(
+            ::xyz_noComponentsOwnMarkupDslFragment.name,
             if (Random.nextBoolean()) {
-                NoComponentsFragment.Companion::noComponentsOwnMarkupBody1.name
+                NoComponentsOwnMarkupDslFragment.Companion::noComponentsOwnMarkupBody1.name
             } else {
-                NoComponentsFragment.Companion::noComponentsOwnMarkupBody2.name
+                NoComponentsOwnMarkupDslFragment.Companion::noComponentsOwnMarkupBody2.name
             }
         )
 
@@ -58,13 +54,13 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     private val xyz_noComponentsMarkupInOtherComponentSpecializedFragment = 0
 
     // TODO: also show for Java Fragment with constants for the body variant IDs
-    private val xyz_ownComponentsOwnMarkupFragment: OwnComponentsFragment =
-        OwnComponentsFragment(
-            ::xyz_ownComponentsOwnMarkupFragment.name,
+    private val xyz_ownComponentsOwnMarkupDslFragment: OwnComponentsOwnMarkupDslFragment =
+        OwnComponentsOwnMarkupDslFragment(
+            ::xyz_ownComponentsOwnMarkupDslFragment.name,
             if (Random.nextBoolean()) {
-                OwnComponentsFragment.Companion::ownComponentsOwnMarkupBody1.name
+                OwnComponentsOwnMarkupDslFragment.Companion::ownComponentsOwnMarkupBody1.name
             } else {
-                OwnComponentsFragment.Companion::ownComponentsOwnMarkupBody2.name
+                OwnComponentsOwnMarkupDslFragment.Companion::ownComponentsOwnMarkupBody2.name
             }
         )
 
@@ -219,11 +215,11 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                     h3 { text("Own Markup") }
 
                     p {
-                        span(FragmentPage::xyz_noComponentsOwnMarkupFragment)
+                        span(FragmentPage::xyz_noComponentsOwnMarkupDslFragment)
                     }
 
                     p {
-                        span(FragmentPage::xyz_ownComponentsOwnMarkupFragment)
+                        span(FragmentPage::xyz_ownComponentsOwnMarkupDslFragment)
                     }
 
                     h3 { text("Markup in Parent") }
@@ -269,54 +265,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                     embedWicketFragment(::componentsInFragmentVariant2)
                 }
             }
-        }
-    }
-}
-
-class NoComponentsFragment(id: String, markupId: String) :
-    KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
-    companion object : IKotlinWicketMarkupProvider {
-        val noComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup<NoComponentsFragment> {
-            text("No components, specialized Fragment, fragment #1")
-        }
-
-        val noComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup<NoComponentsFragment> {
-            text("No components, specialized Fragment, fragment #2")
-        }
-
-        override val noVariantMarkup = standaloneFragmentMarkup {
-            wicketFragment(::noComponentsOwnMarkupBody1)
-            wicketFragment(::noComponentsOwnMarkupBody2)
-        }
-    }
-}
-
-class OwnComponentsFragment(id: String, markupId: String) :
-    KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
-    private val currentTime: Label = Label(::currentTime.name) {
-        DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
-    }
-
-    override fun onInitialize() {
-        super.onInitialize()
-
-        ownComponentsOwnMarkupBody1.addToFragment(this)
-    }
-
-    companion object : IKotlinWicketMarkupProvider {
-        val ownComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup {
-            text("Own components, specialized Fragment, fragment #1. At: ")
-            span(OwnComponentsFragment::currentTime)
-        }
-
-        val ownComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup {
-            text("Own components, specialized Fragment, fragment #2. At: ")
-            span(OwnComponentsFragment::currentTime)
-        }
-
-        override val noVariantMarkup = standaloneFragmentMarkup {
-            wicketFragment(::ownComponentsOwnMarkupBody1)
-            wicketFragment(::ownComponentsOwnMarkupBody2)
         }
     }
 }
