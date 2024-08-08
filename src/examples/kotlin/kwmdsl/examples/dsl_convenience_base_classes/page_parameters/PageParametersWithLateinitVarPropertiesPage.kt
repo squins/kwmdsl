@@ -13,9 +13,7 @@ class PageParametersWithLateinitVarPropertiesPage : ExamplesConvenienceBasePage(
         super.onInitialize()
 
         val modelUsingAPageParameter = object : LoadableDetachableModel<String>() {
-            override fun load(): String {
-                return pageParameters.get("text").toString("Hello, world!").reversed()
-            }
+            override fun load() = pageParameters.get("text").toString("Hello, world!").reversed()
         }
         text = Label(::text.name, modelUsingAPageParameter)
 
@@ -37,6 +35,22 @@ class PageParametersWithLateinitVarPropertiesPage : ExamplesConvenienceBasePage(
                     p {
                         text("This is the reverse of the text you sent me: ")
                         span(PageParametersWithLateinitVarPropertiesPage::text)
+                    }
+
+                    hr()
+
+                    p {
+                        text("This is also the pattern to use when you have to decide if the page can be shown before expensive initialization takes place:")
+                    }
+
+                    pre {
+                        text("""fun onInitialize() {
+    super.onInitialize()
+    
+    // Check if page can be shown, throw a sub class of `ReplaceHandlerException` if not
+    
+    // Do the (possibly expensive) initialization
+}""")
                     }
                 }
             }

@@ -135,7 +135,7 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                                 a(ExamplesListPage::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components")}
                             }
                             li {
-                                a(ExamplesListPage::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components")}
+                                a(ExamplesListPage::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)")}
                             }
                         }
                     }

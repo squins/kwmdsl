@@ -9,9 +9,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters
 
 class PageParametersWithValPropertiesPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
     private val modelUsingAPageParameter = object : LoadableDetachableModel<String>() {
-        override fun load(): String {
-            return pageParameters.get("text").toString("Hello, world!").reversed()
-        }
+        override fun load() = pageParameters.get("text").toString("Hello, world!").reversed()
     }
     private val text: Label = Label(::text.name, modelUsingAPageParameter)
 
