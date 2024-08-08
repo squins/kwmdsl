@@ -6,9 +6,8 @@ import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class DslNoneHtmlNoneDslPage(pageParameters: PageParameters) : DslNoneHtmlNonePage(pageParameters) {
+class DslNoneHtmlNoneDslPage : DslNoneHtmlNonePage() {
     private val dslNoneHtmlNoneDslLabel: Label = Label(::dslNoneHtmlNoneDslLabel.name, "DslNoneHtmlNoneDslPage")
 
     override fun onInitialize() {

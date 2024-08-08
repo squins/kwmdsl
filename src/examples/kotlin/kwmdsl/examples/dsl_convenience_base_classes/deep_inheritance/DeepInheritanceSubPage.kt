@@ -3,9 +3,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class DeepInheritanceSubPage(pageParameters: PageParameters) : DeepInheritanceBasePage(pageParameters) {
+class DeepInheritanceSubPage : DeepInheritanceBasePage() {
     private val subPageLabel: Label = Label(::subPageLabel.name, "Deep inheritance, sub page component")
 
     override fun onInitialize() {

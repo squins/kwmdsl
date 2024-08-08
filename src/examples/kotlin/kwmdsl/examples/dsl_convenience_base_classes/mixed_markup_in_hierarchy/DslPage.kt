@@ -4,9 +4,8 @@ import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.request.mapper.parameter.PageParameters
 
-abstract class DslPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
+abstract class DslPage : ExamplesConvenienceBasePage() {
     private val dslLabel: Label = newDslLabel(::dslLabel.name)
 
     protected open fun newDslLabel(id: String) = Label(id, "DslPage")

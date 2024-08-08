@@ -5,11 +5,14 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
 import com.squins.kwmdsl.component.resourcePath
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
+import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithLateinitVarPropertiesPage
+import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithValPropertiesPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.variants.VariantsPage
 import org.apache.wicket.markup.html.WebPage
+import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import java.nio.charset.Charset
 import kotlin.reflect.KClass
@@ -26,7 +29,23 @@ import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMark
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
 import kwmdsl.examples.dsl_standard_base_classes.enclosure.EnclosuresPage as DslStandardEnclosuresPage
 
-class ExamplesListPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
+class ExamplesListPage : ExamplesConvenienceBasePage() {
+    private val pageParametersWithValPropertiesPageLink: Link<String> =
+        object : Link<String>(::pageParametersWithValPropertiesPageLink.name) {
+            override fun onClick() {
+                setResponsePage(PageParametersWithValPropertiesPage::class.java, PageParameters().apply {
+                    add("text", "Using val properties!")
+                })
+            }
+        }
+    private val pageParametersWithLateinitVarPropertiesPageLink: Link<String> =
+        object : Link<String>(::pageParametersWithLateinitVarPropertiesPageLink.name) {
+            override fun onClick() {
+                setResponsePage(PageParametersWithLateinitVarPropertiesPage::class.java, PageParameters().apply {
+                    add("text", "Using lateinit var properties!")
+                })
+            }
+        }
     override fun onInitialize() {
         super.onInitialize()
 
@@ -112,6 +131,12 @@ class ExamplesListPage(pageParameters: PageParameters) : ExamplesConvenienceBase
                             link(DslConvenienceLabelForPage::class, "Label for form component")
                             link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
                             link(DslConvenienceVariantsPage::class, "Variants")
+                            li {
+                                a(ExamplesListPage::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components")}
+                            }
+                            li {
+                                a(ExamplesListPage::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components")}
+                            }
                         }
                     }
                 }

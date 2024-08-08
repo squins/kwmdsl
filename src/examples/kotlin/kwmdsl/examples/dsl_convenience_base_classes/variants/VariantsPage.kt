@@ -8,10 +8,9 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.Model
-import org.apache.wicket.request.mapper.parameter.PageParameters
 import java.util.*
 
-class VariantsPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
+class VariantsPage : ExamplesConvenienceBasePage() {
     private val styleModel = Model.of("")
     private val variationModel = Model.of("")
     private val localeModel = Model.of("")

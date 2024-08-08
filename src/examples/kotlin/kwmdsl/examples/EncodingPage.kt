@@ -1,14 +1,9 @@
 package kwmdsl.examples
 
-import com.squins.kwmdsl.classDiv
-import com.squins.kwmdsl.classH1
-import com.squins.kwmdsl.code
+import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.markup
-import com.squins.kwmdsl.p
-import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class EncodingPage(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
+class EncodingPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             wicketExtend {

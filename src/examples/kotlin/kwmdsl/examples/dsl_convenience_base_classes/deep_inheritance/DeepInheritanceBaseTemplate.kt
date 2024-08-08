@@ -4,9 +4,8 @@ import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.request.mapper.parameter.PageParameters
 
-open class DeepInheritanceBaseTemplate(pageParameters: PageParameters) : ExamplesConvenienceBasePage(pageParameters) {
+open class DeepInheritanceBaseTemplate : ExamplesConvenienceBasePage() {
     protected val baseTemplateLabel: Label = Label(::baseTemplateLabel.name, "Deep inheritance, base template component")
 
     override fun onInitialize() {
