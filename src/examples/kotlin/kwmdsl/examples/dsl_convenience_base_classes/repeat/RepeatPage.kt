@@ -32,7 +32,7 @@ class RepeatPage : ExamplesConvenienceBasePage() {
             )
         ) {
             override fun populateItem(item: ListItem<Person>) {
-                item.add(checkbox(item.getModel()))
+                item.add(checkbox(item.model))
                 item.add(name(PropertyModel(item.getDefaultModel(), Person::name.name)))
                 item.add(lastName(PropertyModel(item.getDefaultModel(), Person::lastName.name)))
             }

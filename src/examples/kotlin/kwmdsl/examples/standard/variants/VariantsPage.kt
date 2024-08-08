@@ -48,10 +48,10 @@ class VariantsPage : ExamplesStandardBasePage() {
 
     override fun getVariation(): String? {
         val variation = variationModel.`object`
-        return if (variation.isEmpty()) null else variation
+        return variation.ifEmpty { null }
     }
 
-    override fun getLocale() =
+    override fun getLocale(): Locale =
         localesByDisplayValue[localeModel.`object`] ?: super.getLocale()
 }
 

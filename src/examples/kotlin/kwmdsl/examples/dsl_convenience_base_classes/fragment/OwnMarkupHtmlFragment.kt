@@ -1,6 +1,7 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
 import org.apache.wicket.MarkupContainer
+import org.apache.wicket.markup.Markup
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 
@@ -13,7 +14,7 @@ class OwnMarkupHtmlFragment(id: String, markupId: String) : Fragment(id, markupI
         add(Label("fragmentLabel", "own markup, standard"))
     }
 
-    override fun chooseMarkup(provider: MarkupContainer?) = associatedMarkup
+    override fun chooseMarkup(provider: MarkupContainer?): Markup = associatedMarkup
 
     companion object {
         const val VARIANT_1_ID = "ownMarkupStandardFragmentVariant1"

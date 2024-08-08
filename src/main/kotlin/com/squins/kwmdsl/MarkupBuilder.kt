@@ -17,7 +17,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     /**
      * The text part to which new literal markup text must be added.
      */
-    internal var currentTextPart = TextPart<TSupplier>()
+    private var currentTextPart = TextPart<TSupplier>()
 
     /**
      * The parts added to this markup builder.
@@ -576,11 +576,6 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         }
     }
 
-    /**
-     * Append the given attribute to the markup text.
-     *
-     * @param attribute the attribute to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
-     */
     private fun attribute(name: String, value: AttributeValue) {
         currentTextPart
             .append(' ')

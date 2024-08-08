@@ -1,7 +1,6 @@
 package kwmdsl.examples
 
 import org.apache.wicket.markup.head.CssHeaderItem
-import org.apache.wicket.markup.head.IHeaderResponse
 import org.apache.wicket.markup.head.MetaDataHeaderItem
 import org.apache.wicket.markup.head.MetaDataHeaderItem.META_TAG
 import org.apache.wicket.markup.html.IHeaderContributor
@@ -14,11 +13,9 @@ class KwmDslExamplesApplication : WebApplication() {
     override fun init() {
         super.init()
 
-        headerContributorListeners.add(object : IHeaderContributor {
-            override fun renderHead(response: IHeaderResponse) {
-                response.render(META_DEVICE_WIDTH_INITIAL_SCALE_1)
-                response.render(BULMA_ITEM)
-            }
+        headerContributorListeners.add(IHeaderContributor { response ->
+            response.render(META_DEVICE_WIDTH_INITIAL_SCALE_1)
+            response.render(BULMA_ITEM)
         })
     }
 }

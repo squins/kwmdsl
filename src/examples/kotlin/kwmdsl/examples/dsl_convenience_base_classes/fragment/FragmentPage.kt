@@ -87,7 +87,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     // - Embedded in any (root) markup, using `embedFragmentSnippet(...)`
     private val xyz_componentsInParentMarkupInParentUnspecializedFragmentInstance = 0
     // - Same as with unspecialized fragment
-    private val xyz_componentsInParentMarkupInParentSpecialedFragmentInstance = 0
+    private val xyz_componentsInParentMarkupInParentSpecializedFragmentInstance = 0
 
     // - 1 or more `fragmentSnippet`s, with other component as supplier, `addToFragment(fragment, supplier)` invoked
     // - Components from 1 of the `fragmentSnippet`s

@@ -28,7 +28,7 @@ val examples by sourceSets.registering {
 }
 
 val convenienceFunctionsSourceDirectory =
-    File(project.layout.buildDirectory.get().getAsFile(), "generated/main/convenience")
+    File(project.layout.buildDirectory.get().asFile, "generated/main/convenience")
 
 val generateConvenienceFunctions by tasks.registering {
     inputs.property("voidElements", voidHtmlElements)

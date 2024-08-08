@@ -8,7 +8,7 @@ internal fun relativizePath(basePath: List<String>, pathToRelativize: List<Strin
     var firstPathElementNotInCommonIndex = 0
     while (basePath[firstPathElementNotInCommonIndex] == pathToRelativize[firstPathElementNotInCommonIndex] &&
         firstPathElementNotInCommonIndex < baseParentPathNumberOfElements &&
-        firstPathElementNotInCommonIndex < pathToRelativize.size
+        firstPathElementNotInCommonIndex < pathToRelativize.size -1
     ) {
         firstPathElementNotInCommonIndex += 1
     }
@@ -17,7 +17,7 @@ internal fun relativizePath(basePath: List<String>, pathToRelativize: List<Strin
 
     val parentOperators =
         (0 until numberOfParentOperators).fold(StringBuilder(numberOfParentOperators * 3)) { builder, _ ->
-            builder.append("..$separator")
+            builder.append("..").append(separator)
         }.toString()
     return parentOperators +
             pathToRelativize.subList(firstPathElementNotInCommonIndex, pathToRelativize.size).joinToString("$separator")

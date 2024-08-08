@@ -2,6 +2,7 @@ package com.squins.kwmdsl.component
 
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
+import org.apache.wicket.markup.Markup
 import org.apache.wicket.markup.html.panel.Fragment
 import org.apache.wicket.model.IModel
 
@@ -15,7 +16,7 @@ abstract class KotlinWicketMarkupFragment(
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
         findMarkup(container, containerClass)
 
-    override fun chooseMarkup(provider: MarkupContainer?) = getAssociatedMarkup()
+    override fun chooseMarkup(provider: MarkupContainer?): Markup = associatedMarkup
 
     companion object {
         @JvmStatic
