@@ -6,8 +6,7 @@ import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.model.IModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
 
-abstract class KotlinWicketMarkupWebPage : WebPage,
-    IMarkupResourceStreamProvider {
+abstract class KotlinWicketMarkupWebPage : WebPage, IMarkupResourceStreamProvider {
     constructor() : super()
     constructor(pageParameters: PageParameters?) : super(pageParameters)
     constructor(model: IModel<*>): super(model)
