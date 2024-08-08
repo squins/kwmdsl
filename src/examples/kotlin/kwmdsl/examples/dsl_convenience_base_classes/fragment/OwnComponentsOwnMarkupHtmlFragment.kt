@@ -4,20 +4,22 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.Markup
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
-class OwnMarkupHtmlFragment(id: String, markupId: String) : Fragment(id, markupId, null) {
-    constructor(id: String) : this(id, VARIANT_1_ID)
-
+class OwnComponentsOwnMarkupHtmlFragment(id: String, markupId: String) : Fragment(id, markupId, null) {
     override fun onInitialize() {
         super.onInitialize()
 
-        add(Label("fragmentLabel", "own markup, standard"))
+        add(Label("currentTime") {
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
+        })
     }
 
     override fun chooseMarkup(provider: MarkupContainer?): Markup = associatedMarkup
 
     companion object {
-        const val VARIANT_1_ID = "ownMarkupStandardFragmentVariant1"
-        const val VARIANT_2_ID = "ownMarkupStandardFragmentVariant2"
+        const val BODY_1_ID = "ownComponentsOwnMarkupBody1"
+        const val BODY_2_ID = "ownComponentsOwnMarkupBody2"
     }
 }

@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 import kotlin.random.Random
 
+// TODO("See if this is possible without changes to current design: external markup, own components")
 class FragmentPage : ExamplesConvenienceBasePage() {
     // `fragmentBody` and `standaloneFragmentBody` must not be root markups. `wicketFragment` must only
     // accept fragment body markups.
@@ -26,17 +27,23 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     // - `wicketFragment`
     //   - Provides `<wicket:fragment>...</wicket:fragment>`
 
-    // TODO("Document this")
-    // There is no check to see if fragment markup bodies have the same component hierarchy.
-
     // TODO: also show for Java Fragment with constants for the body variant IDs
-    private val xyz_noComponentsOwnMarkupDslFragment: NoComponentsOwnMarkupDslFragment =
+    private val noComponentsOwnMarkupDslFragment: NoComponentsOwnMarkupDslFragment =
         NoComponentsOwnMarkupDslFragment(
-            ::xyz_noComponentsOwnMarkupDslFragment.name,
+            ::noComponentsOwnMarkupDslFragment.name,
             if (Random.nextBoolean()) {
                 NoComponentsOwnMarkupDslFragment.Companion::noComponentsOwnMarkupBody1.name
             } else {
                 NoComponentsOwnMarkupDslFragment.Companion::noComponentsOwnMarkupBody2.name
+            }
+        )
+    private val noComponentsOwnMarkupHtmlFragment: NoComponentsOwnMarkupHtmlFragment =
+        NoComponentsOwnMarkupHtmlFragment(
+            ::noComponentsOwnMarkupHtmlFragment.name,
+            if (Random.nextBoolean()) {
+                NoComponentsOwnMarkupHtmlFragment.BODY_1_ID
+            } else {
+                NoComponentsOwnMarkupHtmlFragment.BODY_2_ID
             }
         )
 
@@ -53,14 +60,22 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     // - Same as with unspecialized fragment
     private val xyz_noComponentsMarkupInOtherComponentSpecializedFragment = 0
 
-    // TODO: also show for Java Fragment with constants for the body variant IDs
-    private val xyz_ownComponentsOwnMarkupDslFragment: OwnComponentsOwnMarkupDslFragment =
+    private val ownComponentsOwnMarkupDslFragment: OwnComponentsOwnMarkupDslFragment =
         OwnComponentsOwnMarkupDslFragment(
-            ::xyz_ownComponentsOwnMarkupDslFragment.name,
+            ::ownComponentsOwnMarkupDslFragment.name,
             if (Random.nextBoolean()) {
                 OwnComponentsOwnMarkupDslFragment.Companion::ownComponentsOwnMarkupBody1.name
             } else {
                 OwnComponentsOwnMarkupDslFragment.Companion::ownComponentsOwnMarkupBody2.name
+            }
+        )
+    private val ownComponentsOwnMarkupHtmlFragment: OwnComponentsOwnMarkupHtmlFragment =
+        OwnComponentsOwnMarkupHtmlFragment(
+            ::ownComponentsOwnMarkupHtmlFragment.name,
+            if (Random.nextBoolean()) {
+                OwnComponentsOwnMarkupHtmlFragment.BODY_1_ID
+            } else {
+                OwnComponentsOwnMarkupHtmlFragment.BODY_2_ID
             }
         )
 
@@ -85,23 +100,9 @@ class FragmentPage : ExamplesConvenienceBasePage() {
         Fragment(::externalComponentsFragmentInstance.name, ::externalComponentsFragment.name, this).also {
             externalComponentsFragment.addToFragment(it, this)
         }
-    private val externalComponentsFragmentInstance2 by WicketFragment(::externalComponentsFragmentWithDelegate)
 
     private val componentsInFragmentInstance: ComponentsInFragment =
         ComponentsInFragment(::componentsInFragmentInstance.name, ::componentsInFragmentVariant2.name, this)
-    private val componentsInFragmentInstance2 by WicketComponentsInFragment(::componentsInFragmentVariant2, ::ComponentsInFragment)
-
-    private val ownMarkupHtmlFragmentInstance: OwnMarkupHtmlFragment =
-        OwnMarkupHtmlFragment(::ownMarkupHtmlFragmentInstance.name, OwnMarkupHtmlFragment.VARIANT_2_ID)
-    private val ownMarkupHtmlFragmentInstance2 by WicketOwnMarkupFragment(
-        FragmentPage::ownMarkupStandardFragmentVariant2, ::OwnMarkupHtmlFragment
-    )
-
-    private val ownMarkupDslFragmentInstance: OwnMarkupDslFragment =
-        OwnMarkupDslFragment(::ownMarkupDslFragmentInstance.name)
-//    private val ownMarkupDslFragmentInstance2 by WicketOwnMarkupFragment(
-//        OwnMarkupDslFragment::ownMarkupStandardFragmentVariant1, ::OwnMarkupDslFragment
-//    )
 
     private val fragmentSupplyingPanel: FragmentSupplyingPanel =
         FragmentSupplyingPanel(::fragmentSupplyingPanel.name)
@@ -143,10 +144,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                 span(ComponentsInFragment::fragmentLabel)
             }
         }
-
-        // TODO("Document: placed here (instead of in `OwnMarkupStandardFragment`) to show third-party, unmodifiable fragments with their own markup can be integrated without wrappers")
-        // TODO("Only needed when working with the delegates. This can be removed if the delegates are removed")
-        val ownMarkupStandardFragmentVariant2 = Unit
 
         override val noVariantMarkup = markup {
             wicketExtend {
@@ -215,11 +212,19 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                     h3 { text("Own Markup") }
 
                     p {
-                        span(FragmentPage::xyz_noComponentsOwnMarkupDslFragment)
+                        span(FragmentPage::noComponentsOwnMarkupDslFragment)
                     }
 
                     p {
-                        span(FragmentPage::xyz_ownComponentsOwnMarkupDslFragment)
+                        span(FragmentPage::noComponentsOwnMarkupHtmlFragment)
+                    }
+
+                    p {
+                        span(FragmentPage::ownComponentsOwnMarkupDslFragment)
+                    }
+
+                    p {
+                        span(FragmentPage::ownComponentsOwnMarkupHtmlFragment)
                     }
 
                     h3 { text("Markup in Parent") }
@@ -239,20 +244,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                         text("Markup provided by another component than the fragment, components-in-fragment instance:")
                     }
                     div(FragmentPage::componentsInFragmentInstance)
-
-                    hr()
-
-                    p {
-                        text("Own markup, HTML markup fragment instance:")
-                    }
-                    div(FragmentPage::ownMarkupHtmlFragmentInstance)
-
-                    hr()
-
-                    p {
-                        text("Own markup, DSL markup fragment instance:")
-                    }
-                    div(FragmentPage::ownMarkupDslFragmentInstance)
 
                     hr()
 

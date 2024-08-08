@@ -10,11 +10,11 @@ class NoComponentsOwnMarkupDslFragment(id: String, markupId: String) :
     KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
     companion object : IKotlinWicketMarkupProvider {
         val noComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup<NoComponentsOwnMarkupDslFragment> {
-            text("No components, specialized Fragment, fragment #1")
+            text("No components, specialized DSL Fragment, fragment #1")
         }
 
         val noComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup<NoComponentsOwnMarkupDslFragment> {
-            text("No components, specialized Fragment, fragment #2")
+            text("No components, specialized DSL Fragment, fragment #2")
         }
 
         override val noVariantMarkup = standaloneFragmentMarkup {

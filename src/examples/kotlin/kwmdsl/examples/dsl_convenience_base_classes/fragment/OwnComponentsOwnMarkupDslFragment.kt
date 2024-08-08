@@ -24,12 +24,12 @@ class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
 
     companion object : IKotlinWicketMarkupProvider {
         val ownComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup {
-            text("Own components, specialized Fragment, fragment #1. At: ")
+            text("Own components, specialized DSL Fragment, fragment #1. At: ")
             span(OwnComponentsOwnMarkupDslFragment::currentTime)
         }
 
         val ownComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup {
-            text("Own components, specialized Fragment, fragment #2. At: ")
+            text("Own components, specialized DSL Fragment, fragment #2. At: ")
             span(OwnComponentsOwnMarkupDslFragment::currentTime)
         }
 
