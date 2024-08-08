@@ -10,24 +10,24 @@ import kotlin.reflect.KProperty1
 /**
  * Markup builder that provides functions to add child markup, possibly associated with Wicket components, to it. For all (non-deprecated) HTML elements convenience extension functions are provided. There are additional convenience extension functions for elements where often only a `class` attribute is used: `class<element name>(...)`.
  *
- * @param TSupplierFacade the markup container type having the properties and functions to get the Wicket components.
+ * @param TSupplier the markup container type having the properties and functions to get the Wicket components.
  */
 @WicketMarkupBuilder
-abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor() {
+abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor() {
     /**
      * The text part to which new literal markup text must be added.
      */
-    internal var currentTextPart = TextPart<TSupplierFacade>()
+    internal var currentTextPart = TextPart<TSupplier>()
 
     /**
      * The parts added to this markup builder.
      */
-    private val parts = mutableListOf<MarkupPart<TSupplierFacade>>(currentTextPart)
+    private val parts = mutableListOf<MarkupPart<TSupplier>>(currentTextPart)
 
     /**
      * Child elements that are associated with Wicket components that are to be retrieved during the addition of the root markup to the markup container.
      */
-    internal val children = mutableListOf<ChildMarkupBuilder<TSupplierFacade>>()
+    internal val children = mutableListOf<ChildMarkupBuilder<TSupplier>>()
 
     /**
      * Add a document type declaration to the markup.
@@ -53,7 +53,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param block the code to build the children of the element.
      */
-    fun wicketBorder(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketBorder(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:border>")
         block()
         currentTextPart.append("</wicket:border>")
@@ -64,7 +64,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param block the (optional) code to build the children of the element.
      */
-    fun wicketChild(block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null) {
+    fun wicketChild(block: (MarkupBuilder<TSupplier>.() -> Unit)? = null) {
         currentTextPart.append("<wicket:child>")
         block?.invoke(this)
         currentTextPart.append("</wicket:child>")
@@ -78,14 +78,14 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      */
     fun wicketContainer(
         id: String,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         element("wicket:container", attr("wicket:id", id), block = block)
     }
 
     fun wicketContainer(
         repeated: Repeated,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         element("wicket:container", attr("wicket:id", repeated.wicketId), block = block)
     }
@@ -97,8 +97,8 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the (optional) code for building the children of the element.
      */
     fun wicketContainer(
-        supplier: KFunction1<TSupplierFacade, Component>,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        supplier: KFunction1<TSupplier, Component>,
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         element(supplier, "wicket:container", block = block)
     }
@@ -110,8 +110,8 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the (optional) code for building the children of the element.
      */
     fun wicketContainer(
-        supplier: KProperty1<TSupplierFacade, Component>,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        supplier: KProperty1<TSupplier, Component>,
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         element(supplier, "wicket:container", block = block)
     }
@@ -123,8 +123,8 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the code for building the children of the element.
      */
     fun wicketEnclosure(
-        childSupplier: ((TSupplierFacade) -> Component)? = null,
-        block: MarkupBuilder<TSupplierFacade>.() -> Unit
+        childSupplier: ((TSupplier) -> Component)? = null,
+        block: MarkupBuilder<TSupplier>.() -> Unit
     ) {
         startTagPrefix("wicket:enclosure")
         if (childSupplier != null) {
@@ -152,7 +152,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param childSupplier the supplier of the child Wicket component that determines the visibility of the element with this attribute.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
-    fun wicketEnclosureAttribute(childSupplier: (TSupplierFacade) -> Component) =
+    fun wicketEnclosureAttribute(childSupplier: (TSupplier) -> Component) =
         "wicket:enclosure" to DescendentReference(childSupplier)
 
     /**
@@ -169,7 +169,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param block the code to build the children of the element.
      */
-    fun wicketExtend(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketExtend(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:extend>")
         block()
         currentTextPart.append("</wicket:extend>")
@@ -181,7 +181,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param forComponentSupplier the supplier of the Wicket form component that the label containing this attribute is for.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
-    fun wicketForAttribute(forComponentSupplier: (TSupplierFacade) -> Component) =
+    fun wicketForAttribute(forComponentSupplier: (TSupplier) -> Component) =
         "wicket:for" to ForComponentReference(forComponentSupplier)
 
     /**
@@ -205,7 +205,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     // TODO("Document: for defining DSL fragments outside of the component they are instantiated in: stand-alone")
-    fun wicketFragment(wicketIdSupplier: KCallable<Unit>, block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketFragment(wicketIdSupplier: KCallable<Unit>, block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart
             // TODO("Remove the Kotlin and HTML comment, as `standaloneFragmentMarkup` must add the comment (or `wicket:remove`)")
             // Searches for the fragments start at 1, so make sure there is at least 1 node before the fragments.
@@ -217,7 +217,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
             .append("</wicket:fragment>")
     }
 
-    fun wicketHead(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketHead(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:head>")
         block()
         currentTextPart.append("</wicket:head>")
@@ -228,9 +228,9 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     }
 
     fun wicketLabel(
-        forComponentSupplier: ((TSupplierFacade) -> Component)? = null,
+        forComponentSupplier: ((TSupplier) -> Component)? = null,
         key: String? = null,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         currentTextPart.append("<wicket:label")
         if (forComponentSupplier != null) {
@@ -262,7 +262,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      *
      * @param block the code for building the children of the element.
      */
-    fun wicketLink(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketLink(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:link>")
         block()
         currentTextPart.append("</wicket:link>")
@@ -280,7 +280,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun m(
         key: String,
         escape: Boolean = true,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         wicketMessage(key, escape, block)
     }
@@ -295,7 +295,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun wicketMessage(
         key: String,
         escape: Boolean = true,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         currentTextPart
             .append("""<wicket:message key="""")
@@ -309,7 +309,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         currentTextPart.append("</wicket:message>")
     }
 
-    fun wicketPanel(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketPanel(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:panel>")
         block()
         currentTextPart.append("</wicket:panel>")
@@ -321,7 +321,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the code for building the children of the element.
      */
     // TODO("Can this go? The DSL is not useful for working with a designer. Commenting out can be done using Kotlin comments")
-    fun wicketRemove(block: MarkupBuilder<TSupplierFacade>.() -> Unit) {
+    fun wicketRemove(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:remove>")
         block()
         currentTextPart.append("</wicket:remove>")
@@ -337,7 +337,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
     fun element(
         name: String,
         vararg attributes: Pair<String, AttributeValue>,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         startTagPrefix(name)
         attributes(*attributes)
@@ -357,10 +357,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the (optional) code for building the children of the element.
      */
     fun element(
-        supplier: KFunction1<TSupplierFacade, Component>,
+        supplier: KFunction1<TSupplier, Component>,
         name: String,
         vararg attributes: Pair<String, AttributeValue>,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         val childMarkup = ChildMarkupBuilder(this, supplier)
         wicketElement(childMarkup, name, supplier.name, attributes = attributes, block)
@@ -375,10 +375,10 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the (optional) code for building the children of the element.
      */
     fun element(
-        supplier: KProperty1<TSupplierFacade, Component>,
+        supplier: KProperty1<TSupplier, Component>,
         name: String,
         vararg attributes: Pair<String, AttributeValue>,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null
+        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
         val childMarkup = ChildMarkupBuilder(this, supplier)
         wicketElement(childMarkup, name, supplier.name, attributes = attributes, block)
@@ -404,7 +404,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
     fun voidElement(
-        supplier: KFunction1<TSupplierFacade, Component>,
+        supplier: KFunction1<TSupplier, Component>,
         name: String,
         vararg attributes: Pair<String, AttributeValue>,
     ) {
@@ -420,7 +420,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
     fun voidElement(
-        supplier: KProperty1<TSupplierFacade, Component>,
+        supplier: KProperty1<TSupplier, Component>,
         name: String,
         vararg attributes: Pair<String, AttributeValue>,
     ) {
@@ -484,9 +484,9 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param supplier the suppler of the component for which to get the path.
      * @return the Wicket component path of [supplier], as a list, or `null` if the supplier is not associated with a builder anywhere in the markup hierarchy.
      */
-    internal abstract fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component): List<String>?
+    internal abstract fun pathFromRootOfAsList(supplier: (TSupplier) -> Component): List<String>?
 
-    internal fun buildChildren(): List<ChildMarkup<TSupplierFacade>> = children.map { it.build() }
+    internal fun buildChildren(): List<ChildMarkup<TSupplier>> = children.map { it.build() }
 
     /**
      * Add an element with the given name and associated with a Wicket component to the markup.
@@ -498,11 +498,11 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param block the (optional) code for building the children of the element.
      */
     private fun wicketElement(
-        childMarkupBuilder: ChildMarkupBuilder<TSupplierFacade>,
+        childMarkupBuilder: ChildMarkupBuilder<TSupplier>,
         name: String,
         wicketId: String,
         vararg attributes: Pair<String, AttributeValue>,
-        block: (MarkupBuilder<TSupplierFacade>.() -> Unit)?
+        block: (MarkupBuilder<TSupplier>.() -> Unit)?
     ) {
         children += childMarkupBuilder
 
@@ -527,7 +527,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
      */
     private fun voidWicketElement(
-        childMarkupBuilder: ChildMarkupBuilder<TSupplierFacade>,
+        childMarkupBuilder: ChildMarkupBuilder<TSupplier>,
         name: String,
         wicketId: String,
         vararg attributes: Pair<String, AttributeValue>,
@@ -589,7 +589,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
         when (value) {
             is DescendentReference<*> -> {
                 @Suppress("UNCHECKED_CAST")
-                parts += DescendentReferencePart(value.descendentSupplier as (TSupplierFacade) -> Component)
+                parts += DescendentReferencePart(value.descendentSupplier as (TSupplier) -> Component)
                 currentTextPart = TextPart()
                 parts += currentTextPart
             }
@@ -599,7 +599,7 @@ abstract class MarkupBuilder<TSupplierFacade : MarkupContainer> internal constru
                 parts += ForComponentReferencePart(
                     // The element containing `wicket:for` is seen as a Wicket component, so add a path part for it.
                     getPathAsList() + "",
-                    value.forComponentSupplier as (TSupplierFacade) -> Component
+                    value.forComponentSupplier as (TSupplier) -> Component
                 )
                 currentTextPart = TextPart()
                 parts += currentTextPart

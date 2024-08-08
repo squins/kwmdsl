@@ -6,11 +6,11 @@ import java.io.Serializable
 import kotlin.reflect.KCallable
 import kotlin.reflect.KProperty
 
-class WicketComponentsInFragment<TMarkupProvider : MarkupContainer, TSupplierFacade : Fragment>(
+class WicketComponentsInFragment<TMarkupProvider : MarkupContainer, TSupplier : Fragment>(
     @Transient
-    private val markupSupplier: KCallable<RootMarkup<TSupplierFacade>>,
+    private val markupSupplier: KCallable<RootMarkup<TSupplier>>,
     @Transient
-    private val fragmentFactory: (String, String, TMarkupProvider) -> TSupplierFacade
+    private val fragmentFactory: (String, String, TMarkupProvider) -> TSupplier
 ) : Serializable {
     private lateinit var fragment: Fragment
 

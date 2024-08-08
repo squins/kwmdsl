@@ -71,8 +71,8 @@ ${rootMarkup.getComponentHierarchyString()}"""
     }
 }
 
-class RootMarkupVariants<TSupplierFacade : MarkupContainer>(provider: IKotlinWicketMarkupProvider) :
-    IRootMarkupVariants<RootMarkup<TSupplierFacade>>(provider)
+class RootMarkupVariants<TSupplier : MarkupContainer>(provider: IKotlinWicketMarkupProvider) :
+    IRootMarkupVariants<RootMarkup<TSupplier>>(provider)
 
-class BorderRootMarkupVariants<TSupplierFacade : Border>(provider: IKotlinWicketMarkupProvider) :
-    IRootMarkupVariants<BorderRootMarkup<TSupplierFacade>>(provider)
+class BorderRootMarkupVariants<TSupplier : Border>(provider: IKotlinWicketMarkupProvider) :
+    IRootMarkupVariants<BorderRootMarkup<TSupplier>>(provider)

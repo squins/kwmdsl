@@ -2,8 +2,8 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.MarkupContainer
 
-class ExternalComponentsFragmentRootMarkupBuilder<TSupplierFacade : MarkupContainer> internal constructor() :
-    BaseRootMarkupBuilder<TSupplierFacade, ExternalComponentsFragmentRootMarkup<TSupplierFacade>>() {
-    override fun createMarkup(markupText: String, children: List<ChildMarkup<TSupplierFacade>>) =
+class ExternalComponentsFragmentRootMarkupBuilder<TSupplier : MarkupContainer> internal constructor() :
+    BaseRootMarkupBuilder<TSupplier, ExternalComponentsFragmentRootMarkup<TSupplier>>() {
+    override fun createMarkup(markupText: String, children: List<ChildMarkup<TSupplier>>) =
         ExternalComponentsFragmentRootMarkup(markupText, children)
 }

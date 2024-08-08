@@ -3,17 +3,17 @@ package com.squins.kwmdsl
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.panel.Fragment
 
-fun <TSupplierFacade : MarkupContainer> externalComponentsFragmentMarkup(block: ExternalComponentsFragmentRootMarkupBuilder<TSupplierFacade>.() -> Unit) =
-    ExternalComponentsFragmentRootMarkupBuilder<TSupplierFacade>().run {
+fun <TSupplier : MarkupContainer> externalComponentsFragmentMarkup(block: ExternalComponentsFragmentRootMarkupBuilder<TSupplier>.() -> Unit) =
+    ExternalComponentsFragmentRootMarkupBuilder<TSupplier>().run {
         block()
         build()
     }
 
-class ExternalComponentsFragmentRootMarkup<TSupplierFacade: MarkupContainer> internal constructor(
+class ExternalComponentsFragmentRootMarkup<TSupplier: MarkupContainer> internal constructor(
     markupText: String,
-    children: List<ChildMarkup<TSupplierFacade>>,
-) : BaseRootMarkup<TSupplierFacade>(markupText, children) {
-    fun addToFragment(fragment: Fragment, parent: TSupplierFacade) {
+    children: List<ChildMarkup<TSupplier>>,
+) : BaseRootMarkup<TSupplier>(markupText, children) {
+    fun addToFragment(fragment: Fragment, parent: TSupplier) {
         addTo(parent, fragment)
     }
 }

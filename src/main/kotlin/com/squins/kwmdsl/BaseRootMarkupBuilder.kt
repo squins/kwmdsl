@@ -6,14 +6,14 @@ import org.apache.wicket.MarkupContainer
 /**
  * A base class for root markup builders, containing functionality provided and shared by all root markup builders.
  *
- * @param TSupplierFacade the markup container type having the properties and functions to get the Wicket components.
+ * @param TSupplier the markup container type having the properties and functions to get the Wicket components.
  * @param TMarkup the markup type built by this builder.
  */
-abstract class BaseRootMarkupBuilder<TSupplierFacade : MarkupContainer, TMarkup : BaseRootMarkup<TSupplierFacade>> protected constructor() :
-    MarkupBuilder<TSupplierFacade>() {
+abstract class BaseRootMarkupBuilder<TSupplier : MarkupContainer, TMarkup : BaseRootMarkup<TSupplier>> protected constructor() :
+    MarkupBuilder<TSupplier>() {
     override fun getPathAsList() = emptyList<String>()
 
-    override fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component) =
+    override fun pathFromRootOfAsList(supplier: (TSupplier) -> Component) =
         children.firstNotNullOfOrNull { it.pathOfAsList(supplier) }
 
     /**
@@ -37,6 +37,6 @@ abstract class BaseRootMarkupBuilder<TSupplierFacade : MarkupContainer, TMarkup 
      */
     internal abstract fun createMarkup(
         markupText: String,
-        children: List<ChildMarkup<TSupplierFacade>>
+        children: List<ChildMarkup<TSupplier>>
     ): TMarkup
 }

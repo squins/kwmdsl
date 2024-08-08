@@ -20,8 +20,8 @@ class Text(internal val text: String) : AttributeValue
  *
  * @param descendentSupplier the supplier of the descendent to refer to.
  */
-class DescendentReference<TSupplierFacade : MarkupContainer>(
-    internal val descendentSupplier: (TSupplierFacade) -> Component,
+class DescendentReference<TSupplier : MarkupContainer>(
+    internal val descendentSupplier: (TSupplier) -> Component,
 ) : AttributeValue
 
 /**
@@ -29,6 +29,6 @@ class DescendentReference<TSupplierFacade : MarkupContainer>(
  *
  * @param forComponentSupplier the supplier of the form component to refer to.
  */
-class ForComponentReference<TSupplierFacade : MarkupContainer>(
-    internal val forComponentSupplier: (TSupplierFacade) -> Component,
+class ForComponentReference<TSupplier : MarkupContainer>(
+    internal val forComponentSupplier: (TSupplier) -> Component,
 ) : AttributeValue

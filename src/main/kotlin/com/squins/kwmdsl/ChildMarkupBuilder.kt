@@ -12,22 +12,22 @@ import kotlin.reflect.full.isSubclassOf
 /**
  * Builder for markup that cannot be added directly to the parent markup builder, because the added element is associated with a Wicket component that is to be retrieved during the addition of the root markup to the markup container.
  *
- * @param TSupplierFacade the markup container type having the properties and functions to get the Wicket components.
+ * @param TSupplier the markup container type having the properties and functions to get the Wicket components.
  * @param expectedWicketId the Wicket ID that the component returned by [supplier] is expected to have. During retrieval of the component, it is checked that the component ID matches this ID. This is done to find ID mismatches between the markup and the components quickly.
  * @param supplier the function or property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
  */
-internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private constructor(
-    private val parent: MarkupBuilder<TSupplierFacade>,
+internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private constructor(
+    private val parent: MarkupBuilder<TSupplier>,
     private val expectedWicketId: String,
-    private val supplier: (TSupplierFacade) -> Component,
+    private val supplier: (TSupplier) -> Component,
     private val isForBorder: Boolean,
-) : MarkupBuilder<TSupplierFacade>() {
+) : MarkupBuilder<TSupplier>() {
     /**
      * Create an instance with a function supplier.
      *
      * @param supplier the function that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
-    internal constructor(parent: MarkupBuilder<TSupplierFacade>, supplier: KFunction1<TSupplierFacade, Component>) :
+    internal constructor(parent: MarkupBuilder<TSupplier>, supplier: KFunction1<TSupplier, Component>) :
             this(parent, supplier.name, supplier, doesSupplierReturnBorder(supplier))
 
 
@@ -36,7 +36,7 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
      *
      * @param supplier the property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
-    internal constructor(parent: MarkupBuilder<TSupplierFacade>, supplier: KProperty1<TSupplierFacade, Component>) :
+    internal constructor(parent: MarkupBuilder<TSupplier>, supplier: KProperty1<TSupplier, Component>) :
             this(parent, supplier.name, supplier, doesSupplierReturnBorder(supplier))
 
     override fun getPathAsList() =
@@ -62,7 +62,7 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
      * @param supplier the suppler of the component for which to get the path.
      * @return the Wicket component path (never containing parent operators (`..`)) of [supplier], or `null` if the supplier is not associated with this builder or a descendent builder.
      */
-    internal fun pathOf(supplier: (TSupplierFacade) -> Component): String? =
+    internal fun pathOf(supplier: (TSupplier) -> Component): String? =
         if (supplier == this@ChildMarkupBuilder.supplier) {
             expectedWicketId
         } else {
@@ -76,7 +76,7 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
      * @param supplier the suppler of the component for which to get the path.
      * @return the Wicket component path (never containing parent operators (`..`)) of [supplier] as a list, or `null` if the supplier is not associated with this builder or a descendent builder.
      */
-    internal fun pathOfAsList(supplier: (TSupplierFacade) -> Component): List<String>? =
+    internal fun pathOfAsList(supplier: (TSupplier) -> Component): List<String>? =
         if (supplier == this@ChildMarkupBuilder.supplier) {
             listOf(expectedWicketId)
         } else {
@@ -91,7 +91,7 @@ internal class ChildMarkupBuilder<TSupplierFacade : MarkupContainer> private con
                 }
         }
 
-    override fun pathFromRootOfAsList(supplier: (TSupplierFacade) -> Component) = parent.pathFromRootOfAsList(supplier)
+    override fun pathFromRootOfAsList(supplier: (TSupplier) -> Component) = parent.pathFromRootOfAsList(supplier)
 }
 
 private fun doesSupplierReturnBorder(supplier: KCallable<Component>) =

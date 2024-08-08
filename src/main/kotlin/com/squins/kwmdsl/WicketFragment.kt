@@ -7,15 +7,15 @@ import java.io.Serializable
 import kotlin.reflect.KCallable
 import kotlin.reflect.KProperty
 
-class WicketFragment<TSupplierFacade : MarkupContainer>(
+class WicketFragment<TSupplier : MarkupContainer>(
     @Transient
-    private val markupSupplier: KCallable<RootMarkup<TSupplierFacade>>,
+    private val markupSupplier: KCallable<RootMarkup<TSupplier>>,
     @Transient
     private val model: IModel<*>? = null,
 ) : Serializable {
     private lateinit var fragment: Fragment
 
-    operator fun getValue(thisRef: TSupplierFacade, property: KProperty<*>): Fragment {
+    operator fun getValue(thisRef: TSupplier, property: KProperty<*>): Fragment {
         if (!::fragment.isInitialized) {
             fragment = Fragment(property.name, markupSupplier.name, thisRef, model).apply {
                 markupSupplier.call().addTo(thisRef, this)

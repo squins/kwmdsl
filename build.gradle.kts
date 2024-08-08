@@ -40,8 +40,8 @@ val generateConvenienceFunctions by tasks.registering {
         val packageDirectory = File(outputDirectory, "com/squins/kwmdsl")
         packageDirectory.mkdirs()
 
-        fun PrintWriter.supplierFacadeDoc() {
-            println(" * @param TSupplierFacade the markup container type having the properties and functions to get the Wicket components.")
+        fun PrintWriter.supplierDoc() {
+            println(" * @param TSupplier the markup container type having the properties and functions to get the Wicket components.")
         }
 
         fun PrintWriter.blockDoc() {
@@ -49,7 +49,7 @@ val generateConvenienceFunctions by tasks.registering {
         }
 
         fun PrintWriter.blockDeclaration() {
-            println("    block: (MarkupBuilder<TSupplierFacade>.() -> Unit)? = null")
+            println("    block: (MarkupBuilder<TSupplier>.() -> Unit)? = null")
         }
 
         fun PrintWriter.docEnd() {
@@ -89,7 +89,7 @@ val generateConvenienceFunctions by tasks.registering {
                     }
 
                     fun functionSupplierDeclaration() {
-                        println("    supplier: KFunction1<TSupplierFacade, Component>,")
+                        println("    supplier: KFunction1<TSupplier, Component>,")
                     }
 
                     fun propertySupplierDoc() {
@@ -97,7 +97,7 @@ val generateConvenienceFunctions by tasks.registering {
                     }
 
                     fun propertySupplierDeclaration() {
-                        println("    supplier: KProperty1<TSupplierFacade, Component>,")
+                        println("    supplier: KProperty1<TSupplier, Component>,")
                     }
 
                     fun attributesDoc() {
@@ -142,53 +142,53 @@ val generateConvenienceFunctions by tasks.registering {
 
                     voidHtmlElements.forEach { elementName ->
                         freeElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         attributesDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$elementName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$elementName(")
                         attributesDeclaration()
                         println(") =")
                         println("""    voidElement("$elementName", *attributes)""")
                         println()
                         wicketIdElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         wicketIdDoc()
                         attributesDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$elementName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$elementName(")
                         wicketIdDeclaration()
                         attributesDeclaration()
                         println(") =")
                         println("""    voidElement("$elementName", attr("wicket:id", wicketId), *attributes)""")
                         println()
                         repeatedElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         repeatedDoc()
                         attributesDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$elementName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$elementName(")
                         repeatedDeclaration()
                         attributesDeclaration()
                         println(") =")
                         println("""    voidElement("$elementName", attr("wicket:id", repeated.wicketId), *attributes)""")
                         println()
                         supplierFunctionElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         functionSupplierDoc()
                         attributesDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$elementName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$elementName(")
                         functionSupplierDeclaration()
                         attributesDeclaration()
                         println(") =")
                         println("""    voidElement(supplier, "$elementName", *attributes)""")
                         println()
                         supplierPropertyElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         propertySupplierDoc()
                         attributesDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$elementName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$elementName(")
                         propertySupplierDeclaration()
                         attributesDeclaration()
                         println(") =")
@@ -201,23 +201,23 @@ val generateConvenienceFunctions by tasks.registering {
                     nonVoidHtmlElements.forEach { elementName ->
                         val functionName = if (elementName in elementNamesToQuote) "`$elementName`" else elementName
                         freeElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         attributesDoc()
                         blockDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$functionName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$functionName(")
                         attributesDeclaration()
                         blockDeclaration()
                         println(") =")
                         println("""    element("$elementName", *attributes, block = block)""")
                         println()
                         wicketIdElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         wicketIdDoc()
                         attributesDoc()
                         blockDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$functionName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$functionName(")
                         wicketIdDeclaration()
                         attributesDeclaration()
                         blockDeclaration()
@@ -225,12 +225,12 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    element("$elementName", attr("wicket:id", wicketId), *attributes, block = block)""")
                         println()
                         repeatedElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         repeatedDoc()
                         attributesDoc()
                         blockDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$functionName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$functionName(")
                         repeatedDeclaration()
                         attributesDeclaration()
                         blockDeclaration()
@@ -238,12 +238,12 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    element("$elementName", attr("wicket:id", repeated.wicketId), *attributes, block = block)""")
                         println()
                         supplierFunctionElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         propertySupplierDoc()
                         attributesDoc()
                         blockDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$functionName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$functionName(")
                         functionSupplierDeclaration()
                         attributesDeclaration()
                         blockDeclaration()
@@ -251,12 +251,12 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    element(supplier, "$elementName", *attributes, block = block)""")
                         println()
                         supplierPropertyElementDocStart(elementName)
-                        supplierFacadeDoc()
+                        supplierDoc()
                         propertySupplierDoc()
                         attributesDoc()
                         blockDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.$functionName(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$functionName(")
                         propertySupplierDeclaration()
                         attributesDeclaration()
                         blockDeclaration()
@@ -283,11 +283,11 @@ val generateConvenienceFunctions by tasks.registering {
                         println("/**")
                         println(" * Add ${aOrAn(elementName)} `$elementName` element with a `class` attribute having the value of `cssClasses`.")
                         println(" *")
-                        supplierFacadeDoc()
+                        supplierDoc()
                         println(" * @param cssClasses the value for attribute `class`. **Warning**: there is no validation and no escaping, so make sure the value is valid and safe.")
                         blockDoc()
                         docEnd()
-                        println("fun <TSupplierFacade : MarkupContainer> MarkupBuilder<TSupplierFacade>.class${elementName[0].uppercase()}${elementName.substring(1)}(")
+                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.class${elementName[0].uppercase()}${elementName.substring(1)}(")
                         println("    cssClasses: String,")
                         blockDeclaration()
                         println(") =")
