@@ -29,7 +29,7 @@ class NoComponentsMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel(
             text("No components, specialized Fragment, fragment #2")
         }
 
-        override val noVariantMarkup = markup {
+        override val noVariantMarkup = markup<NoComponentsMarkupSupplyingDslPanel> {
             wicketPanel {
                 p { text("This is a panel, and it supplied the following fragment:") }
                 wicketFragment(::noComponentsMarkupSupplyingForUnspecializedBody1)

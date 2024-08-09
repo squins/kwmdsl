@@ -5,7 +5,7 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 
 class EncodingPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = markup {
+        override val noVariantMarkup = markup<EncodingPage> {
             wicketExtend {
                 classH1("title") { text("Wicket and the Default JVM Encoding") }
                 classDiv("content") {

@@ -15,7 +15,7 @@ abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : Ko
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = markup {
+        override val noVariantMarkup = markup<ExamplesConvenienceBasePage> {
             docTypeHtml()
             html(attr("lang", "en")) {
                 head {
