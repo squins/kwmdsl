@@ -20,6 +20,7 @@ import kwmdsl.examples.dsl_convenience_base_classes.border.BorderPage as DslConv
 import kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance.DeepInheritanceSubPage as DslConvenienceDeepInheritanceSubPage
 import kwmdsl.examples.dsl_convenience_base_classes.enclosure.EnclosuresPage as DslConvenienceEnclosuresPage
 import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage as DslConvenienceFragmentPage
+import kwmdsl.examples.dsl_convenience_base_classes.hello_world.HelloWorldPage as DslConvenienceHelloWorldPage
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage as DslConvenienceLabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage as DslConvenienceWicketLabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.link.LinkPage as DslConvenienceLinkPage
@@ -46,6 +47,7 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                 })
             }
         }
+
     override fun onInitialize() {
         super.onInitialize()
 
@@ -120,6 +122,13 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
 
                     wicketLink {
                         ul {
+                            link(DslConvenienceHelloWorldPage::class, "Hello World!") {
+                                text(" (the DSL version of the ")
+                                a(attr("href", "https://wicket.apache.org/learn/examples/helloworld.html")) {
+                                    text("Wicket Hello World! example")
+                                }
+                                text(")")
+                            }
                             link(DslConvenienceDeepInheritanceSubPage::class, "Deep inheritance")
                             link(DslConvenienceEnclosuresPage::class, "Enclosures")
                             link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
@@ -132,10 +141,10 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
                             link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
                             link(DslConvenienceVariantsPage::class, "Variants")
                             li {
-                                a(ExamplesListPage::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components")}
+                                a(ExamplesListPage::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components") }
                             }
                             li {
-                                a(ExamplesListPage::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)")}
+                                a(ExamplesListPage::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)") }
                             }
                         }
                     }
@@ -145,6 +154,13 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
     }
 }
 
-private fun MarkupBuilder<ExamplesListPage>.link(examplePageClass: KClass<out WebPage>, text: String) {
-    li { a(attr("href", examplePageClass.linkPath())) { text(text) } }
+private fun MarkupBuilder<ExamplesListPage>.link(
+    examplePageClass: KClass<out WebPage>,
+    text: String,
+    block: MarkupBuilder<ExamplesListPage>.() -> Unit = {},
+) {
+    li {
+        a(attr("href", examplePageClass.linkPath())) { text(text) }
+        block()
+    }
 }
