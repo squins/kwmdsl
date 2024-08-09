@@ -41,7 +41,7 @@ class ComponentsAndMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel
             span(ComponentsAndMarkupSupplyingDslPanel::currentTime)
         }
 
-        override val noVariantMarkup = markup {
+        override val noVariantMarkup = markup<ComponentsAndMarkupSupplyingDslPanel> {
             wicketPanel {
                 p { text("This is a panel, and it supplied the following fragment, including the components:") }
                 wicketFragment(::componentsAndMarkupSupplyingForUnspecializedBody1)

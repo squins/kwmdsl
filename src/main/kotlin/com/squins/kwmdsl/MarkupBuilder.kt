@@ -305,7 +305,6 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      *
      * @param block the code for building the children of the element.
      */
-    // TODO("Can this go? The DSL is not useful for working with a designer. Commenting out can be done using Kotlin comments")
     fun wicketRemove(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:remove>")
         block()
@@ -423,21 +422,21 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add text as a comment to the markup. Contrary to the other functions, the text will be escaped before it is added.
-     *
-     * @param text the text to add as a comment.
-     */
-    fun comment(text: String) {
-        currentTextPart.append("<!--").append(Strings.escapeMarkup(text)).append("-->")
-    }
-
-    /**
      * Add text to the markup.
      *
      * @param text the text to add. **Warning**: there is no validation and no escaping, so make sure the text is valid and safe.
      */
     fun unsafeText(text: String) {
         currentTextPart.append(text)
+    }
+
+    /**
+     * Add text as a comment to the markup. Contrary to the other functions, the text will be escaped before it is added.
+     *
+     * @param text the text to add as a comment.
+     */
+    fun comment(text: String) {
+        currentTextPart.append("<!--").append(Strings.escapeMarkup(text)).append("-->")
     }
 
     internal fun appendParts(builder: StringBuilder) {
