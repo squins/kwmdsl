@@ -215,12 +215,12 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             span(FragmentPage::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
         }
 
-        val ownComponentsMarkupInParentBody1 = standaloneFragmentBodyMarkup {
+        val ownComponentsMarkupInParentBody1 = fragmentBodyMarkup {
             text("Own components, specialized fragment, fragment #1. At: ")
             span(OwnComponentsMarkupInParentFragment::currentTime)
         }
 
-        val ownComponentsMarkupInParentBody2 = standaloneFragmentBodyMarkup {
+        val ownComponentsMarkupInParentBody2 = fragmentBodyMarkup {
             text("Own components, specialized fragment, fragment #2. At: ")
             span(OwnComponentsMarkupInParentFragment::currentTime)
         }
@@ -366,8 +366,8 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                     wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody2)
                     wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody1)
                     wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody2)
-                    wicketFragmentWithOwnComponents(::ownComponentsMarkupInParentBody1)
-                    wicketFragmentWithOwnComponents(::ownComponentsMarkupInParentBody2)
+                    wicketFragment(::ownComponentsMarkupInParentBody1)
+                    wicketFragment(::ownComponentsMarkupInParentBody2)
                 }
             }
         }

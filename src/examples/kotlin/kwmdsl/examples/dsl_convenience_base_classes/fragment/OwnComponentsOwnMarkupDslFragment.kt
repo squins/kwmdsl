@@ -2,8 +2,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
+import com.squins.kwmdsl.fragmentBodyMarkup
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.standaloneFragmentBodyMarkup
 import com.squins.kwmdsl.standaloneFragmentMarkup
 import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
@@ -26,17 +26,17 @@ class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        val ownComponentsOwnMarkupBody1 = standaloneFragmentBodyMarkup {
+        val ownComponentsOwnMarkupBody1 = fragmentBodyMarkup {
             text("Own components, specialized DSL Fragment, fragment #1. At: ")
             span(OwnComponentsOwnMarkupDslFragment::currentTime)
         }
 
-        val ownComponentsOwnMarkupBody2 = standaloneFragmentBodyMarkup {
+        val ownComponentsOwnMarkupBody2 = fragmentBodyMarkup {
             text("Own components, specialized DSL Fragment, fragment #2. At: ")
             span(OwnComponentsOwnMarkupDslFragment::currentTime)
         }
 
-        override val noVariantMarkup = standaloneFragmentMarkup {
+        override val noVariantMarkup = standaloneFragmentMarkup<OwnComponentsOwnMarkupDslFragment> {
             wicketFragment(::ownComponentsOwnMarkupBody1)
             wicketFragment(::ownComponentsOwnMarkupBody2)
         }

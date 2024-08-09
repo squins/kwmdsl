@@ -2,6 +2,7 @@ package com.squins.kwmdsl
 
 // TODO("Document: assumption paths are not empty")
 // TODO("Document: assumption paths are not the same")
+// TODO("Tests")
 internal fun relativizePath(basePath: List<String>, pathToRelativize: List<String>, separator: Char = ':'): String {
     val baseParentPathNumberOfElements = basePath.size - 1
 
