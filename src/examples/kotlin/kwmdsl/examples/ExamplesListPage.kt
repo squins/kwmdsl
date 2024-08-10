@@ -162,9 +162,10 @@ wicketExtend {
                     a(ELPS::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components") }
                 }
                 li {
-                    a(ELPS::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)") }
+                    a(ELPS::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components") }
+                    text(" (also to be used to prevent expensive initialization if a page should not be shown)")
                 }
-                link(DslConvenienceUnsafeTextPage::class, "Unsafe text, useful for large pieces of rich text content")
+                link(DslConvenienceUnsafeTextPage::class, "Unsafe text") { text(" (useful for large pieces of rich text content)")}
             }
         }
     }
