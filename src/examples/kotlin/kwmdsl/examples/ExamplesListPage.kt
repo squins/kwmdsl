@@ -99,8 +99,26 @@ wicketExtend {
             }
         }
 
-        h2 { text("Standard") }
+        h2 { text("Examples") }
+        p {
+            text("The examples are available in 3 variants, so you can easily compare the implementations:")
+        }
 
+        ul {
+            li { text("Standard: Wicket without using the DSL at all.") }
+            li { text("DSL, standard base classes: markup defined using the DSL, but using the standard Wicket base classes. This shows that you can use the DSL for sub classes of existing Wicket components.") }
+            li { text("DSL, convenience base classes: markup defined using the DSL, and using the convenience base classes that provide part of the functionality needed to use the DSL.") }
+        }
+
+        p {
+            text("The last 2 are almost completely the same, as the only difference is where the code to enable using the DSL is located.")
+        }
+
+        p {
+            text("Most examples link to (some) source files. But it is best to look at all of the source files using your IDE.")
+        }
+
+        h3 { text("Standard") }
         wicketLink {
             ul {
                 link(DeepInheritanceSubPage::class, "Deep inheritance")
@@ -109,8 +127,7 @@ wicketExtend {
             }
         }
 
-        h2 { text("DSL, Standard Base Classes") }
-
+        h3 { text("DSL, Standard Base Classes") }
         wicketLink {
             ul {
                 link(DslStandardDeepInheritanceSubPage::class, "Deep inheritance")
@@ -119,8 +136,7 @@ wicketExtend {
             }
         }
 
-        h2 { text("DSL, Convenience Base Classes") }
-
+        h3 { text("DSL, Convenience Base Classes") }
         wicketLink {
             ul {
                 link(DslConvenienceHelloWorldPage::class, "Hello World!") {
