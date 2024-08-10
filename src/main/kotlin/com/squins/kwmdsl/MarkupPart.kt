@@ -2,6 +2,7 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import kotlin.reflect.KProperty1
 
 internal sealed interface MarkupPart<TSupplier : MarkupContainer>
 
@@ -36,9 +37,9 @@ internal class ChildPart<TSupplier : MarkupContainer>(val child: ChildMarkupBuil
 
 internal class ForComponentReferencePart<TSupplier : MarkupContainer>(
     val referencingComponentPath: List<String>,
-    val forComponentSupplier: (TSupplier) -> Component,
+    val forComponentSupplier: KProperty1<TSupplier, MarkupContainer>,
 ) : MarkupPart<TSupplier>
 
 internal class DescendentReferencePart<TSupplier : MarkupContainer>(
-    val supplier: (TSupplier) -> Component,
+    val supplier: KProperty1<TSupplier, Component>,
 ) : MarkupPart<TSupplier>

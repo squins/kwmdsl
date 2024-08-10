@@ -2,6 +2,7 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import kotlin.reflect.KProperty1
 
 /**
  * A value for an attribute.
@@ -21,7 +22,7 @@ class Text(internal val text: String) : AttributeValue
  * @param descendentSupplier the supplier of the descendent to refer to.
  */
 class DescendentReference<TSupplier : MarkupContainer>(
-    internal val descendentSupplier: (TSupplier) -> Component,
+    internal val descendentSupplier: KProperty1<TSupplier, Component>,
 ) : AttributeValue
 
 /**
@@ -30,5 +31,5 @@ class DescendentReference<TSupplier : MarkupContainer>(
  * @param forComponentSupplier the supplier of the form component to refer to.
  */
 class ForComponentReference<TSupplier : MarkupContainer>(
-    internal val forComponentSupplier: (TSupplier) -> Component,
+    internal val forComponentSupplier: KProperty1<TSupplier, MarkupContainer>,
 ) : AttributeValue

@@ -2,6 +2,7 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import kotlin.reflect.KProperty1
 
 /**
  * Child markup representing an element that is associated with a Wicket component.
@@ -13,13 +14,13 @@ import org.apache.wicket.MarkupContainer
  */
 internal class ChildMarkup<TSupplier : MarkupContainer>(
     val expectedWicketId: String,
-    val supplier: (TSupplier) -> Component,
+    val supplier: KProperty1<TSupplier, Component>,
     children: List<ChildMarkup<TSupplier>>,
 ) : Markup<TSupplier>(children) {
     /**
      * Retrieve the Wicket component that is associated with this markup, using [supplier]. The ID of the retrieved component will be compared to [expectedWicketId] (which is equal to the name of the supplier). If the IDs do not match, an [IllegalStateException] is thrown.
      *
-     * @param supplier the supplier having the supplier function or property used to retrieve the component.
+     * @param supplier the supplier having the supplier property used to retrieve the component.
      */
     internal fun retrieveComponent(supplier: TSupplier) =
         supplier(supplier).apply {

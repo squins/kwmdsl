@@ -5,7 +5,6 @@ import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.border.Border
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
-import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.isSubclassOf
 
@@ -14,23 +13,14 @@ import kotlin.reflect.full.isSubclassOf
  *
  * @param TSupplier the markup container type having the properties and functions to get the Wicket components.
  * @param expectedWicketId the Wicket ID that the component returned by [supplier] is expected to have. During retrieval of the component, it is checked that the component ID matches this ID. This is done to find ID mismatches between the markup and the components quickly.
- * @param supplier the function or property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
+ * @param supplier the property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
  */
 internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private constructor(
     private val parent: MarkupBuilder<TSupplier>,
     private val expectedWicketId: String,
-    private val supplier: (TSupplier) -> Component,
+    private val supplier: KProperty1<TSupplier, Component>,
     private val isForBorder: Boolean,
 ) : MarkupBuilder<TSupplier>() {
-    /**
-     * Create an instance with a function supplier.
-     *
-     * @param supplier the function that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
-     */
-    internal constructor(parent: MarkupBuilder<TSupplier>, supplier: KFunction1<TSupplier, Component>) :
-            this(parent, supplier.name, supplier, doesSupplierReturnBorder(supplier))
-
-
     /**
      * Create an instance with a property supplier.
      *
@@ -62,7 +52,7 @@ internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private construct
      * @param supplier the suppler of the component for which to get the path.
      * @return the Wicket component path (never containing parent operators (`..`)) of [supplier], or `null` if the supplier is not associated with this builder or a descendent builder.
      */
-    internal fun pathOf(supplier: (TSupplier) -> Component): String? =
+    internal fun pathOf(supplier: KProperty1<TSupplier, Component>): String? =
         if (supplier == this@ChildMarkupBuilder.supplier) {
             expectedWicketId
         } else {
@@ -76,7 +66,7 @@ internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private construct
      * @param supplier the suppler of the component for which to get the path.
      * @return the Wicket component path (never containing parent operators (`..`)) of [supplier] as a list, or `null` if the supplier is not associated with this builder or a descendent builder.
      */
-    internal fun pathOfAsList(supplier: (TSupplier) -> Component): List<String>? =
+    internal fun pathOfAsList(supplier: KProperty1<TSupplier, Component>): List<String>? =
         if (supplier == this@ChildMarkupBuilder.supplier) {
             listOf(expectedWicketId)
         } else {
@@ -91,7 +81,7 @@ internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private construct
                 }
         }
 
-    override fun pathFromRootOfAsList(supplier: (TSupplier) -> Component) = parent.pathFromRootOfAsList(supplier)
+    override fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>) = parent.pathFromRootOfAsList(supplier)
 }
 
 private fun doesSupplierReturnBorder(supplier: KCallable<Component>) =

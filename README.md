@@ -1,12 +1,12 @@
 # Introduction
 
-The Kotlin Wicket markup DSL enables you to write markup in the Kotlin source file, instead of in a separate HTML file. The markup uses references to component properties or functions, so the wicket ID only has to be specified once (TODO("Only if using a property delegate")) and updated in all places using a rename refactoring. The hierarchy also only has to be specified once: in the markup. Components are added by the markup to the page or component according to the markup hierarchy.
+The Kotlin Wicket markup DSL enables you to write markup in the Kotlin source file, instead of in a separate HTML file. The markup uses references to component properties or functions, so the wicket ID only has to be defined once and updated in all places using a rename refactoring. The hierarchy also only has to be specified once: in the markup. Components are added by the markup to the page or component according to the markup hierarchy.
 
 ## Properties
 
 TODO("KDoc, order of members, visibility")
 
-TODO("Tiny, most is (generated) convenience functions. But large impact.")
+TODO("Small, most is (generated) convenience functions. But large impact.")
 
 TODO("Matching IDs checked during creation of the components")
 
@@ -28,7 +28,7 @@ TODO("Companion object IMarkup...Provider")
 
 ### HTML Elements
 
-TODO("Convenience: each element (that is not deprecated) 4 functions")
+TODO("Convenience: each element (that is not deprecated) 3 functions")
 
 ### Class Elements
 

@@ -63,7 +63,6 @@ val generateConvenienceFunctions by tasks.registering {
                     println()
                     println("import org.apache.wicket.Component")
                     println("import org.apache.wicket.MarkupContainer")
-                    println("import kotlin.reflect.KFunction1")
                     println("import kotlin.reflect.KProperty1")
                     println()
 
@@ -81,14 +80,6 @@ val generateConvenienceFunctions by tasks.registering {
 
                     fun repeatedDeclaration() {
                         println("    repeated: Repeated,")
-                    }
-
-                    fun functionSupplierDoc() {
-                        println(" * @param supplier the function that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.")
-                    }
-
-                    fun functionSupplierDeclaration() {
-                        println("    supplier: KFunction1<TSupplier, Component>,")
                     }
 
                     fun propertySupplierDoc() {
@@ -124,12 +115,6 @@ val generateConvenienceFunctions by tasks.registering {
                     fun repeatedElementDocStart(elementName: String) {
                         println("/**")
                         println(" * Add ${aOrAn(elementName)} `$elementName` element with the Wicket ID of the given supplier. The component of the element will be added during the population of the items of a repeater. It is the responsibility of the markup container to add a Wicket component with the same ID manually.")
-                        println(" *")
-                    }
-
-                    fun supplierFunctionElementDocStart(elementName: String) {
-                        println("/**")
-                        println(" * Add ${aOrAn(elementName)} `$elementName` element with the Wicket ID equal to the name of the supplier function. The Wicket component will be retrieved, by invoking the supplier function, and added to the markup container when the root markup is added to the markup container.")
                         println(" *")
                     }
 
@@ -170,17 +155,6 @@ val generateConvenienceFunctions by tasks.registering {
                         attributesDeclaration()
                         println(") =")
                         println("""    voidElement("$elementName", attr("wicket:id", repeated.wicketId), *attributes)""")
-                        println()
-                        supplierFunctionElementDocStart(elementName)
-                        supplierDoc()
-                        functionSupplierDoc()
-                        attributesDoc()
-                        docEnd()
-                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$elementName(")
-                        functionSupplierDeclaration()
-                        attributesDeclaration()
-                        println(") =")
-                        println("""    voidElement(supplier, "$elementName", *attributes)""")
                         println()
                         supplierPropertyElementDocStart(elementName)
                         supplierDoc()
@@ -235,19 +209,6 @@ val generateConvenienceFunctions by tasks.registering {
                         blockDeclaration()
                         println(") =")
                         println("""    element("$elementName", attr("wicket:id", repeated.wicketId), *attributes, block = block)""")
-                        println()
-                        supplierFunctionElementDocStart(elementName)
-                        supplierDoc()
-                        propertySupplierDoc()
-                        attributesDoc()
-                        blockDoc()
-                        docEnd()
-                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.$functionName(")
-                        functionSupplierDeclaration()
-                        attributesDeclaration()
-                        blockDeclaration()
-                        println(") =")
-                        println("""    element(supplier, "$elementName", *attributes, block = block)""")
                         println()
                         supplierPropertyElementDocStart(elementName)
                         supplierDoc()

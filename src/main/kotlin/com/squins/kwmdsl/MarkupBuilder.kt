@@ -3,8 +3,7 @@ package com.squins.kwmdsl
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.util.string.Strings
-import kotlin.reflect.KCallable
-import kotlin.reflect.KFunction1
+import kotlin.reflect.KProperty0
 import kotlin.reflect.KProperty1
 
 /**
@@ -93,19 +92,6 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     /**
      * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
      *
-     * @param supplier the function that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
-     * @param block the (optional) code for building the children of the element.
-     */
-    fun wicketContainer(
-        supplier: KFunction1<TSupplier, Component>,
-        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
-    ) {
-        element(supplier, "wicket:container", block = block)
-    }
-
-    /**
-     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
-     *
      * @param supplier the property that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
      * @param block the (optional) code for building the children of the element.
      */
@@ -123,7 +109,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      * @param block the code for building the children of the element.
      */
     fun wicketEnclosure(
-        childSupplier: ((TSupplier) -> Component)? = null,
+        childSupplier: (KProperty1<TSupplier, Component>)? = null,
         block: MarkupBuilder<TSupplier>.() -> Unit
     ) {
         startTagPrefix("wicket:enclosure")
@@ -152,7 +138,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      * @param childSupplier the supplier of the child Wicket component that determines the visibility of the element with this attribute.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
-    fun wicketEnclosureAttribute(childSupplier: (TSupplier) -> Component) =
+    fun wicketEnclosureAttribute(childSupplier: KProperty1<TSupplier, Component>) =
         "wicket:enclosure" to DescendentReference(childSupplier)
 
     /**
@@ -181,7 +167,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      * @param forComponentSupplier the supplier of the Wicket form component that the label containing this attribute is for.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
-    fun wicketForAttribute(forComponentSupplier: (TSupplier) -> Component) =
+    fun wicketForAttribute(forComponentSupplier: KProperty1<TSupplier, MarkupContainer>) =
         "wicket:for" to ForComponentReference(forComponentSupplier)
 
     /**
@@ -193,7 +179,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     fun wicketForAttribute(path: String) =
         "wicket:for" to Text(path)
 
-    fun wicketFragment(fragmentBodyMarkupSupplier: KCallable<IFragmentBodyMarkup<*>>) {
+    fun wicketFragment(fragmentBodyMarkupSupplier: KProperty0<IFragmentBodyMarkup<*>>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
             .append(fragmentBodyMarkupSupplier.name)
@@ -213,7 +199,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     fun wicketLabel(
-        forComponentSupplier: ((TSupplier) -> Component)? = null,
+        forComponentSupplier: (KProperty1<TSupplier, MarkupContainer>)? = null,
         key: String? = null,
         block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
     ) {
@@ -335,24 +321,6 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     /**
      * Add an element with the given name and associated with a Wicket component to the markup.
      *
-     * @param supplier the function that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
-     * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
-     * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
-     * @param block the (optional) code for building the children of the element.
-     */
-    fun element(
-        supplier: KFunction1<TSupplier, Component>,
-        name: String,
-        vararg attributes: Pair<String, AttributeValue>,
-        block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
-    ) {
-        val childMarkup = ChildMarkupBuilder(this, supplier)
-        wicketElement(childMarkup, name, supplier.name, attributes = attributes, block)
-    }
-
-    /**
-     * Add an element with the given name and associated with a Wicket component to the markup.
-     *
      * @param supplier the property that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
      * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
      * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
@@ -378,22 +346,6 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         startTagPrefix(name)
         attributes(*attributes)
         currentTextPart.append('>')
-    }
-
-    /**
-     * Add a void element with the given name and associated with a Wicket component to the markup.
-     *
-     * @param supplier the function that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
-     * @param name the element name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
-     * @param attributes the attributes to add: pairs of attribute name and attribute value. **Warning**: there is no validation and no escaping, so make sure the names and values are valid and safe.
-     */
-    fun voidElement(
-        supplier: KFunction1<TSupplier, Component>,
-        name: String,
-        vararg attributes: Pair<String, AttributeValue>,
-    ) {
-        val childMarkup = ChildMarkupBuilder(this, supplier)
-        voidWicketElement(childMarkup, name, supplier.name, *attributes)
     }
 
     /**
@@ -477,7 +429,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      * @param supplier the suppler of the component for which to get the path.
      * @return the Wicket component path of [supplier], as a list, or `null` if the supplier is not associated with a builder anywhere in the markup hierarchy.
      */
-    internal abstract fun pathFromRootOfAsList(supplier: (TSupplier) -> Component): List<String>?
+    internal abstract fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>): List<String>?
 
     internal fun buildChildren(): List<ChildMarkup<TSupplier>> = children.map { it.build() }
 
@@ -577,7 +529,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         when (value) {
             is DescendentReference<*> -> {
                 @Suppress("UNCHECKED_CAST")
-                parts += DescendentReferencePart(value.descendentSupplier as (TSupplier) -> Component)
+                parts += DescendentReferencePart(value.descendentSupplier as KProperty1<TSupplier, Component>)
                 currentTextPart = TextPart()
                 parts += currentTextPart
             }
@@ -587,7 +539,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
                 parts += ForComponentReferencePart(
                     // The element containing `wicket:for` is seen as a Wicket component, so add a path part for it.
                     getPathAsList() + "",
-                    value.forComponentSupplier as (TSupplier) -> Component
+                    value.forComponentSupplier as KProperty1<TSupplier, MarkupContainer>
                 )
                 currentTextPart = TextPart()
                 parts += currentTextPart

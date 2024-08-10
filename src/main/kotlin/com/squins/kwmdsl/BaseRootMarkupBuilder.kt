@@ -2,6 +2,7 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import kotlin.reflect.KProperty1
 
 /**
  * A base class for root markup builders, containing functionality provided and shared by all root markup builders.
@@ -13,7 +14,7 @@ abstract class BaseRootMarkupBuilder<TSupplier : MarkupContainer, TMarkup : Base
     MarkupBuilder<TSupplier>() {
     override fun getPathAsList() = emptyList<String>()
 
-    override fun pathFromRootOfAsList(supplier: (TSupplier) -> Component) =
+    override fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>) =
         children.firstNotNullOfOrNull { it.pathOfAsList(supplier) }
 
     /**

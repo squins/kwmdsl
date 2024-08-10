@@ -2,13 +2,14 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import kotlin.reflect.KProperty1
 
 abstract class BaseFragmentBodyMarkupBuilder<TSupplier: MarkupContainer, TMarkup : IFragmentBodyMarkup<TSupplier>> : MarkupBuilder<TSupplier>() {
     // TODO("Check if this is correct for fragment bodies")
     override fun getPathAsList() = emptyList<String>()
 
     // TODO("Check if this is correct for fragment bodies")
-    override fun pathFromRootOfAsList(supplier: (TSupplier) -> Component) =
+    override fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>) =
         children.firstNotNullOfOrNull { it.pathOfAsList(supplier) }
 
     /**

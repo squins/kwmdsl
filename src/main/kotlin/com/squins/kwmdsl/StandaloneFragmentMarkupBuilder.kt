@@ -2,6 +2,7 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.markup.html.panel.Fragment
+import kotlin.reflect.KProperty1
 
 class StandaloneFragmentMarkupBuilder<TSupplier: Fragment> : MarkupBuilder<TSupplier>() {
     init {
@@ -11,7 +12,7 @@ class StandaloneFragmentMarkupBuilder<TSupplier: Fragment> : MarkupBuilder<TSupp
 
     override fun getPathAsList() = emptyList<String>()
 
-    override fun pathFromRootOfAsList(supplier: (TSupplier) -> Component) =
+    override fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>) =
         children.firstNotNullOfOrNull { it.pathOfAsList(supplier) }
 
     internal fun build(): StandaloneFragmentMarkup<TSupplier> {
