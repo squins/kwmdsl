@@ -7,7 +7,9 @@ import org.apache.wicket.MarkupContainer
  *
  * For some markup container types, a specialized builder function must be used:
  *
- * * [Border][org.apache.wicket.markup.html.border.Border] : [borderMarkup]
+ * * [Border][org.apache.wicket.markup.html.border.Border]s: [borderMarkup]
+ * * [Fragment][org.apache.wicket.markup.html.panel.Fragment]s that have their own markup: [standaloneFragmentMarkup]
+ * * The body of `Fragment`s: [fragmentBodyMarkup]
  *
  * @param TSupplier the markup container type having the properties and functions to get the Wicket components.
  * @param block the code specifying the markup and the component hierarchy.
