@@ -3,8 +3,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.variants
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
-import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
+import kwmdsl.examples.sourceCodeLink
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice

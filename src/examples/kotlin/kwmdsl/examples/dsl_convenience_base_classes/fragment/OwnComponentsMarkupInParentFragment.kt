@@ -1,6 +1,5 @@
-package kwmdsl.examples.dsl_convenience_base_classes
+package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
-import kwmdsl.examples.dsl_convenience_base_classes.fragment.FragmentPage
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.markup.html.basic.Label

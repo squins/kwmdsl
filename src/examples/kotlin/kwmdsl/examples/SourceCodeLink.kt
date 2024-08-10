@@ -1,4 +1,4 @@
-package kwmdsl.examples.dsl_convenience_base_classes
+package kwmdsl.examples
 
 import com.squins.kwmdsl.*
 import kotlin.reflect.KClass

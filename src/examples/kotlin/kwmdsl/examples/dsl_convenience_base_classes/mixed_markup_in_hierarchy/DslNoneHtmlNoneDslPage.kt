@@ -5,8 +5,8 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
-import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
+import kwmdsl.examples.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 class DslNoneHtmlNoneDslPage : DslNoneHtmlNonePage() {

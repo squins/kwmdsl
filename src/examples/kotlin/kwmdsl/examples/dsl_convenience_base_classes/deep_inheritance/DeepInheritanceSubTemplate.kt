@@ -2,8 +2,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance
 
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
-import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
+import kwmdsl.examples.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {

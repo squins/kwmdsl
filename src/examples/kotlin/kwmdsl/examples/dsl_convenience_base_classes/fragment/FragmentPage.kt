@@ -3,9 +3,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.fragment
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
-import kwmdsl.examples.dsl_convenience_base_classes.OwnComponentsMarkupInParentFragment
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
-import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
+import kwmdsl.examples.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 import java.time.ZonedDateTime

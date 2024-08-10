@@ -2,7 +2,6 @@ package kwmdsl.examples
 
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 
 class EncodingPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {

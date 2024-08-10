@@ -6,7 +6,7 @@ import com.squins.kwmdsl.component.linkPath
 import com.squins.kwmdsl.component.resourcePath
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
 
 class LinkPage : ExamplesConvenienceBasePage() {
     override fun onInitialize() {

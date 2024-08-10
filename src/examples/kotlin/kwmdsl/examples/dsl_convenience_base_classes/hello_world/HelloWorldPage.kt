@@ -6,7 +6,7 @@ import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
 import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.span
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 class HelloWorldPage : KotlinWicketMarkupWebPage() {

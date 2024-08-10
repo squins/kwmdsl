@@ -3,7 +3,7 @@ package kwmdsl.examples.dsl_convenience_base_classes.page_parameters
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
-import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.model.LoadableDetachableModel
 

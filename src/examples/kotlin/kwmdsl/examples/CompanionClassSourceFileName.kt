@@ -1,4 +1,4 @@
-package kwmdsl.examples.dsl_convenience_base_classes
+package kwmdsl.examples
 
 fun classSourceFilename(companion: Any): String {
     val classSimpleName = checkNotNull(
