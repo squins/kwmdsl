@@ -18,18 +18,20 @@ class BorderPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Border") }
-                classDiv("content") {
-                    div(BPS::border) {
-                        p {
-                            text("Page: ")
-                            span(BPS::pageLabel)
-                        }
-                    }
-                }
-                firstSourceCodeLink(this@Companion)
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Border") }
+    classDiv("content") {
+        div(BPS::border) {
+            p {
+                text("Page: ")
+                span(BPS::pageLabel)
             }
+        }
+    }
+    firstSourceCodeLink(this@Companion)
+}
+// @formatter:on
         }
     }
 }

@@ -15,20 +15,24 @@ abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : Ko
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = markup<ExamplesConvenienceBasePage> {
-            docTypeHtml()
-            html(attr("lang", "en")) {
-                head {
-                    title { text("Kotlin Wicket Markup DSL Examples") }
-                }
-                body {
-                    classSection("section") {
-                        classDiv("container") {
-                            wicketChild()
-                        }
-                    }
-                }
+        override val noVariantMarkup = markup<ECBPS> {
+// @formatter:off
+docTypeHtml()
+html(attr("lang", "en")) {
+    head {
+        title { text("Kotlin Wicket Markup DSL Examples") }
+    }
+    body {
+        classSection("section") {
+            classDiv("container") {
+                wicketChild()
             }
         }
     }
 }
+// @formatter:on
+        }
+    }
+}
+
+private typealias ECBPS = ExamplesConvenienceBasePage

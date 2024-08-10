@@ -4,7 +4,6 @@ import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
-import kwmdsl.examples.dsl_convenience_base_classes.variants.VariantsPage
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 

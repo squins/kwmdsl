@@ -38,4 +38,5 @@ wicketExtend {
     }
 }
 
+// S stands for 'supplier'
 private typealias S = EncodingPage

@@ -56,111 +56,115 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Kotlin Wicket Markup DSL Examples") }
-                classDiv("content") {
-                    h2 { text("Encoding") }
-                    p {
-                        text("Are we happy about the encoding (")
-                        text(Charset.defaultCharset().displayName())
-                        text(")? \uD83D\uDE04")
-                        text(" If you do not see a happy face to the left, read about ")
-                        wicketLink {
-                            a(attr("href", EncodingPage::class.linkPath())) {
-                                text("Wicket and the default JVM encoding")
-                            }
-                        }
-                        text(".")
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Kotlin Wicket Markup DSL Examples") }
+    classDiv("content") {
+        h2 { text("Encoding") }
+        p {
+            text("Are we happy about the encoding (")
+            text(Charset.defaultCharset().displayName())
+            text(")? \uD83D\uDE04")
+            text(" If you do not see a happy face to the left, read about ")
+            wicketLink {
+                a(attr("href", EncodingPage::class.linkPath())) {
+                    text("Wicket and the default JVM encoding")
+                }
+            }
+            text(".")
+        }
+
+        h2 { text("Wicket Links") }
+        p {
+            text("This page also shows the use of ")
+            code { text("<wicket:link>") }
+            text(" for resources (images) and links.")
+        }
+
+        p {
+            wicketLink {
+                text("In this package: ")
+                img(
+                    attr("src", "Apache Wicket.svg"),
+                    attr("width", "50")
+                )
+                text(", from a sub package: ")
+                img(
+                    attr(
+                        "src",
+                        ELPS::class.resourcePath<DslConvenienceLinkPage>("Apache Wicket.svg")
+                    ),
+                    attr("width", "50")
+                )
+            }
+        }
+
+        h2 { text("Standard") }
+
+        wicketLink {
+            ul {
+                link(DeepInheritanceSubPage::class, "Deep inheritance")
+                link(EnclosuresPage::class, "Enclosures")
+                link(VariantsPage::class, "Variants")
+            }
+        }
+
+        h2 { text("DSL, Standard Base Classes") }
+
+        wicketLink {
+            ul {
+                link(DslStandardDeepInheritanceSubPage::class, "Deep inheritance")
+                link(DslStandardEnclosuresPage::class, "Enclosures")
+                link(HtmlNoneDslNoneHtmlPage::class, "Mixed markup in hierarchy")
+            }
+        }
+
+        h2 { text("DSL, Convenience Base Classes") }
+
+        wicketLink {
+            ul {
+                link(DslConvenienceHelloWorldPage::class, "Hello World!") {
+                    text(" (the DSL version of the ")
+                    a(attr("href", "https://wicket.apache.org/learn/examples/helloworld.html")) {
+                        text("Wicket Hello World! example")
                     }
-
-                    h2 { text("Wicket Links") }
-                    p {
-                        text("This page also shows the use of ")
-                        code { text("<wicket:link>") }
-                        text(" for resources (images) and links.")
-                    }
-
-                    p {
-                        wicketLink {
-                            text("In this package: ")
-                            img(
-                                attr("src", "Apache Wicket.svg"),
-                                attr("width", "50")
-                            )
-                            text(", from a sub package: ")
-                            img(
-                                attr(
-                                    "src",
-                                    ExamplesListPage::class.resourcePath<DslConvenienceLinkPage>("Apache Wicket.svg")
-                                ),
-                                attr("width", "50")
-                            )
-                        }
-                    }
-
-                    h2 { text("Standard") }
-
-                    wicketLink {
-                        ul {
-                            link(DeepInheritanceSubPage::class, "Deep inheritance")
-                            link(EnclosuresPage::class, "Enclosures")
-                            link(VariantsPage::class, "Variants")
-                        }
-                    }
-
-                    h2 { text("DSL, Standard Base Classes") }
-
-                    wicketLink {
-                        ul {
-                            link(DslStandardDeepInheritanceSubPage::class, "Deep inheritance")
-                            link(DslStandardEnclosuresPage::class, "Enclosures")
-                            link(HtmlNoneDslNoneHtmlPage::class, "Mixed markup in hierarchy")
-                        }
-                    }
-
-                    h2 { text("DSL, Convenience Base Classes") }
-
-                    wicketLink {
-                        ul {
-                            link(DslConvenienceHelloWorldPage::class, "Hello World!") {
-                                text(" (the DSL version of the ")
-                                a(attr("href", "https://wicket.apache.org/learn/examples/helloworld.html")) {
-                                    text("Wicket Hello World! example")
-                                }
-                                text(")")
-                            }
-                            link(DslConvenienceDeepInheritanceSubPage::class, "Deep inheritance")
-                            link(DslConvenienceEnclosuresPage::class, "Enclosures")
-                            link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
-                            link(DslConvenienceBorderPage::class, "Border")
-                            link(DslConvenienceFragmentPage::class, "Fragments")
-                            link(DslConvenienceLinkPage::class, "Link")
-                            link(DslConvenienceWebMarkupContainerPage::class, "Web markup container")
-                            link(DslConvenienceRepeatPage::class, "Repeat")
-                            link(DslConvenienceLabelForPage::class, "Label for form component")
-                            link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
-                            link(DslConvenienceVariantsPage::class, "Variants")
-                            li {
-                                a(ExamplesListPage::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components") }
-                            }
-                            li {
-                                a(ExamplesListPage::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)") }
-                            }
-                        }
-                    }
+                    text(")")
+                }
+                link(DslConvenienceDeepInheritanceSubPage::class, "Deep inheritance")
+                link(DslConvenienceEnclosuresPage::class, "Enclosures")
+                link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
+                link(DslConvenienceBorderPage::class, "Border")
+                link(DslConvenienceFragmentPage::class, "Fragments")
+                link(DslConvenienceLinkPage::class, "Link")
+                link(DslConvenienceWebMarkupContainerPage::class, "Web markup container")
+                link(DslConvenienceRepeatPage::class, "Repeat")
+                link(DslConvenienceLabelForPage::class, "Label for form component")
+                link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
+                link(DslConvenienceVariantsPage::class, "Variants")
+                li {
+                    a(ELPS::pageParametersWithValPropertiesPageLink) { text("Page parameters, val properties for components") }
+                }
+                li {
+                    a(ELPS::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)") }
                 }
             }
         }
     }
 }
+// @formatter:on
+        }
+    }
+}
 
-private fun MarkupBuilder<ExamplesListPage>.link(
+private fun MarkupBuilder<ELPS>.link(
     examplePageClass: KClass<out WebPage>,
     text: String,
-    block: MarkupBuilder<ExamplesListPage>.() -> Unit = {},
+    block: MarkupBuilder<ELPS>.() -> Unit = {},
 ) {
     li {
         a(attr("href", examplePageClass.linkPath())) { text(text) }
         block()
     }
 }
+
+private typealias ELPS = ExamplesListPage

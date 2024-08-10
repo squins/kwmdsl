@@ -181,40 +181,40 @@ class FragmentPage : ExamplesConvenienceBasePage() {
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        val noComponentsMarkupInParentUnspecializedFragmentBody1 = fragmentBodyMarkup<FragmentPage> {
+        val noComponentsMarkupInParentUnspecializedFragmentBody1 = fragmentBodyMarkup<FPS> {
             text("No components, unspecialized fragment, fragment #1")
         }
 
-        val noComponentsMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup<FragmentPage> {
+        val noComponentsMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup<FPS> {
             text("No components, unspecialized fragment, fragment #2")
         }
 
-        val noComponentsMarkupInParentSpecializedFragmentBody1 = fragmentBodyMarkup<FragmentPage> {
+        val noComponentsMarkupInParentSpecializedFragmentBody1 = fragmentBodyMarkup<FPS> {
             text("No components, specialized fragment, fragment #1")
         }
 
-        val noComponentsMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup<FragmentPage> {
+        val noComponentsMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup<FPS> {
             text("No components, specialized fragment, fragment #2")
         }
 
         val componentsInParentMarkupInParentUnspecializedFragmentBody1 = fragmentBodyMarkup {
             text("Components in parent, unspecialized fragment, fragment #1. At: ")
-            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment)
+            span(FPS::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment)
         }
 
         val componentsInParentMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup {
             text("Components in parent, unspecialized fragment, fragment #2. At: ")
-            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment)
+            span(FPS::componentsInParentMarkupInParentCurrentTimeUnspecializedFragment)
         }
 
         val componentsInParentMarkupInParentSpecializedFragmentBody1 = fragmentBodyMarkup {
             text("Components in parent, specialized fragment, fragment #1. At: ")
-            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
+            span(FPS::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
         }
 
         val componentsInParentMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup {
             text("Components in parent, specialized fragment, fragment #2. At: ")
-            span(FragmentPage::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
+            span(FPS::componentsInParentMarkupInParentCurrentTimeSpecializedFragment)
         }
 
         val ownComponentsMarkupInParentBody1 = fragmentBodyMarkup {
@@ -228,158 +228,162 @@ class FragmentPage : ExamplesConvenienceBasePage() {
         }
 
         override val noVariantMarkup = markup {
-            wicketHead {
-                style {
-                    // language=css
-                    text(".specialized { color: coral; }")
+// @formatter:off
+wicketHead {
+    style {
+        // language=css
+        text(".specialized { color: coral; }")
+    }
+}
+wicketExtend {
+    classH1("title") { text("Fragment") }
+    classDiv("content") {
+        h2 { text("Introduction") }
+        // TODO("also put this in the documentation")
+        p { text("Wicket is very flexible when it comes to fragments, and supports most combinations of the table below (and more). But the DSL only supports the combinations specifying what type of fragment can be used:") }
+        table {
+            thead {
+              tr {
+                  td(attr("rowspan", "2")) { text("") }
+                  th(attr("rowspan", "2")) { text("Own markup") }
+                  th(attr("colspan", "3"), attr("style", "text-align: center;")) { text("External markup") }
+              }
+              tr {
+                  th { text("Markup in parent") }
+                  th { text("Markup in other component, also supplying components") }
+                  th { text("Markup in other component, not supplying components") }
+              }
+            }
+            tbody {
+                tr {
+                    th { text("No components") }
+                    td { text("Specialized only") }
+                    td { text("(Un)specialized") }
+                    td { text("-") }
+                    td { text("(Un)specialized") }
+                }
+                tr {
+                    th { text("Own components") }
+                    td { text("Specialized only") }
+                    td { text("Specialized only") }
+                    td { text("-") }
+                    td { text("-") }
+                }
+                tr {
+                    th { text("Components in parent") }
+                    td { text("-") }
+                    td { text("(Un)specialized") }
+                    td { text("-") }
+                    td { text("-") }
+                }
+                tr {
+                    th { text("Components in other component, also supplying markup") }
+                    td { text("-") }
+                    td { text("-") }
+                    td { text("(Un)specialized") }
+                    td { text("-") }
+                }
+                tr {
+                    th { text("Components in other component, not supplying markup") }
+                    td { text("-") }
+                    td { text("-") }
+                    td { text("-") }
+                    td { text("-") }
                 }
             }
-            wicketExtend {
-                classH1("title") { text("Fragment") }
-                classDiv("content") {
-                    h2 { text("Introduction") }
-                    // TODO("also put this in the documentation")
-                    p { text("Wicket is very flexible when it comes to fragments, and supports most combinations of the table below (and more). But the DSL only supports the combinations specifying what type of fragment can be used:") }
-                    table {
-                        thead {
-                          tr {
-                              td(attr("rowspan", "2")) { text("") }
-                              th(attr("rowspan", "2")) { text("Own markup") }
-                              th(attr("colspan", "3"), attr("style", "text-align: center;")) { text("External markup") }
-                          }
-                          tr {
-                              th { text("Markup in parent") }
-                              th { text("Markup in other component, also supplying components") }
-                              th { text("Markup in other component, not supplying components") }
-                          }
-                        }
-                        tbody {
-                            tr {
-                                th { text("No components") }
-                                td { text("Specialized only") }
-                                td { text("(Un)specialized") }
-                                td { text("-") }
-                                td { text("(Un)specialized") }
-                            }
-                            tr {
-                                th { text("Own components") }
-                                td { text("Specialized only") }
-                                td { text("Specialized only") }
-                                td { text("-") }
-                                td { text("-") }
-                            }
-                            tr {
-                                th { text("Components in parent") }
-                                td { text("-") }
-                                td { text("(Un)specialized") }
-                                td { text("-") }
-                                td { text("-") }
-                            }
-                            tr {
-                                th { text("Components in other component, also supplying markup") }
-                                td { text("-") }
-                                td { text("-") }
-                                td { text("(Un)specialized") }
-                                td { text("-") }
-                            }
-                            tr {
-                                th { text("Components in other component, not supplying markup") }
-                                td { text("-") }
-                                td { text("-") }
-                                td { text("-") }
-                                td { text("-") }
-                            }
-                        }
-                    }
+        }
 
-                    p { text("In all cases multiple fragment markup variants are supported. A random one is chosen in each example when the page is loaded and refreshed.") }
+        p { text("In all cases multiple fragment markup variants are supported. A random one is chosen in each example when the page is loaded and refreshed.") }
 
-                    h2 { text("Examples") }
+        h2 { text("Examples") }
 
-                    h3 { text("Own Markup") }
+        h3 { text("Own Markup") }
 
-                    p {
-                        span(FragmentPage::noComponentsOwnMarkupDslFragment)
-                    }
+        p {
+            span(FPS::noComponentsOwnMarkupDslFragment)
+        }
 
-                    p {
-                        span(FragmentPage::noComponentsOwnMarkupHtmlFragment)
-                    }
+        p {
+            span(FPS::noComponentsOwnMarkupHtmlFragment)
+        }
 
-                    p {
-                        span(FragmentPage::ownComponentsOwnMarkupDslFragment)
-                    }
+        p {
+            span(FPS::ownComponentsOwnMarkupDslFragment)
+        }
 
-                    p {
-                        span(FragmentPage::ownComponentsOwnMarkupHtmlFragment)
-                    }
+        p {
+            span(FPS::ownComponentsOwnMarkupHtmlFragment)
+        }
 
-                    h3 { text("Markup in Parent") }
+        h3 { text("Markup in Parent") }
 
-                    p {
-                        span(FragmentPage::noComponentsMarkupInParentUnspecializedFragment)
-                    }
+        p {
+            span(FPS::noComponentsMarkupInParentUnspecializedFragment)
+        }
 
-                    p {
-                        span(FragmentPage::noComponentsMarkupInParentSpecializedFragment)
-                    }
+        p {
+            span(FPS::noComponentsMarkupInParentSpecializedFragment)
+        }
 
-                    p {
-                        span(FragmentPage::ownComponentsMarkupInParentFragment)
-                    }
+        p {
+            span(FPS::ownComponentsMarkupInParentFragment)
+        }
 
-                    p {
-                        span(FragmentPage::componentsInParentMarkupInParentUnspecializedFragment)
-                    }
+        p {
+            span(FPS::componentsInParentMarkupInParentUnspecializedFragment)
+        }
 
-                    p {
-                        span(FragmentPage::componentsInParentMarkupInParentSpecializedFragment)
-                    }
+        p {
+            span(FPS::componentsInParentMarkupInParentSpecializedFragment)
+        }
 
-                    h3 { text("Markup in Other Component, Also Supplying Components") }
+        h3 { text("Markup in Other Component, Also Supplying Components") }
 
-                    div(FragmentPage::componentsAndMarkupSupplyingPanelForUnspecialized)
-                    p {
-                        span(FragmentPage::componentsAndMarkupInOtherComponentUnspecializedFragment)
-                    }
+        div(FPS::componentsAndMarkupSupplyingPanelForUnspecialized)
+        p {
+            span(FPS::componentsAndMarkupInOtherComponentUnspecializedFragment)
+        }
 
-                    div(FragmentPage::componentsAndMarkupSupplyingPanelForSpecialized)
-                    p {
-                        span(FragmentPage::componentsAndMarkupInOtherComponentSpecializedFragment)
-                    }
+        div(FPS::componentsAndMarkupSupplyingPanelForSpecialized)
+        p {
+            span(FPS::componentsAndMarkupInOtherComponentSpecializedFragment)
+        }
 
-                    h3 { text("Markup in Other Component, Not Supplying Components") }
+        h3 { text("Markup in Other Component, Not Supplying Components") }
 
-                    div(FragmentPage::noComponentsMarkupSupplyingPanelForUnspecialized)
-                    p {
-                        span(FragmentPage::noComponentsMarkupInOtherComponentUnspecializedFragment)
-                    }
+        div(FPS::noComponentsMarkupSupplyingPanelForUnspecialized)
+        p {
+            span(FPS::noComponentsMarkupInOtherComponentUnspecializedFragment)
+        }
 
-                    div(FragmentPage::noComponentsMarkupSupplyingPanelForSpecialized)
-                    p {
-                        span(FragmentPage::noComponentsMarkupInOtherComponentSpecializedFragment)
-                    }
+        div(FPS::noComponentsMarkupSupplyingPanelForSpecialized)
+        p {
+            span(FPS::noComponentsMarkupInOtherComponentSpecializedFragment)
+        }
 
-                    wicketFragment(::noComponentsMarkupInParentUnspecializedFragmentBody1)
-                    wicketFragment(::noComponentsMarkupInParentUnspecializedFragmentBody2)
-                    wicketFragment(::noComponentsMarkupInParentSpecializedFragmentBody1)
-                    wicketFragment(::noComponentsMarkupInParentSpecializedFragmentBody2)
-                    wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody1)
-                    wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody2)
-                    wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody1)
-                    wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody2)
-                    wicketFragment(::ownComponentsMarkupInParentBody1)
-                    wicketFragment(::ownComponentsMarkupInParentBody2)
-                }
-                firstSourceCodeLink(this@Companion)
-                sourceCodeLink(ComponentsAndMarkupSupplyingDslPanel.Companion)
-                sourceCodeLink(NoComponentsMarkupSupplyingDslPanel.Companion)
-                sourceCodeLink(NoComponentsNoMarkupFragment::class)
-                sourceCodeLink(NoComponentsOwnMarkupDslFragment.Companion)
-                sourceCodeLink(NoComponentsOwnMarkupHtmlFragment.Companion)
-                sourceCodeLink(OwnComponentsOwnMarkupDslFragment.Companion)
-                sourceCodeLink(OwnComponentsOwnMarkupHtmlFragment.Companion)
-            }
+        wicketFragment(::noComponentsMarkupInParentUnspecializedFragmentBody1)
+        wicketFragment(::noComponentsMarkupInParentUnspecializedFragmentBody2)
+        wicketFragment(::noComponentsMarkupInParentSpecializedFragmentBody1)
+        wicketFragment(::noComponentsMarkupInParentSpecializedFragmentBody2)
+        wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody1)
+        wicketFragment(::componentsInParentMarkupInParentUnspecializedFragmentBody2)
+        wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody1)
+        wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody2)
+        wicketFragment(::ownComponentsMarkupInParentBody1)
+        wicketFragment(::ownComponentsMarkupInParentBody2)
+    }
+    firstSourceCodeLink(this@Companion)
+    sourceCodeLink(ComponentsAndMarkupSupplyingDslPanel.Companion)
+    sourceCodeLink(NoComponentsMarkupSupplyingDslPanel.Companion)
+    sourceCodeLink(NoComponentsNoMarkupFragment::class)
+    sourceCodeLink(NoComponentsOwnMarkupDslFragment.Companion)
+    sourceCodeLink(NoComponentsOwnMarkupHtmlFragment.Companion)
+    sourceCodeLink(OwnComponentsOwnMarkupDslFragment.Companion)
+    sourceCodeLink(OwnComponentsOwnMarkupHtmlFragment.Companion)
+}
+// @formatter:on
         }
     }
 }
+
+private typealias FPS = FragmentPage

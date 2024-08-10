@@ -4,7 +4,7 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupPanel
 import com.squins.kwmdsl.component.RootMarkupVariants
 import com.squins.kwmdsl.markup
-import java.util.Locale
+import java.util.*
 
 class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
     override fun onInitialize() {
