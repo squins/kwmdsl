@@ -25,6 +25,7 @@ import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage as Ds
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage as DslConvenienceWicketLabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.link.LinkPage as DslConvenienceLinkPage
 import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage as DslConvenienceRepeatPage
+import kwmdsl.examples.dsl_convenience_base_classes.unsafe_text.UnsafeTextPage as DslConvenienceUnsafeTextPage
 import kwmdsl.examples.dsl_convenience_base_classes.variants.VariantsPage as DslConvenienceVariantsPage
 import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage as DslConvenienceWebMarkupContainerPage
 import kwmdsl.examples.dsl_standard_base_classes.deep_inheritance.DeepInheritanceSubPage as DslStandardDeepInheritanceSubPage
@@ -163,6 +164,7 @@ wicketExtend {
                 li {
                     a(ELPS::pageParametersWithLateinitVarPropertiesPageLink) { text("Page parameters, lateinit var properties for components (also to be used to prevent expensive initialization if a page should not be shown)") }
                 }
+                link(DslConvenienceUnsafeTextPage::class, "Unsafe text, useful for large pieces of rich text content")
             }
         }
     }
