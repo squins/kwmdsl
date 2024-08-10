@@ -5,6 +5,8 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 class DslNoneHtmlNoneDslPage : DslNoneHtmlNonePage() {
@@ -18,18 +20,22 @@ class DslNoneHtmlNoneDslPage : DslNoneHtmlNonePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                p {
-                    text("This is from ")
-                    code { text("DslNoneHtmlNoneDslPage") }
-                    text(".")
-                }
-                p {
-                    text("This is from ")
-                    code { span(DslNoneHtmlNoneDslPage::dslNoneHtmlNoneDslLabel) }
-                    text(".")
-                }
-            }
+// @formatter:off
+wicketExtend {
+    p {
+        text("This is from ")
+        code { span(DNHNDPS::dslNoneHtmlNoneDslLabel) }
+        text(".")
+    }
+    firstSourceCodeLink(DslPage::class)
+    sourceCodeLink(DslNonePage::class)
+    sourceCodeLink(DslNoneHtmlPage::class)
+    sourceCodeLink(DslNoneHtmlNonePage::class)
+    sourceCodeLink(this@Companion)
+}
+// @formatter:on
         }
     }
 }
+
+private typealias DNHNDPS = DslNoneHtmlNoneDslPage

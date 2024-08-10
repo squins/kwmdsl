@@ -17,12 +17,16 @@ class SubBorder(id: String) : BaseBorder(id) {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = borderMarkup {
-            wicketExtend {
-                p {
-                    text("Sub border: ")
-                    span(SubBorder::subLabel)
-                }
-            }
+// @formatter:off
+wicketExtend {
+    p {
+        text("Sub border: ")
+        span(SBS::subLabel)
+    }
+}
+// @formatter:on
         }
     }
 }
+
+private typealias SBS = SubBorder

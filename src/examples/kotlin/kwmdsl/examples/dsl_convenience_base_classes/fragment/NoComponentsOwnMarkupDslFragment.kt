@@ -16,17 +16,19 @@ class NoComponentsOwnMarkupDslFragment(id: String, markupId: String) :
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        val noComponentsOwnMarkupBody1 = fragmentBodyMarkup<NoComponentsOwnMarkupDslFragment> {
+        val noComponentsOwnMarkupBody1 = fragmentBodyMarkup<NCOMDFS> {
             text("No components, specialized DSL Fragment, fragment #1")
         }
 
-        val noComponentsOwnMarkupBody2 = fragmentBodyMarkup<NoComponentsOwnMarkupDslFragment> {
+        val noComponentsOwnMarkupBody2 = fragmentBodyMarkup<NCOMDFS> {
             text("No components, specialized DSL Fragment, fragment #2")
         }
 
-        override val noVariantMarkup = standaloneFragmentMarkup<NoComponentsOwnMarkupDslFragment> {
+        override val noVariantMarkup = standaloneFragmentMarkup<NCOMDFS> {
             wicketFragment(::noComponentsOwnMarkupBody1)
             wicketFragment(::noComponentsOwnMarkupBody2)
         }
     }
 }
+
+private typealias NCOMDFS = NoComponentsOwnMarkupDslFragment

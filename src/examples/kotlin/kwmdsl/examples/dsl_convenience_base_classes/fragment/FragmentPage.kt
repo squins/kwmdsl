@@ -4,6 +4,8 @@ import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.dsl_convenience_base_classes.OwnComponentsMarkupInParentFragment
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.panel.Fragment
 import java.time.ZonedDateTime
@@ -369,6 +371,14 @@ class FragmentPage : ExamplesConvenienceBasePage() {
                     wicketFragment(::ownComponentsMarkupInParentBody1)
                     wicketFragment(::ownComponentsMarkupInParentBody2)
                 }
+                firstSourceCodeLink(this@Companion)
+                sourceCodeLink(ComponentsAndMarkupSupplyingDslPanel.Companion)
+                sourceCodeLink(NoComponentsMarkupSupplyingDslPanel.Companion)
+                sourceCodeLink(NoComponentsNoMarkupFragment::class)
+                sourceCodeLink(NoComponentsOwnMarkupDslFragment.Companion)
+                sourceCodeLink(NoComponentsOwnMarkupHtmlFragment.Companion)
+                sourceCodeLink(OwnComponentsOwnMarkupDslFragment.Companion)
+                sourceCodeLink(OwnComponentsOwnMarkupHtmlFragment.Companion)
             }
         }
     }

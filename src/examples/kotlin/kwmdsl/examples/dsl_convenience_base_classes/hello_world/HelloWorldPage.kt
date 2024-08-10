@@ -6,10 +6,11 @@ import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
 import com.squins.kwmdsl.html
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.span
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 class HelloWorldPage : KotlinWicketMarkupWebPage() {
-    private val message: Label  = Label(::message.name, "Hello World!")
+    private val message: Label = Label(::message.name, "Hello World!")
 
     init {
         noVariantMarkup.addTo(this)
@@ -21,6 +22,7 @@ class HelloWorldPage : KotlinWicketMarkupWebPage() {
 html {
     body {
         span(S::message) { text("Message goes here")}
+        firstSourceCodeLink(this@Companion)
     }
 }
 // @formatter:on

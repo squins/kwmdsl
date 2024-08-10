@@ -28,17 +28,19 @@ class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
     companion object : IKotlinWicketMarkupProvider {
         val ownComponentsOwnMarkupBody1 = fragmentBodyMarkup {
             text("Own components, specialized DSL Fragment, fragment #1. At: ")
-            span(OwnComponentsOwnMarkupDslFragment::currentTime)
+            span(OCOMDFS::currentTime)
         }
 
         val ownComponentsOwnMarkupBody2 = fragmentBodyMarkup {
             text("Own components, specialized DSL Fragment, fragment #2. At: ")
-            span(OwnComponentsOwnMarkupDslFragment::currentTime)
+            span(OCOMDFS::currentTime)
         }
 
-        override val noVariantMarkup = standaloneFragmentMarkup<OwnComponentsOwnMarkupDslFragment> {
+        override val noVariantMarkup = standaloneFragmentMarkup<OCOMDFS> {
             wicketFragment(::ownComponentsOwnMarkupBody1)
             wicketFragment(::ownComponentsOwnMarkupBody2)
         }
     }
 }
+
+private typealias OCOMDFS = OwnComponentsOwnMarkupDslFragment

@@ -13,30 +13,34 @@ class NoComponentsMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel(
         findMarkup(container, containerClass)
 
     companion object : IKotlinWicketMarkupProvider {
-        val noComponentsMarkupSupplyingForUnspecializedBody1 = fragmentBodyMarkup<NoComponentsMarkupSupplyingDslPanel> {
+        val noComponentsMarkupSupplyingForUnspecializedBody1 = fragmentBodyMarkup<NCMSDPS> {
             text("No components, unspecialized Fragment, fragment #1")
         }
 
-        val noComponentsMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup<NoComponentsMarkupSupplyingDslPanel> {
+        val noComponentsMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup<NCMSDPS> {
             text("No components, unspecialized Fragment, fragment #2")
         }
 
-        val noComponentsMarkupSupplyingForSpecializedBody1 = fragmentBodyMarkup<NoComponentsMarkupSupplyingDslPanel> {
+        val noComponentsMarkupSupplyingForSpecializedBody1 = fragmentBodyMarkup<NCMSDPS> {
             text("No components, specialized Fragment, fragment #1")
         }
 
-        val noComponentsMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup<NoComponentsMarkupSupplyingDslPanel> {
+        val noComponentsMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup<NCMSDPS> {
             text("No components, specialized Fragment, fragment #2")
         }
 
-        override val noVariantMarkup = markup<NoComponentsMarkupSupplyingDslPanel> {
-            wicketPanel {
-                p { text("This is a panel, and it supplied the following fragment:") }
-                wicketFragment(::noComponentsMarkupSupplyingForUnspecializedBody1)
-                wicketFragment(::noComponentsMarkupSupplyingForUnspecializedBody2)
-                wicketFragment(::noComponentsMarkupSupplyingForSpecializedBody1)
-                wicketFragment(::noComponentsMarkupSupplyingForSpecializedBody2)
-            }
+        override val noVariantMarkup = markup<NCMSDPS> {
+// @formatter:off
+wicketPanel {
+    p { text("This is a panel, and it supplied the following fragment:") }
+    wicketFragment(::noComponentsMarkupSupplyingForUnspecializedBody1)
+    wicketFragment(::noComponentsMarkupSupplyingForUnspecializedBody2)
+    wicketFragment(::noComponentsMarkupSupplyingForSpecializedBody1)
+    wicketFragment(::noComponentsMarkupSupplyingForSpecializedBody2)
+}
+// @formatter:on
         }
     }
 }
+
+private typealias NCMSDPS = NoComponentsMarkupSupplyingDslPanel

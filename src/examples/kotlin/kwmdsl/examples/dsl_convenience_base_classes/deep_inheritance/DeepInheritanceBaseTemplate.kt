@@ -16,15 +16,19 @@ open class DeepInheritanceBaseTemplate : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Deep Inheritance") }
-                classDiv("content") {
-                    p {
-                        span(DeepInheritanceBaseTemplate::baseTemplateLabel)
-                    }
-                    wicketChild()
-                }
-            }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Deep Inheritance") }
+    classDiv("content") {
+        p {
+            span(DIBTS::baseTemplateLabel)
+        }
+        wicketChild()
+    }
+}
+// @formatter:on
         }
     }
 }
+
+private typealias DIBTS = DeepInheritanceBaseTemplate

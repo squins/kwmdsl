@@ -3,6 +3,7 @@ package kwmdsl.examples.dsl_convenience_base_classes.enclosure
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 import kotlin.random.Random
@@ -39,59 +40,65 @@ class EnclosuresPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Enclosures") }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Enclosures") }
 
-                classDiv("content") {
-                    p { text("Refresh to update the visibility of child components.") }
+    classDiv("content") {
+        p { text("Refresh to update the visibility of child components.") }
 
-                    h2 { text("Element") }
+        h2 { text("Element") }
 
-                    wicketEnclosure {
-                        p {
-                            text("Auto: ")
-                            span(EnclosuresPage::autoSpan)
-                        }
-                    }
+        wicketEnclosure {
+            p {
+                text("Auto: ")
+                span(S::autoSpan)
+            }
+        }
 
-                    wicketEnclosure(EnclosuresPage::directSpan) {
-                        p {
-                            text("Direct: ")
-                            span(EnclosuresPage::directSpan)
-                        }
-                    }
+        wicketEnclosure(S::directSpan) {
+            p {
+                text("Direct: ")
+                span(S::directSpan)
+            }
+        }
 
-                    wicketEnclosure(EnclosuresPage::secondSpan) {
-                        div(EnclosuresPage::twoSpans) {
-                            text("First: ")
-                            span(EnclosuresPage::firstSpan)
-                            text(", second: ")
-                            span(EnclosuresPage::secondSpan)
-                        }
-                    }
+        wicketEnclosure(S::secondSpan) {
+            div(S::twoSpans) {
+                text("First: ")
+                span(S::firstSpan)
+                text(", second: ")
+                span(S::secondSpan)
+            }
+        }
 
-                    h2 { text("Attribute") }
+        h2 { text("Attribute") }
 
-                    p(wicketEnclosureAttribute()) {
-                        text("Auto: ")
-                        span(EnclosuresPage::autoSpanAttribute)
-                    }
+        p(wicketEnclosureAttribute()) {
+            text("Auto: ")
+            span(S::autoSpanAttribute)
+        }
 
-                    p(wicketEnclosureAttribute(EnclosuresPage::directSpanAttribute)) {
-                        text("Direct: ")
-                        span(EnclosuresPage::directSpanAttribute)
-                    }
+        p(wicketEnclosureAttribute(S::directSpanAttribute)) {
+            text("Direct: ")
+            span(S::directSpanAttribute)
+        }
 
-                    div(wicketEnclosureAttribute(EnclosuresPage::secondSpanAttribute)) {
-                        div(EnclosuresPage::twoSpansAttribute) {
-                            text("First: ")
-                            span(EnclosuresPage::firstSpanAttribute)
-                            text(", second: ")
-                            span(EnclosuresPage::secondSpanAttribute)
-                        }
-                    }
-                }
+        div(wicketEnclosureAttribute(S::secondSpanAttribute)) {
+            div(S::twoSpansAttribute) {
+                text("First: ")
+                span(S::firstSpanAttribute)
+                text(", second: ")
+                span(S::secondSpanAttribute)
             }
         }
     }
+    firstSourceCodeLink(this@Companion)
 }
+// @formatter:on
+        }
+    }
+}
+
+// S stands for 'supplier'
+private typealias S = EnclosuresPage

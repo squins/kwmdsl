@@ -18,22 +18,26 @@ abstract class DslPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("DSL, None, HTML, None, DSL") }
-                classDiv("content") {
-                    p {
-                        text("This is from ")
-                        code { text("DslPage") }
-                        text(".")
-                    }
-                    p {
-                        text("This is from ")
-                        code { span(DslPage::dslLabel) }
-                        text(".")
-                    }
-                    wicketChild()
-                }
-            }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("DSL, None, HTML, None, DSL") }
+    classDiv("content") {
+        p {
+            text("This is from ")
+            code { text("DslPage") }
+            text(".")
+        }
+        p {
+            text("This is from ")
+            code { span(DPS::dslLabel) }
+            text(".")
+        }
+        wicketChild()
+    }
+}
+// @formatter:on
         }
     }
 }
+
+private typealias DPS = DslPage

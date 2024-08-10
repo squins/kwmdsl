@@ -23,32 +23,36 @@ class ComponentsAndMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel
     companion object : IKotlinWicketMarkupProvider {
         val componentsAndMarkupSupplyingForUnspecializedBody1 = fragmentBodyMarkup {
             text("Components in external component, unspecialized Fragment, fragment #1. At: ")
-            span(ComponentsAndMarkupSupplyingDslPanel::currentTime)
+            span(CAMSDPS::currentTime)
         }
 
         val componentsAndMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup {
             text("Components in external component, unspecialized Fragment, fragment #2. At: ")
-            span(ComponentsAndMarkupSupplyingDslPanel::currentTime)
+            span(CAMSDPS::currentTime)
         }
 
         val componentsAndMarkupSupplyingForSpecializedBody1 = fragmentBodyMarkup {
             text("Components in external component, specialized Fragment, fragment #1. At: ")
-            span(ComponentsAndMarkupSupplyingDslPanel::currentTime)
+            span(CAMSDPS::currentTime)
         }
 
         val componentsAndMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup {
             text("Components in external component, specialized Fragment, fragment #2. At: ")
-            span(ComponentsAndMarkupSupplyingDslPanel::currentTime)
+            span(CAMSDPS::currentTime)
         }
 
-        override val noVariantMarkup = markup<ComponentsAndMarkupSupplyingDslPanel> {
-            wicketPanel {
-                p { text("This is a panel, and it supplied the following fragment, including the components:") }
-                wicketFragment(::componentsAndMarkupSupplyingForUnspecializedBody1)
-                wicketFragment(::componentsAndMarkupSupplyingForUnspecializedBody2)
-                wicketFragment(::componentsAndMarkupSupplyingForSpecializedBody1)
-                wicketFragment(::componentsAndMarkupSupplyingForSpecializedBody2)
-            }
+        override val noVariantMarkup = markup<CAMSDPS> {
+// @formatter:off
+wicketPanel {
+    p { text("This is a panel, and it supplied the following fragment, including the components:") }
+    wicketFragment(::componentsAndMarkupSupplyingForUnspecializedBody1)
+    wicketFragment(::componentsAndMarkupSupplyingForUnspecializedBody2)
+    wicketFragment(::componentsAndMarkupSupplyingForSpecializedBody1)
+    wicketFragment(::componentsAndMarkupSupplyingForSpecializedBody2)
+}
+// @formatter:on
         }
     }
 }
+
+private typealias CAMSDPS = ComponentsAndMarkupSupplyingDslPanel

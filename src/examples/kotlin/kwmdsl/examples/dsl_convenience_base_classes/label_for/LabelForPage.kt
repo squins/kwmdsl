@@ -4,6 +4,7 @@ import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupBorder
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.border.Border
 import org.apache.wicket.markup.html.form.TextField
@@ -93,156 +94,154 @@ class LabelForPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Label for Form Component") }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Label for Form Component") }
 
-                classDiv("content") {
-                    form {
-                        h2 { text("At Root") }
+    classDiv("content") {
+        form {
+            h2 { text("At Root") }
 
-                        h3 { text("Sibling") }
+            h3 { text("Sibling") }
 
-                        p {
-                            label(wicketForAttribute(LabelForPage::rootSibling)) { wicketLabel() }
-                            text(": ")
-                            input(LabelForPage::rootSibling, attr("type", "text"))
-                        }
+            p {
+                label(wicketForAttribute(LFPS::rootSibling)) { wicketLabel() }
+                text(": ")
+                input(LFPS::rootSibling, attr("type", "text"))
+            }
 
-                        h3 { text("Child") }
+            h3 { text("Child") }
 
-                        p {
-                            label(wicketForAttribute(LabelForPage::rootChild)) {
-                                wicketLabel()
-                                text(": ")
-                                input(LabelForPage::rootChild, attr("type", "text"))
-                            }
-                        }
+            p {
+                label(wicketForAttribute(LFPS::rootChild)) {
+                    wicketLabel()
+                    text(": ")
+                    input(LFPS::rootChild, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("Sibling of Parent") }
+            h3 { text("Sibling of Parent") }
 
-                        p {
-                            span(LabelForPage::rootSiblingOfParentLabelContainer) {
-                                label(wicketForAttribute(LabelForPage::rootSiblingOfParent)) { wicketLabel() }
-                            }
-                            text(": ")
-                            input(LabelForPage::rootSiblingOfParent, attr("type", "text"))
-                        }
+            p {
+                span(LFPS::rootSiblingOfParentLabelContainer) {
+                    label(wicketForAttribute(LFPS::rootSiblingOfParent)) { wicketLabel() }
+                }
+                text(": ")
+                input(LFPS::rootSiblingOfParent, attr("type", "text"))
+            }
 
-                        h3 { text("Child of Sibling") }
+            h3 { text("Child of Sibling") }
 
-                        p {
-                            span(LabelForPage::rootChildOfSiblingLabelContainer) {
-                                label(wicketForAttribute(LabelForPage::rootChildOfSibling)) { wicketLabel() }
-                            }
-                            span(LabelForPage::rootChildOfSiblingInputContainer) {
-                                text(": ")
-                                input(LabelForPage::rootChildOfSibling, attr("type", "text"))
-                            }
-                        }
+            p {
+                span(LFPS::rootChildOfSiblingLabelContainer) {
+                    label(wicketForAttribute(LFPS::rootChildOfSibling)) { wicketLabel() }
+                }
+                span(LFPS::rootChildOfSiblingInputContainer) {
+                    text(": ")
+                    input(LFPS::rootChildOfSibling, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("No Common Path Parts") }
+            h3 { text("No Common Path Parts") }
 
-                        p {
-                            text("This is the same case as ")
-                            i { text("At Root") }
-                            text(" » ")
-                            i { text("Child of Sibling") }
-                            text(" above ")
-                        }
+            p {
+                text("This is the same case as ")
+                i { text("At Root") }
+                text(" » ")
+                i { text("Child of Sibling") }
+                text(" above ")
+            }
 
-                        h2 { text("Nested") }
+            h2 { text("Nested") }
 
-                        h3 { text("Sibling") }
+            h3 { text("Sibling") }
 
-                        p {
-                            span(LabelForPage::nestedSiblingRootContainer) {
-                                label(wicketForAttribute(LabelForPage::nestedSibling)) { wicketLabel() }
-                                text(": ")
-                                input(LabelForPage::nestedSibling, attr("type", "text"))
-                            }
-                        }
+            p {
+                span(LFPS::nestedSiblingRootContainer) {
+                    label(wicketForAttribute(LFPS::nestedSibling)) { wicketLabel() }
+                    text(": ")
+                    input(LFPS::nestedSibling, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("Child") }
+            h3 { text("Child") }
 
-                        p {
-                            span(LabelForPage::nestedChildRootContainer) {
-                                label(wicketForAttribute(LabelForPage::nestedChild)) {
-                                    wicketLabel()
-                                    text(": ")
-                                    input(LabelForPage::nestedChild, attr("type", "text"))
-                                }
-                            }
-                        }
+            p {
+                span(LFPS::nestedChildRootContainer) {
+                    label(wicketForAttribute(LFPS::nestedChild)) {
+                        wicketLabel()
+                        text(": ")
+                        input(LFPS::nestedChild, attr("type", "text"))
+                    }
+                }
+            }
 
-                        h3 { text("Sibling of Parent") }
+            h3 { text("Sibling of Parent") }
 
-                        p {
-                            span(LabelForPage::nestedSiblingOfParentRootContainer) {
-                                span(LabelForPage::nestedSiblingOfParentLabelContainer) {
-                                    label(wicketForAttribute(LabelForPage::nestedSiblingOfParent)) { wicketLabel() }
-                                }
-                                text(": ")
-                                input(LabelForPage::nestedSiblingOfParent, attr("type", "text"))
-                            }
-                        }
+            p {
+                span(LFPS::nestedSiblingOfParentRootContainer) {
+                    span(LFPS::nestedSiblingOfParentLabelContainer) {
+                        label(wicketForAttribute(LFPS::nestedSiblingOfParent)) { wicketLabel() }
+                    }
+                    text(": ")
+                    input(LFPS::nestedSiblingOfParent, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("Child of Sibling") }
+            h3 { text("Child of Sibling") }
 
-                        p {
-                            span(LabelForPage::nestedChildOfSiblingRootContainer) {
-                                span(LabelForPage::nestedChildOfSiblingLabelContainer) {
-                                    label(wicketForAttribute(LabelForPage::nestedChildOfSibling)) { wicketLabel() }
-                                }
-                                span(LabelForPage::nestedChildOfSiblingInputContainer) {
-                                    text(": ")
-                                    input(LabelForPage::nestedChildOfSibling, attr("type", "text"))
-                                }
-                            }
-                        }
+            p {
+                span(LFPS::nestedChildOfSiblingRootContainer) {
+                    span(LFPS::nestedChildOfSiblingLabelContainer) {
+                        label(wicketForAttribute(LFPS::nestedChildOfSibling)) { wicketLabel() }
+                    }
+                    span(LFPS::nestedChildOfSiblingInputContainer) {
+                        text(": ")
+                        input(LFPS::nestedChildOfSibling, attr("type", "text"))
+                    }
+                }
+            }
 
-                        h3 { text("No Common Path Parts") }
+            h3 { text("No Common Path Parts") }
 
-                        p {
-                            span(LabelForPage::nestedNoCommonPathPartsLabelRootContainer) {
-                                span(LabelForPage::nestedNoCommonPathPartsLabelContainer) {
-                                    label(wicketForAttribute(LabelForPage::nestedNoCommonPathParts)) { wicketLabel() }
-                                }
-                            }
-                            span(LabelForPage::nestedNoCommonPathPartsInputRootContainer) {
-                                span(LabelForPage::nestedNoCommonPathPartsInputContainer) {
-                                    text(": ")
-                                    input(LabelForPage::nestedNoCommonPathParts, attr("type", "text"))
-                                }
-                            }
-                        }
+            p {
+                span(LFPS::nestedNoCommonPathPartsLabelRootContainer) {
+                    span(LFPS::nestedNoCommonPathPartsLabelContainer) {
+                        label(wicketForAttribute(LFPS::nestedNoCommonPathParts)) { wicketLabel() }
+                    }
+                }
+                span(LFPS::nestedNoCommonPathPartsInputRootContainer) {
+                    span(LFPS::nestedNoCommonPathPartsInputContainer) {
+                        text(": ")
+                        input(LFPS::nestedNoCommonPathParts, attr("type", "text"))
+                    }
+                }
+            }
 
-                        h3 { text("No Common Path Parts, With Many Borders") }
+            h3 { text("No Common Path Parts, With Many Borders") }
 
-                        div(LabelForPage::rootBorder) {
-                            p {
-                                span(LabelForPage::labelLevel1Border) {
-                                    span(LabelForPage::nestedNoCommonPathPartsLabelRootContainerManyBorders) {
-                                        span(LabelForPage::labelLevel2Border) {
-                                            span(LabelForPage::nestedNoCommonPathPartsLabelContainerManyBorders) {
-                                                span(LabelForPage::labelLevel3Border) {
-                                                    label(wicketForAttribute(LabelForPage::nestedNoCommonPathPartsManyBorders)) {
-                                                        wicketLabel()
-                                                    }
-                                                }
-                                            }
+            div(LFPS::rootBorder) {
+                p {
+                    span(LFPS::labelLevel1Border) {
+                        span(LFPS::nestedNoCommonPathPartsLabelRootContainerManyBorders) {
+                            span(LFPS::labelLevel2Border) {
+                                span(LFPS::nestedNoCommonPathPartsLabelContainerManyBorders) {
+                                    span(LFPS::labelLevel3Border) {
+                                        label(wicketForAttribute(LFPS::nestedNoCommonPathPartsManyBorders)) {
+                                            wicketLabel()
                                         }
                                     }
                                 }
-                                span(LabelForPage::inputLevel1Border) {
-                                    span(LabelForPage::nestedNoCommonPathPartsInputRootContainerManyBorders) {
-                                        span(LabelForPage::inputLevel2Border) {
-                                            span(LabelForPage::nestedNoCommonPathPartsInputContainerManyBorders) {
-                                                text(": ")
-                                                span(LabelForPage::inputLevel3Border) {
-                                                    input(LabelForPage::nestedNoCommonPathPartsManyBorders, attr("type", "text"))
-                                                }
-                                            }
-                                        }
+                            }
+                        }
+                    }
+                    span(LFPS::inputLevel1Border) {
+                        span(LFPS::nestedNoCommonPathPartsInputRootContainerManyBorders) {
+                            span(LFPS::inputLevel2Border) {
+                                span(LFPS::nestedNoCommonPathPartsInputContainerManyBorders) {
+                                    text(": ")
+                                    span(LFPS::inputLevel3Border) {
+                                        input(LFPS::nestedNoCommonPathPartsManyBorders, attr("type", "text"))
                                     }
                                 }
                             }
@@ -252,7 +251,14 @@ class LabelForPage : ExamplesConvenienceBasePage() {
             }
         }
     }
+    firstSourceCodeLink(this@Companion)
 }
+// @formatter:on
+        }
+    }
+}
+
+private typealias LFPS = LabelForPage
 
 internal class LabelForDivBorder(id: String) : KotlinWicketMarkupBorder(id) {
     override fun onInitialize() {

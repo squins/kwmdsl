@@ -24,6 +24,7 @@ fun main() {
         }
     }.run()
 
+    println("Make changes to the code, and then compile in your IDE. The web server will restart with the latest version of the classes.")
     println("Press enter to quit")
     readln()
     mustStop.set(true)

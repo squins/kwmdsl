@@ -3,6 +3,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.web_markup_container
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.dsl_convenience_base_classes.variants.VariantsPage
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 
@@ -19,19 +21,25 @@ class WebMarkupContainerPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Web Markup Container") }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Web Markup Container") }
 
-                classDiv("content") {
-                    p(WebMarkupContainerPage::container) {
-                        text("First: ")
-                        span(WebMarkupContainerPage::firstName)
-                        text(", last: ")
-                        span(WebMarkupContainerPage::lastName)
-                        text(".")
-                    }
-                }
-            }
+    classDiv("content") {
+        p(S::container) {
+            text("First: ")
+            span(S::firstName)
+            text(", last: ")
+            span(S::lastName)
+            text(".")
+        }
+    }
+    firstSourceCodeLink(this@Companion)
+}
+// @formatter:on
         }
     }
 }
+
+// S stands for 'supplier'
+private typealias S = WebMarkupContainerPage

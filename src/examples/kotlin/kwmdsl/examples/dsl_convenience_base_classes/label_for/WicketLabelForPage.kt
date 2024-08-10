@@ -3,6 +3,7 @@ package kwmdsl.examples.dsl_convenience_base_classes.label_for
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.border.Border
 import org.apache.wicket.markup.html.form.TextField
@@ -81,133 +82,131 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Wicket Label for Form Component") }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Wicket Label for Form Component") }
 
-                classDiv("content") {
-                    form {
-                        h2 { text("At Root") }
+    classDiv("content") {
+        form {
+            h2 { text("At Root") }
 
-                        h3 { text("Sibling") }
+            h3 { text("Sibling") }
 
-                        p {
-                            wicketLabel(WicketLabelForPage::rootSibling)
-                            text(": ")
-                            input(WicketLabelForPage::rootSibling, attr("type", "text"))
-                        }
+            p {
+                wicketLabel(WLFPS::rootSibling)
+                text(": ")
+                input(WLFPS::rootSibling, attr("type", "text"))
+            }
 
-                        h3 { text("Sibling of Parent") }
+            h3 { text("Sibling of Parent") }
 
-                        p {
-                            span(WicketLabelForPage::rootSiblingOfParentLabelContainer) {
-                                wicketLabel(WicketLabelForPage::rootSiblingOfParent)
-                            }
-                            text(": ")
-                            input(WicketLabelForPage::rootSiblingOfParent, attr("type", "text"))
-                        }
+            p {
+                span(WLFPS::rootSiblingOfParentLabelContainer) {
+                    wicketLabel(WLFPS::rootSiblingOfParent)
+                }
+                text(": ")
+                input(WLFPS::rootSiblingOfParent, attr("type", "text"))
+            }
 
-                        h3 { text("Child of Sibling") }
+            h3 { text("Child of Sibling") }
 
-                        p {
-                            span(WicketLabelForPage::rootChildOfSiblingLabelContainer) {
-                                wicketLabel(WicketLabelForPage::rootChildOfSibling)
-                            }
-                            span(WicketLabelForPage::rootChildOfSiblingInputContainer) {
-                                text(": ")
-                                input(WicketLabelForPage::rootChildOfSibling, attr("type", "text"))
-                            }
-                        }
+            p {
+                span(WLFPS::rootChildOfSiblingLabelContainer) {
+                    wicketLabel(WLFPS::rootChildOfSibling)
+                }
+                span(WLFPS::rootChildOfSiblingInputContainer) {
+                    text(": ")
+                    input(WLFPS::rootChildOfSibling, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("No Common Path Parts") }
+            h3 { text("No Common Path Parts") }
 
-                        p {
-                            text("This is the same case as ")
-                            i { text("At Root") }
-                            text(" » ")
-                            i { text("Child of Sibling") }
-                            text(" above ")
-                        }
+            p {
+                text("This is the same case as ")
+                i { text("At Root") }
+                text(" » ")
+                i { text("Child of Sibling") }
+                text(" above ")
+            }
 
-                        h2 { text("Nested") }
+            h2 { text("Nested") }
 
-                        h3 { text("Sibling") }
+            h3 { text("Sibling") }
 
-                        p {
-                            span(WicketLabelForPage::nestedSiblingRootContainer) {
-                                wicketLabel(WicketLabelForPage::nestedSibling)
-                                text(": ")
-                                input(WicketLabelForPage::nestedSibling, attr("type", "text"))
-                            }
-                        }
+            p {
+                span(WLFPS::nestedSiblingRootContainer) {
+                    wicketLabel(WLFPS::nestedSibling)
+                    text(": ")
+                    input(WLFPS::nestedSibling, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("Sibling of Parent") }
+            h3 { text("Sibling of Parent") }
 
-                        p {
-                            span(WicketLabelForPage::nestedSiblingOfParentRootContainer) {
-                                span(WicketLabelForPage::nestedSiblingOfParentLabelContainer) {
-                                    wicketLabel(WicketLabelForPage::nestedSiblingOfParent)
-                                }
-                                text(": ")
-                                input(WicketLabelForPage::nestedSiblingOfParent, attr("type", "text"))
-                            }
-                        }
+            p {
+                span(WLFPS::nestedSiblingOfParentRootContainer) {
+                    span(WLFPS::nestedSiblingOfParentLabelContainer) {
+                        wicketLabel(WLFPS::nestedSiblingOfParent)
+                    }
+                    text(": ")
+                    input(WLFPS::nestedSiblingOfParent, attr("type", "text"))
+                }
+            }
 
-                        h3 { text("Child of Sibling") }
+            h3 { text("Child of Sibling") }
 
-                        p {
-                            span(WicketLabelForPage::nestedChildOfSiblingRootContainer) {
-                                span(WicketLabelForPage::nestedChildOfSiblingLabelContainer) {
-                                    wicketLabel(WicketLabelForPage::nestedChildOfSibling)
-                                }
-                                span(WicketLabelForPage::nestedChildOfSiblingInputContainer) {
-                                    text(": ")
-                                    input(WicketLabelForPage::nestedChildOfSibling, attr("type", "text"))
-                                }
-                            }
-                        }
+            p {
+                span(WLFPS::nestedChildOfSiblingRootContainer) {
+                    span(WLFPS::nestedChildOfSiblingLabelContainer) {
+                        wicketLabel(WLFPS::nestedChildOfSibling)
+                    }
+                    span(WLFPS::nestedChildOfSiblingInputContainer) {
+                        text(": ")
+                        input(WLFPS::nestedChildOfSibling, attr("type", "text"))
+                    }
+                }
+            }
 
-                        h3 { text("No Common Path Parts") }
+            h3 { text("No Common Path Parts") }
 
-                        p {
-                            span(WicketLabelForPage::nestedNoCommonPathPartsLabelRootContainer) {
-                                span(WicketLabelForPage::nestedNoCommonPathPartsLabelContainer) {
-                                    wicketLabel(WicketLabelForPage::nestedNoCommonPathParts)
-                                }
-                            }
-                            span(WicketLabelForPage::nestedNoCommonPathPartsInputRootContainer) {
-                                span(WicketLabelForPage::nestedNoCommonPathPartsInputContainer) {
-                                    text(": ")
-                                    input(WicketLabelForPage::nestedNoCommonPathParts, attr("type", "text"))
+            p {
+                span(WLFPS::nestedNoCommonPathPartsLabelRootContainer) {
+                    span(WLFPS::nestedNoCommonPathPartsLabelContainer) {
+                        wicketLabel(WLFPS::nestedNoCommonPathParts)
+                    }
+                }
+                span(WLFPS::nestedNoCommonPathPartsInputRootContainer) {
+                    span(WLFPS::nestedNoCommonPathPartsInputContainer) {
+                        text(": ")
+                        input(WLFPS::nestedNoCommonPathParts, attr("type", "text"))
+                    }
+                }
+            }
+        }
+
+        h3 { text("No Common Path Parts, With Many Borders") }
+
+        div(WLFPS::rootBorder) {
+            p {
+                span(WLFPS::labelLevel1Border) {
+                    span(WLFPS::nestedNoCommonPathPartsLabelRootContainerManyBorders) {
+                        span(WLFPS::labelLevel2Border) {
+                            span(WLFPS::nestedNoCommonPathPartsLabelContainerManyBorders) {
+                                span(WLFPS::labelLevel3Border) {
+                                    wicketLabel(WLFPS::nestedNoCommonPathPartsManyBorders)
                                 }
                             }
                         }
                     }
-
-                    h3 { text("No Common Path Parts, With Many Borders") }
-
-                    div(WicketLabelForPage::rootBorder) {
-                        p {
-                            span(WicketLabelForPage::labelLevel1Border) {
-                                span(WicketLabelForPage::nestedNoCommonPathPartsLabelRootContainerManyBorders) {
-                                    span(WicketLabelForPage::labelLevel2Border) {
-                                        span(WicketLabelForPage::nestedNoCommonPathPartsLabelContainerManyBorders) {
-                                            span(WicketLabelForPage::labelLevel3Border) {
-                                                wicketLabel(WicketLabelForPage::nestedNoCommonPathPartsManyBorders)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            span(WicketLabelForPage::inputLevel1Border) {
-                                span(WicketLabelForPage::nestedNoCommonPathPartsInputRootContainerManyBorders) {
-                                    span(WicketLabelForPage::inputLevel2Border) {
-                                        span(WicketLabelForPage::nestedNoCommonPathPartsInputContainerManyBorders) {
-                                            text(": ")
-                                            span(WicketLabelForPage::inputLevel3Border) {
-                                                input(WicketLabelForPage::nestedNoCommonPathPartsManyBorders, attr("type", "text"))
-                                            }
-                                        }
-                                    }
+                }
+                span(WLFPS::inputLevel1Border) {
+                    span(WLFPS::nestedNoCommonPathPartsInputRootContainerManyBorders) {
+                        span(WLFPS::inputLevel2Border) {
+                            span(WLFPS::nestedNoCommonPathPartsInputContainerManyBorders) {
+                                text(": ")
+                                span(WLFPS::inputLevel3Border) {
+                                    input(WLFPS::nestedNoCommonPathPartsManyBorders, attr("type", "text"))
                                 }
                             }
                         }
@@ -216,4 +215,11 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
             }
         }
     }
+    firstSourceCodeLink(this@Companion)
 }
+// @formatter:on
+        }
+    }
+}
+
+private typealias WLFPS = WicketLabelForPage

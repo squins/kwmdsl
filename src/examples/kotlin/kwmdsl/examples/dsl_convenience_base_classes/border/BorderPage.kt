@@ -3,6 +3,7 @@ package kwmdsl.examples.dsl_convenience_base_classes.border
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 class BorderPage : ExamplesConvenienceBasePage() {
@@ -20,14 +21,17 @@ class BorderPage : ExamplesConvenienceBasePage() {
             wicketExtend {
                 classH1("title") { text("Border") }
                 classDiv("content") {
-                    div(BorderPage::border) {
+                    div(BPS::border) {
                         p {
                             text("Page: ")
-                            span(BorderPage::pageLabel)
+                            span(BPS::pageLabel)
                         }
                     }
                 }
+                firstSourceCodeLink(this@Companion)
             }
         }
     }
 }
+
+private typealias BPS = BorderPage

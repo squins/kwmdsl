@@ -23,7 +23,6 @@ repositories {
 val examples by sourceSets.registering {
     resources {
         srcDir("src/examples/kotlin")
-        exclude("**/*.kt")
     }
 }
 

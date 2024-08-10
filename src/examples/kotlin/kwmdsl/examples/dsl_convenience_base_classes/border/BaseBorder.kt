@@ -18,14 +18,18 @@ open class BaseBorder(id: String) : KotlinWicketMarkupBorder(id) {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = borderMarkup {
-            wicketBorder {
-                p {
-                    text("Base border: ")
-                    span(BaseBorder::baseLabel)
-                }
-                wicketChild()
-                wicketBody()
-            }
+// @formatter:off
+wicketBorder {
+    p {
+        text("Base border: ")
+        span(BBS::baseLabel)
+    }
+    wicketChild()
+    wicketBody()
+}
+// @formatter:on
         }
     }
 }
+
+private typealias BBS = BaseBorder

@@ -3,6 +3,7 @@ package kwmdsl.examples.dsl_convenience_base_classes.repeat
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.form.Check
 import org.apache.wicket.markup.html.form.CheckGroup
@@ -49,30 +50,36 @@ class RepeatPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Repeat") }
-                classDiv("content") {
-                    ul {
-                        li(RepeatPage::firstThreeNumbers)
-                    }
-                    form {
-                        span(RepeatPage::group) {
-                            ul {
-                                li(RepeatPage::persons) {
-                                    input(Repeated(RepeatPage::checkbox), attr("type", "checkbox"))
-                                    text(" ")
-                                    span(Repeated(RepeatPage::name))
-                                    text(" ")
-                                    span(Repeated(RepeatPage::lastName))
-                                }
-                            }
-                        }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Repeat") }
+    classDiv("content") {
+        ul {
+            li(S::firstThreeNumbers)
+        }
+        form {
+            span(S::group) {
+                ul {
+                    li(S::persons) {
+                        input(Repeated(S::checkbox), attr("type", "checkbox"))
+                        text(" ")
+                        span(Repeated(S::name))
+                        text(" ")
+                        span(Repeated(S::lastName))
                     }
                 }
             }
         }
     }
+    firstSourceCodeLink(this@Companion)
 }
+// @formatter:on
+        }
+    }
+}
+
+// S stands for 'supplier'
+private typealias S = RepeatPage
 
 data class Person(
     val name: String,

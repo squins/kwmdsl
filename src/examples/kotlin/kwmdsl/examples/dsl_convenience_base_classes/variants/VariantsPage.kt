@@ -3,6 +3,8 @@ package kwmdsl.examples.dsl_convenience_base_classes.variants
 import com.squins.kwmdsl.*
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import kwmdsl.examples.ExamplesConvenienceBasePage
+import kwmdsl.examples.dsl_convenience_base_classes.firstSourceCodeLink
+import kwmdsl.examples.dsl_convenience_base_classes.sourceCodeLink
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice
@@ -55,28 +57,35 @@ class VariantsPage : ExamplesConvenienceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                classH1("title") { text("Variants") }
-                form(VariantsPage::variantsForm) {
-                    p {
-                        text("Style: ")
-                        select(VariantsPage::style)
-                    }
-                    p {
-                        text("Variation: ")
-                        select(VariantsPage::overridingVariation)
-                    }
-                    p {
-                        text("Locale: ")
-                        select(VariantsPage::overridingLocale)
-                    }
-                }
-                hr()
-                div(VariantsPage::panel)
-            }
+// @formatter:off
+wicketExtend {
+    classH1("title") { text("Variants") }
+    form(S::variantsForm) {
+        p {
+            text("Style: ")
+            select(S::style)
+        }
+        p {
+            text("Variation: ")
+            select(S::overridingVariation)
+        }
+        p {
+            text("Locale: ")
+            select(S::overridingLocale)
+        }
+    }
+    hr()
+    div(S::panel)
+    firstSourceCodeLink(this@Companion)
+    sourceCodeLink(VariantsPanel.Companion)
+}
+// @formatter:on
         }
     }
 }
+
+// S stands for 'supplier'
+private typealias S = VariantsPage
 
 private val localesByDisplayValue = mapOf(
     "" to null,
