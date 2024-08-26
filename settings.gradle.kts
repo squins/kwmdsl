@@ -23,7 +23,7 @@ plugins {
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
 val jettyVersion = "12.0.12"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-val logbackVersion = "1.5.6"
+val logbackVersion = "1.5.7"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
 val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html
