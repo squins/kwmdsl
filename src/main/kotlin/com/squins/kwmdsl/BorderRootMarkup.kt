@@ -1,6 +1,8 @@
 package com.squins.kwmdsl
 
 import org.apache.wicket.markup.html.border.Border
+import java.util.Locale
+import kotlin.reflect.KClass
 
 /**
  * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
@@ -9,11 +11,43 @@ import org.apache.wicket.markup.html.border.Border
  * @param block the code specifying the markup and the component hierarchy.
  * @return the border root markup.
  */
-fun <TSupplier : Border> borderMarkup(block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
-    BorderRootMarkupBuilder<TSupplier>().run {
+inline fun <reified TSupplier : Border> borderMarkup(noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, null, null, null, block)
+
+inline fun <reified TSupplier : Border> borderMarkup(locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, null, null, locale, block)
+
+inline fun <reified TSupplier : Border> borderMarkupVariation(variation: String, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, null, variation, null, block)
+
+inline fun <reified TSupplier : Border> borderMarkupVariation(variation: String, locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, null, variation, locale, block)
+
+inline fun <reified TSupplier : Border> borderMarkupStyle(style: String, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, style, null, null, block)
+
+inline fun <reified TSupplier : Border> borderMarkupStyle(style: String, locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, style, null, locale, block)
+
+inline fun <reified TSupplier : Border> borderMarkupStyleAndVariation(style: String, variation: String, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, style, variation, null, block)
+
+inline fun <reified TSupplier : Border> borderMarkupStyleAndVariation(style: String, variation: String, locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
+    _borderMarkup(TSupplier::class, style, variation, locale, block)
+
+@Suppress("FunctionName")
+fun <TSupplier : Border> _borderMarkup(
+    supplierClass: KClass<TSupplier>,
+    style: String?,
+    variation: String?,
+    locale: Locale?,
+    block: BorderRootMarkupBuilder<TSupplier>.() -> Unit
+): BorderRootMarkup<TSupplier> {
+    return BorderRootMarkupBuilder<TSupplier>().run {
         block()
-        build()
+        build(supplierClass, style, variation, locale)
     }
+}
 
 /**
  * Root markup for a [Border].
@@ -23,9 +57,13 @@ fun <TSupplier : Border> borderMarkup(block: BorderRootMarkupBuilder<TSupplier>.
  * @param children the tree of child markups associated with a Wicket component.
  */
 class BorderRootMarkup<TSupplier : Border> internal constructor(
+    supplierClass: KClass<TSupplier>,
+    style: String?,
+    variation: String?,
+    locale: Locale?,
     markupText: String,
     children: List<ChildMarkup<TSupplier>>,
-) : BaseRootMarkup<TSupplier>(markupText, children) {
+) : BaseRootMarkup<TSupplier>(supplierClass, style, variation, locale, markupText, children) {
     /**
      * Adds the child Wicket components to the [Border] instance. The direct children will be added to the border using [Border.addToBorder], and descendents will be added to their parent using [MarkupContainer.add][org.apache.wicket.MarkupContainer.add].
      *

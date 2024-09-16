@@ -285,6 +285,8 @@ dependencies {
     "examplesImplementation"(libs.serialysis)
 
     testImplementation(kotlin("test"))
+    testImplementation(libs.junitJupiter)
+    testRuntimeOnly(libs.junitPlatformLauncher)
 }
 
 tasks.test {

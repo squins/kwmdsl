@@ -1,11 +1,15 @@
 package com.squins.kwmdsl.component
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.BaseRootMarkup
+import com.squins.kwmdsl.BorderRootMarkup
+import com.squins.kwmdsl.IKotlinWicketMarkupResourceStreamProvider
+import com.squins.kwmdsl.IRootMarkup
+import com.squins.kwmdsl.RootMarkup
 import org.apache.wicket.Application
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.core.util.resource.locator.ResourceNameIterator
 import org.apache.wicket.markup.html.border.Border
-import java.util.*
+import java.util.Locale
 
 interface IKotlinWicketMarkupProvider {
     val noVariantMarkup: IKotlinWicketMarkupResourceStreamProvider
@@ -20,32 +24,17 @@ abstract class IRootMarkupVariants<TRootMarkup : BaseRootMarkup<*>> internal con
 
     private val rootMarkupsByVariantIdentifier = mutableMapOf<String, IRootMarkup>()
 
-    fun addStyleAndVariation(style: String, variation: String, locale: Locale, rootMarkup: TRootMarkup) {
-        add("_${variation}_${style}_$locale", rootMarkup)
-    }
+    fun add(rootMarkup: TRootMarkup) {
+        val variation = rootMarkup.stream.variation
+        val style = rootMarkup.stream.style
+        val locale = rootMarkup.stream.locale
+        check(variation != null || style != null || locale != null) { "The markup must be for at least one of variation,  style or locale."}
+        val identifier = StringBuilder(50).run {
+            appendVariantSuffix(style, variation, locale)
 
-    fun addStyleAndVariation(style: String, variation: String, rootMarkup: TRootMarkup) {
-        add("_${variation}_$style", rootMarkup)
-    }
-
-    fun addStyle(style: String, locale: Locale, rootMarkup: TRootMarkup) {
-        add("_${style}_$locale", rootMarkup)
-    }
-
-    fun addStyle(style: String, rootMarkup: TRootMarkup) {
-        add("_$style", rootMarkup)
-    }
-
-    fun addVariation(variation: String, locale: Locale, rootMarkup: TRootMarkup) {
-        add("_${variation}_$locale", rootMarkup)
-    }
-
-    fun addVariation(variation: String, rootMarkup: TRootMarkup) {
-        add("_$variation", rootMarkup)
-    }
-
-    fun add(locale: Locale, rootMarkup: TRootMarkup) {
-        add("_$locale", rootMarkup)
+            toString()
+        }
+        add(identifier, rootMarkup)
     }
 
     fun get(style: String?, variation: String?, locale: Locale) =

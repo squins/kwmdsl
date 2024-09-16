@@ -1,6 +1,8 @@
 package com.squins.kwmdsl
 
 import org.apache.wicket.markup.html.border.Border
+import java.util.Locale
+import kotlin.reflect.KClass
 
 /**
  * The builder for a border root markup.
@@ -9,6 +11,13 @@ import org.apache.wicket.markup.html.border.Border
  */
 class BorderRootMarkupBuilder<TSupplier : Border> internal constructor() :
     BaseRootMarkupBuilder<TSupplier, BorderRootMarkup<TSupplier>>() {
-    override fun createMarkup(markupText: String, children: List<ChildMarkup<TSupplier>>) =
-        BorderRootMarkup(markupText, children)
+    override fun createMarkup(
+        supplierClass: KClass<TSupplier>,
+        style: String?,
+        variation: String?,
+        locale: Locale?,
+        markupText: String,
+        children: List<ChildMarkup<TSupplier>>
+    ): BorderRootMarkup<TSupplier> =
+        BorderRootMarkup(supplierClass, style, variation, locale, markupText, children)
 }

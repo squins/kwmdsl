@@ -1,7 +1,7 @@
 pluginManagement {
     plugins {
         // Three years back: https://kotlinlang.org/docs/releases.html#kotlin-release-compatibility
-        kotlin("jvm") version "1.5.0"
+        kotlin("jvm") version "1.6.0"
 
         // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
         id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
@@ -21,13 +21,17 @@ plugins {
 }
 
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
-val jettyVersion = "12.0.12"
+val jettyVersion = "12.0.13"
+// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+val junitPlatformLauncherVersion = "1.11.0"
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+val junitVersion = "5.11.0"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-val logbackVersion = "1.5.7"
+val logbackVersion = "1.5.8"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
 val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html
-val wicketVersion = "8.0.0"
+val wicketVersion = "9.0.0"
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -38,6 +42,9 @@ dependencyResolutionManagement {
             library("logbackClassic", "ch.qos.logback:logback-classic:$logbackVersion")
             library("serialysis", "io.github.eamonnmcmanus:serialysis:$serialysisVersion")
             library("wicketCore", "org.apache.wicket:wicket-core:$wicketVersion")
+
+            library("junitJupiter", "org.junit.jupiter:junit-jupiter:$junitVersion")
+            library("junitPlatformLauncher", "org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion")
         }
     }
 }

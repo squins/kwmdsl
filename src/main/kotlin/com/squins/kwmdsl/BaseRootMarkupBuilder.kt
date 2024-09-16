@@ -2,6 +2,8 @@ package com.squins.kwmdsl
 
 import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
+import java.util.Locale
+import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
 /**
@@ -22,11 +24,16 @@ abstract class BaseRootMarkupBuilder<TSupplier : MarkupContainer, TMarkup : Base
      *
      * @return the root markup.
      */
-    internal fun build(): TMarkup {
+    internal fun build(
+        supplierClass: KClass<TSupplier>,
+        style: String?,
+        variation: String?,
+        locale: Locale?,
+    ): TMarkup {
         val markupText = StringBuilder(1_000).apply {
             appendParts(this)
         }.toString()
-        return createMarkup(markupText, buildChildren())
+        return createMarkup(supplierClass, style, variation, locale, markupText, buildChildren())
     }
 
     /**
@@ -37,6 +44,10 @@ abstract class BaseRootMarkupBuilder<TSupplier : MarkupContainer, TMarkup : Base
      * @return the root markup.
      */
     internal abstract fun createMarkup(
+        supplierClass: KClass<TSupplier>,
+        style: String?,
+        variation: String?,
+        locale: Locale?,
         markupText: String,
         children: List<ChildMarkup<TSupplier>>
     ): TMarkup

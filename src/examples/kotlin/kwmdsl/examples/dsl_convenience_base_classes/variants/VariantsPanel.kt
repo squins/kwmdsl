@@ -4,7 +4,10 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupPanel
 import com.squins.kwmdsl.component.RootMarkupVariants
 import com.squins.kwmdsl.markup
-import java.util.*
+import com.squins.kwmdsl.markupStyle
+import com.squins.kwmdsl.markupVariation
+import com.squins.kwmdsl.markupStyleAndVariation
+import java.util.Locale
 
 class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
     override fun onInitialize() {
@@ -26,62 +29,62 @@ class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
             variants.get(style, variation, locale)
 
         private val variants = RootMarkupVariants<VariantsPanel>(this).apply {
-            add(Locale.UK, markup {
+            add(markup(Locale.UK) {
                 wicketPanel {
                     text("English, United Kingdom.")
                 }
             })
-            add(Locale.FRENCH, markup {
+            add(markup(Locale.FRENCH) {
                 wicketPanel {
                     text("French.")
                 }
             })
-            add(Locale("nl"), markup {
+            add(markup(Locale("nl")) {
                 wicketPanel {
                     text("Dutch.")
                 }
             })
-            add(Locale("nl", "BE"), markup {
+            add(markup(Locale("nl", "BE")) {
                 wicketPanel {
                     text("Dutch, Belgium.")
                 }
             })
-            addStyle("style1", markup {
+            add(markupStyle("style1") {
                 wicketPanel {
                     text("Style 1.")
                 }
             })
-            addStyle("style2", markup {
+            add(markupStyle("style2") {
                 wicketPanel {
                     text("Style 2.")
                 }
             })
-            addVariation("variation1", markup {
+            add(markupVariation("variation1") {
                 wicketPanel {
                     text("Variation 1.")
                 }
             })
-            addStyleAndVariation("style2", "variation1", markup {
+            add(markupStyleAndVariation("style", "variation1") {
                 wicketPanel {
                     text("Style 2, variation 1.")
                 }
             })
-            addStyleAndVariation("style3", "variation1", markup {
+            add(markupStyleAndVariation("style3", "variation1") {
                 wicketPanel {
                     text("Style 3, variation 1.")
                 }
             })
-            addVariation("variation2", markup {
+            add(markupVariation("variation2") {
                 wicketPanel {
                     text("Variation 2.")
                 }
             })
-            addStyleAndVariation("style2", "variation2", markup {
+            add(markupStyleAndVariation("style2", "variation2") {
                 wicketPanel {
                     text("Style 2, variation 2.")
                 }
             })
-            addStyleAndVariation("style3", "variation2", markup {
+            add(markupStyleAndVariation("style3", "variation2") {
                 wicketPanel {
                     text("Style 3, variation 2.")
                 }
