@@ -12,7 +12,7 @@ version = "1-SNAPSHOT"
 
 tasks.wrapper {
     // https://gradle.org/releases/
-    gradleVersion = "8.10"
+    gradleVersion = "8.10.2"
     distributionType = Wrapper.DistributionType.ALL
 }
 
