@@ -3,6 +3,9 @@ pluginManagement {
         // Three years back: https://kotlinlang.org/docs/releases.html#kotlin-release-compatibility
         kotlin("jvm") version "1.6.0"
 
+        // https://plugins.gradle.org/plugin/com.google.cloud.artifactregistry.gradle-plugin
+        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.3"
+
         // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
         id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 
@@ -23,9 +26,9 @@ plugins {
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
 val jettyVersion = "12.0.13"
 // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-val junitPlatformLauncherVersion = "1.11.0"
+val junitPlatformLauncherVersion = "1.11.1"
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-val junitVersion = "5.11.0"
+val junitVersion = "5.11.1"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 val logbackVersion = "1.5.8"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis

@@ -4,6 +4,8 @@ import java.util.Locale
 
 plugins {
     kotlin("jvm") version "1.9.25"
+    `maven-publish`
+    id("com.google.cloud.artifactregistry.gradle-plugin")
     id("org.jetbrains.dokka")
 }
 
@@ -16,8 +18,19 @@ tasks.wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
+publishing {
+    repositories {
+        maven {
+            setUrl("artifactregistry://europe-west4-maven.pkg.dev/squins-ci/squins-components-dwm8a3suqkvq")
+        }
+    }
+}
+
 repositories {
     mavenCentral()
+    maven {
+        setUrl("artifactregistry://europe-west4-maven.pkg.dev/squins-ci/squins-components-dwm8a3suqkvq")
+    }
 }
 
 val examples by sourceSets.registering {
@@ -297,6 +310,10 @@ kotlin {
     jvmToolchain(8)
 }
 
+java {
+    withJavadocJar()
+}
+
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.named("main") {
         suppressGeneratedFiles.set(false)
@@ -315,6 +332,47 @@ tasks.register<Jar>("dokkaJavadocJar") {
     dependsOn(tasks.dokkaJavadoc)
     from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")
+}
+
+tasks.named("javadocJar", Jar::class) {
+    from(tasks.named("dokkaJavadoc"))
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("main") {
+            pom {
+                name.set("kwmdsl")
+                description.set("Kotlin DSL for writing Wicket markup.")
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://mit-license.org/")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:https://github.com/squins/kwmdsl.git")
+                    developerConnection.set("scm:git:https://github.com/squins/kwmdsl.git")
+                    url.set("https://github.com/squins/kwmdsl/")
+                }
+                developers {
+                    developer {
+                        id.set("jstuyts")
+                        name.set("Johan Stuyts")
+                        email.set("j.stuyts@javathinker.com")
+                    }
+                    developer {
+                        id.set("keesvandieren")
+                        name.set("Kees van Dieren")
+                        email.set("keesvandieren@squins.com")
+                    }
+                }
+            }
+
+            artifactId = base.archivesName.get()
+            from(components["java"])
+        }
+    }
 }
 
 private val voidHtmlElements = listOf(
