@@ -43,6 +43,7 @@ fun <TSupplier : Border> _borderMarkup(
     locale: Locale?,
     block: BorderRootMarkupBuilder<TSupplier>.() -> Unit
 ): BorderRootMarkup<TSupplier> {
+    requireSupplierClassSpecified(supplierClass, Border::class)
     return BorderRootMarkupBuilder<TSupplier>().run {
         block()
         build(supplierClass, style, variation, locale)

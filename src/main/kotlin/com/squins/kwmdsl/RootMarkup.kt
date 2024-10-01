@@ -49,6 +49,7 @@ fun <TSupplier : MarkupContainer> _markup(
     locale: Locale?,
     block: RootMarkupBuilder<TSupplier>.() -> Unit
 ): RootMarkup<TSupplier> {
+    requireSupplierClassSpecified(supplierClass, MarkupContainer::class)
     return RootMarkupBuilder<TSupplier>().run {
         block()
         build(supplierClass, style, variation, locale)
