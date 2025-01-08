@@ -1,4 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTask
 import java.io.PrintWriter
 import java.util.Locale
 
@@ -14,7 +13,7 @@ version = "2-SNAPSHOT"
 
 tasks.wrapper {
     // https://gradle.org/releases/
-    gradleVersion = "8.10.2"
+    gradleVersion = "8.12"
     distributionType = Wrapper.DistributionType.ALL
 }
 
@@ -314,29 +313,29 @@ java {
     withJavadocJar()
 }
 
-tasks.withType<DokkaTask>().configureEach {
-    dokkaSourceSets.named("main") {
+dokka {
+    dokkaSourceSets.main {
         suppressGeneratedFiles.set(false)
     }
 }
 
-tasks.register<Jar>("dokkaHtmlJar") {
-    group = "documentation"
-    dependsOn(tasks.dokkaHtml)
-    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
-    archiveClassifier.set("html-docs")
-}
-
-tasks.register<Jar>("dokkaJavadocJar") {
-    group = "documentation"
-    dependsOn(tasks.dokkaJavadoc)
-    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
-    archiveClassifier.set("javadoc")
-}
-
-tasks.named("javadocJar", Jar::class) {
-    from(tasks.named("dokkaJavadoc"))
-}
+//tasks.register<Jar>("dokkaHtmlJar") {
+//    group = "documentation"
+//    dependsOn(tasks.dokkaHtml)
+//    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
+//    archiveClassifier.set("html-docs")
+//}
+//
+//tasks.register<Jar>("dokkaJavadocJar") {
+//    group = "documentation"
+//    dependsOn(tasks.dokkaJavadoc)
+//    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+//    archiveClassifier.set("javadoc")
+//}
+//
+//tasks.named("javadocJar", Jar::class) {
+//    from(tasks.named("dokkaJavadoc"))
+//}
 
 publishing {
     publications {

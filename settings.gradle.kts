@@ -4,13 +4,13 @@ pluginManagement {
         kotlin("jvm") version "1.6.0"
 
         // https://plugins.gradle.org/plugin/com.google.cloud.artifactregistry.gradle-plugin
-        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.3"
+        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.4"
 
         // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
-        id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+        id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
 
         // https://plugins.gradle.org/plugin/org.jetbrains.dokka
-        id("org.jetbrains.dokka") version "1.9.20"
+        id("org.jetbrains.dokka") version "2.0.0"
     }
 
     repositories {
@@ -24,13 +24,13 @@ plugins {
 }
 
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
-val jettyVersion = "12.0.13"
+val jettyVersion = "12.0.16"
 // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-val junitPlatformLauncherVersion = "1.11.1"
+val junitPlatformLauncherVersion = "1.11.4"
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-val junitVersion = "5.11.1"
+val junitVersion = "5.11.4"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-val logbackVersion = "1.5.8"
+val logbackVersion = "1.5.16"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
 val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html
