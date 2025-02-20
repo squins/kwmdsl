@@ -12,7 +12,7 @@ import org.apache.wicket.markup.html.basic.Label
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class ComponentsAndMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel(id) {
+class ComponentsAndMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel<Unit>(id) {
     val currentTime: Label = Label(::currentTime.name) {
         DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
     }

@@ -9,7 +9,7 @@ import com.squins.kwmdsl.span
 import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
-class HelloWorldPage : KotlinWicketMarkupWebPage() {
+class HelloWorldPage : KotlinWicketMarkupWebPage<Unit>() {
     private val message: Label = Label(::message.name, "Hello World!")
 
     init {

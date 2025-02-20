@@ -5,7 +5,7 @@ import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
 import org.apache.wicket.request.mapper.parameter.PageParameters
 
-abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : KotlinWicketMarkupWebPage(pageParameters) {
+abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : KotlinWicketMarkupWebPage<Unit>(pageParameters) {
     constructor() : this(null)
 
     override fun onInitialize() {
