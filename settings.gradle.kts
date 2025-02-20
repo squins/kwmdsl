@@ -4,7 +4,8 @@ pluginManagement {
         kotlin("jvm") version "1.6.0"
 
         // https://plugins.gradle.org/plugin/com.google.cloud.artifactregistry.gradle-plugin
-        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.4"
+        // Do not upgrade unless https://github.com/GoogleCloudPlatform/artifact-registry-maven-tools/issues/106 has been resolved.
+        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.3"
 
         // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
         id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
