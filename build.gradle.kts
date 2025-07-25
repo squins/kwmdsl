@@ -2,10 +2,11 @@ import java.io.PrintWriter
 import java.util.Locale
 
 plugins {
-    kotlin("jvm") version "1.9.25"
+    kotlin("jvm")
     `maven-publish`
     id("com.google.cloud.artifactregistry.gradle-plugin")
     id("org.jetbrains.dokka")
+    id("org.jetbrains.dokka-javadoc")
 }
 
 group = "com.squins"
@@ -13,7 +14,7 @@ version = "3-SNAPSHOT"
 
 tasks.wrapper {
     // https://gradle.org/releases/
-    gradleVersion = "8.12.1"
+    gradleVersion = "8.14.3"
     distributionType = Wrapper.DistributionType.ALL
 }
 
@@ -32,7 +33,7 @@ repositories {
     }
 }
 
-val examples by sourceSets.registering {
+sourceSets.register("examples") {
     resources {
         srcDir("src/examples/kotlin")
     }
@@ -274,10 +275,10 @@ val generateConvenienceFunctions by tasks.registering {
     }
 }
 
-sourceSets {
-    main {
-        kotlin {
-            srcDir(generateConvenienceFunctions)
+kotlin {
+    sourceSets {
+        named("main") {
+            kotlin.srcDir(generateConvenienceFunctions)
         }
     }
 }
@@ -306,11 +307,9 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(8)
-}
-
-java {
-    withJavadocJar()
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 dokka {
@@ -319,23 +318,19 @@ dokka {
     }
 }
 
-//tasks.register<Jar>("dokkaHtmlJar") {
-//    group = "documentation"
-//    dependsOn(tasks.dokkaHtml)
-//    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
-//    archiveClassifier.set("html-docs")
-//}
-//
-//tasks.register<Jar>("dokkaJavadocJar") {
-//    group = "documentation"
-//    dependsOn(tasks.dokkaJavadoc)
-//    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
-//    archiveClassifier.set("javadoc")
-//}
-//
-//tasks.named("javadocJar", Jar::class) {
-//    from(tasks.named("dokkaJavadoc"))
-//}
+val dokkaHtmlJar by tasks.registering(Jar::class) {
+    group = "documentation"
+    dependsOn(tasks.dokkaGeneratePublicationHtml)
+    from(tasks.dokkaGeneratePublicationHtml.flatMap { it.outputDirectory })
+    archiveClassifier.set("html-docs")
+}
+
+val dokkaJavadocJar by tasks.registering(Jar::class) {
+    group = "documentation"
+    dependsOn(tasks.dokkaGeneratePublicationJavadoc)
+    from(tasks.dokkaGeneratePublicationJavadoc.flatMap { it.outputDirectory })
+    archiveClassifier.set("javadoc")
+}
 
 publishing {
     publications {
@@ -370,6 +365,9 @@ publishing {
 
             artifactId = base.archivesName.get()
             from(components["java"])
+
+            artifact(dokkaHtmlJar)
+            artifact(dokkaJavadocJar)
         }
     }
 }
