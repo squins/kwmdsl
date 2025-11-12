@@ -1,7 +1,7 @@
 pluginManagement {
     plugins {
         // Three years back: https://kotlinlang.org/docs/releases.html#kotlin-release-compatibility
-        kotlin("jvm") version "1.7.0"
+        kotlin("jvm") version "1.7.20"
 
         // https://plugins.gradle.org/plugin/com.google.cloud.artifactregistry.gradle-plugin
         // Do not upgrade unless https://github.com/GoogleCloudPlatform/artifact-registry-maven-tools/issues/106 has been resolved.
@@ -11,10 +11,10 @@ pluginManagement {
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 
         // https://plugins.gradle.org/plugin/org.jetbrains.dokka
-        id("org.jetbrains.dokka") version "2.0.0"
+        id("org.jetbrains.dokka") version "2.1.0"
 
         // https://plugins.gradle.org/plugin/org.jetbrains.dokka
-        id("org.jetbrains.dokka-javadoc") version "2.0.0"
+        id("org.jetbrains.dokka-javadoc") version "2.1.0"
     }
 
     repositories {
@@ -28,13 +28,13 @@ plugins {
 }
 
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
-val jettyVersion = "12.0.23"
+val jettyVersion = "12.1.3"
 // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-val junitPlatformLauncherVersion = "1.13.4"
+val junitPlatformLauncherVersion = "1.14.1"
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-val junitVersion = "5.13.4"
+val junitVersion = "5.14.1"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-val logbackVersion = "1.5.18"
+val logbackVersion = "1.5.21"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
 val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html
