@@ -1,8 +1,18 @@
 package kwmdsl.examples.dsl_convenience_base_classes.unsafe_text
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.a
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.em
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.strong
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
 import kwmdsl.examples.firstSourceCodeLink
@@ -18,7 +28,7 @@ class UnsafeTextPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup<S> {
 // @formatter:off
 wicketExtend {
-    classDiv("content") {
+    div(attrClass("content")) {
         h1 { text("Unsafe text") }
 
         //language=html
@@ -59,7 +69,7 @@ wicketExtend {
         }
 
         p {
-            classStrong("has-text-warning") { text("WARNING") }; text(": as always with unsafe constructs, you are responsible for ensuring the final markup is valid and does not contain vulnerabilities.")
+            strong(attrClass("has-text-warning")) { text("WARNING") }; text(": as always with unsafe constructs, you are responsible for ensuring the final markup is valid and does not contain vulnerabilities.")
         }
     }
     firstSourceCodeLink(this@Companion)

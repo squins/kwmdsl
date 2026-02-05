@@ -3,7 +3,6 @@ package kwmdsl.examples
 import org.apache.wicket.markup.head.CssHeaderItem
 import org.apache.wicket.markup.head.MetaDataHeaderItem
 import org.apache.wicket.markup.head.MetaDataHeaderItem.META_TAG
-import org.apache.wicket.markup.html.IHeaderContributor
 import org.apache.wicket.markup.html.SecurePackageResourceGuard
 import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.request.resource.PackageResourceReference
@@ -14,10 +13,10 @@ class KwmDslExamplesApplication : WebApplication() {
     override fun init() {
         super.init()
 
-        headerContributorListeners.add(IHeaderContributor { response ->
+        headerContributorListeners.add { response ->
             response.render(META_DEVICE_WIDTH_INITIAL_SCALE_1)
             response.render(BULMA_ITEM)
-        })
+        }
         (resourceSettings.packageResourceGuard as? SecurePackageResourceGuard)?.apply {
             addPattern("+*.kt")
         }

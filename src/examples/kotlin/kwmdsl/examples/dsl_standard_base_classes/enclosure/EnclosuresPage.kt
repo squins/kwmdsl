@@ -1,8 +1,14 @@
 package kwmdsl.examples.dsl_standard_base_classes.enclosure
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.findMarkup
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
@@ -46,9 +52,9 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             wicketExtend {
-                classH1("title") { text("Enclosures") }
+                h1(attrClass("title")) { text("Enclosures") }
 
-                classDiv("content") {
+                div(attrClass("content")) {
                     p { text("Refresh to update the visibility of child components.") }
 
                     h2 { text("Element") }
@@ -78,17 +84,17 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
 
                     h2 { text("Attribute") }
 
-                    p(wicketEnclosureAttribute()) {
+                    p(attrWicketEnclosure()) {
                         text("Auto: ")
                         span(EnclosuresPage::autoSpanAttribute)
                     }
 
-                    p(wicketEnclosureAttribute(EnclosuresPage::directSpanAttribute)) {
+                    p(attrWicketEnclosure(EnclosuresPage::directSpanAttribute)) {
                         text("Direct: ")
                         span(EnclosuresPage::directSpanAttribute)
                     }
 
-                    div(wicketEnclosureAttribute(EnclosuresPage::secondSpanAttribute)) {
+                    div(attrWicketEnclosure(EnclosuresPage::secondSpanAttribute)) {
                         div(EnclosuresPage::twoSpansAttribute) {
                             text("First: ")
                             span(EnclosuresPage::firstSpanAttribute)

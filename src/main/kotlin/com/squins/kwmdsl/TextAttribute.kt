@@ -4,6 +4,8 @@ fun attr(name: String, value: Boolean) = name to Text(value.toString())
 
 fun attr(name: String, value: Byte) = name to Text(value.toString())
 
+fun attr(name: String, value: Char) = name to Text(value.toString())
+
 fun attr(name: String, value: Int) = name to Text(value.toString())
 
 fun attr(name: String, value: Long) = name to Text(value.toString())

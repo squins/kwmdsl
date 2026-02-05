@@ -1,7 +1,18 @@
 package kwmdsl.examples.dsl_convenience_base_classes.label_for
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.form
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.h3
+import com.squins.kwmdsl.i
+import com.squins.kwmdsl.input
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.WebMarkupContainer
@@ -84,9 +95,9 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Wicket Label for Form Component") }
+    h1(attrClass("title")) { text("Wicket Label for Form Component") }
 
-    classDiv("content") {
+    div(attrClass("content")) {
         form {
             h2 { text("At Root") }
 

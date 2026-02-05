@@ -1,7 +1,7 @@
 pluginManagement {
     plugins {
         // Three years back: https://kotlinlang.org/docs/releases.html#kotlin-release-compatibility
-        kotlin("jvm") version "1.7.20"
+        kotlin("jvm") version "1.8.0"
 
         // https://plugins.gradle.org/plugin/com.google.cloud.artifactregistry.gradle-plugin
         // Do not upgrade unless https://github.com/GoogleCloudPlatform/artifact-registry-maven-tools/issues/106 has been resolved.
@@ -28,13 +28,13 @@ plugins {
 }
 
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
-val jettyVersion = "12.1.3"
+val jettyVersion = "12.1.6"
 // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-val junitPlatformLauncherVersion = "1.14.1"
+val junitPlatformLauncherVersion = "1.14.2"
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-val junitVersion = "5.14.1"
+val junitVersion = "5.14.2"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-val logbackVersion = "1.5.21"
+val logbackVersion = "1.5.27"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
 val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html

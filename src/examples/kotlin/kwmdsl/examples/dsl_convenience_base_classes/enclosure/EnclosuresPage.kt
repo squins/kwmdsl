@@ -1,7 +1,13 @@
 package kwmdsl.examples.dsl_convenience_base_classes.enclosure
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.WebMarkupContainer
@@ -42,9 +48,9 @@ class EnclosuresPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Enclosures") }
+    h1(attrClass("title")) { text("Enclosures") }
 
-    classDiv("content") {
+    div(attrClass("content")) {
         p { text("Refresh to update the visibility of child components.") }
 
         h2 { text("Element") }
@@ -74,17 +80,17 @@ wicketExtend {
 
         h2 { text("Attribute") }
 
-        p(wicketEnclosureAttribute()) {
+        p(attrWicketEnclosure()) {
             text("Auto: ")
             span(S::autoSpanAttribute)
         }
 
-        p(wicketEnclosureAttribute(S::directSpanAttribute)) {
+        p(attrWicketEnclosure(S::directSpanAttribute)) {
             text("Direct: ")
             span(S::directSpanAttribute)
         }
 
-        div(wicketEnclosureAttribute(S::secondSpanAttribute)) {
+        div(attrWicketEnclosure(S::secondSpanAttribute)) {
             div(S::twoSpansAttribute) {
                 text("First: ")
                 span(S::firstSpanAttribute)

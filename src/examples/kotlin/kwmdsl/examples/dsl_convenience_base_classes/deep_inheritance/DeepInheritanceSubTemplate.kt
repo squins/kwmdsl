@@ -1,7 +1,19 @@
 package kwmdsl.examples.dsl_convenience_base_classes.deep_inheritance
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.docTypeHtml
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.head
+import com.squins.kwmdsl.html
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.section
+import com.squins.kwmdsl.span
+import com.squins.kwmdsl.title
 import kwmdsl.examples.firstSourceCodeLink
 import kwmdsl.examples.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
@@ -24,10 +36,10 @@ html(attr("lang", "en")) {
         title { text("Deep Inheritance - Sub Template") }
     }
     body {
-        classSection("section") {
-            classDiv("container") {
-                classH1("title") { text("Deep Inheritance") }
-                classDiv("content") {
+        section(attrClass("section")) {
+            div(attrClass("container")) {
+                h1(attrClass("title")) { text("Deep Inheritance") }
+                div(attrClass("content")) {
                     p {
                         span(DISTS::subTemplateLabel)
                     }

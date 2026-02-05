@@ -1,6 +1,10 @@
 package kwmdsl.examples
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.MarkupBuilder
+import com.squins.kwmdsl.a
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.hr
 import kotlin.reflect.KClass
 
 fun MarkupBuilder<*>.firstSourceCodeLink(companion: Any) {

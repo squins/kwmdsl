@@ -6,7 +6,7 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.Model
-import java.util.*
+import java.util.Locale
 
 class VariantsPage : ExamplesStandardBasePage() {
     private val styleModel = Model.of("")

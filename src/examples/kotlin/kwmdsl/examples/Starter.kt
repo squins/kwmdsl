@@ -11,9 +11,12 @@ import org.eclipse.jetty.session.FileSessionDataStore
 import org.eclipse.jetty.util.Scanner
 import org.eclipse.jetty.util.thread.QueuedThreadPool
 import java.io.File
-import java.util.*
+import java.nio.file.Path
+import java.util.EnumSet
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.servlet.DispatcherType.*
+import javax.servlet.DispatcherType.ASYNC
+import javax.servlet.DispatcherType.ERROR
+import javax.servlet.DispatcherType.REQUEST
 import kotlin.io.path.exists
 import kotlin.io.path.toPath
 
@@ -82,7 +85,7 @@ class Starter(private val restartRunnable: Runnable, private val mustStop: Atomi
             var isFirstScan = true
             pathsToWatch.forEach { addDirectory(it) }
             addListener(object : Scanner.BulkListener, Scanner.ScanCycleListener {
-                override fun filesChanged(filenames: Set<String>) {
+                override fun pathsChanged(pathNotifications: Map<Path, Scanner.Notification>) {
                     if (isFirstScan) {
                         isFirstScan = false
                     } else {

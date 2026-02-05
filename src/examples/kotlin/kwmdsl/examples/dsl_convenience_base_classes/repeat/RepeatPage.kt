@@ -1,7 +1,17 @@
 package kwmdsl.examples.dsl_convenience_base_classes.repeat
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.Repeated
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.form
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.input
+import com.squins.kwmdsl.li
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.span
+import com.squins.kwmdsl.ul
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
@@ -52,8 +62,8 @@ class RepeatPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Repeat") }
-    classDiv("content") {
+    h1(attrClass("title")) { text("Repeat") }
+    div(attrClass("content")) {
         ul {
             li(S::firstThreeNumbers)
         }

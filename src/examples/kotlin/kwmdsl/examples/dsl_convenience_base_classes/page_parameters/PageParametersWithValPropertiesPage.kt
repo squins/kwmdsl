@@ -1,7 +1,12 @@
 package kwmdsl.examples.dsl_convenience_base_classes.page_parameters
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
@@ -24,9 +29,9 @@ class PageParametersWithValPropertiesPage(pageParameters: PageParameters) : Exam
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Components Defined by Val Properties Accessing Page Parameters") }
+    h1(attrClass("title")) { text("Components Defined by Val Properties Accessing Page Parameters") }
 
-    classDiv("content") {
+    div(attrClass("content")) {
         p {
             text("This page must have a constructor accepting page parameters. If it does not have one, Wicket will set the page parameters after construction, and the property initializers for the component have already executed by then.")
         }

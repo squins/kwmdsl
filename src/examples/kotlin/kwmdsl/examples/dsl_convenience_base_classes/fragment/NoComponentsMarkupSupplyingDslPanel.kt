@@ -8,7 +8,7 @@ import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import org.apache.wicket.MarkupContainer
 
-class NoComponentsMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel<Unit>(id) {
+class NoComponentsMarkupSupplyingDslPanel(id: String) : KotlinWicketMarkupPanel(id) {
     override fun getMarkupResourceStream(container: MarkupContainer, containerClass: Class<*>) =
         findMarkup(container, containerClass)
 

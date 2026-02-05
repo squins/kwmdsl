@@ -1,9 +1,16 @@
 package kwmdsl.examples.dsl_convenience_base_classes.link
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.a
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
 import com.squins.kwmdsl.component.resourcePath
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.img
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
 import kwmdsl.examples.firstSourceCodeLink
@@ -19,9 +26,9 @@ class LinkPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup<S> {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Link") }
+    h1(attrClass("title")) { text("Link") }
 
-    classDiv("content") {
+    div(attrClass("content")) {
         p {
             wicketLink {
                 text("In this package: ")

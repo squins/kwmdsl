@@ -1,7 +1,23 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.fragmentBodyMarkup
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.h3
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
+import com.squins.kwmdsl.style
+import com.squins.kwmdsl.table
+import com.squins.kwmdsl.tbody
+import com.squins.kwmdsl.td
+import com.squins.kwmdsl.th
+import com.squins.kwmdsl.thead
+import com.squins.kwmdsl.tr
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import kwmdsl.examples.sourceCodeLink
@@ -235,8 +251,8 @@ wicketHead {
     }
 }
 wicketExtend {
-    classH1("title") { text("Fragment") }
-    classDiv("content") {
+    h1(attrClass("title")) { text("Fragment") }
+    div(attrClass("content")) {
         h2 { text("Introduction") }
         // TODO("also put this in the documentation")
         p { text("Wicket is very flexible when it comes to fragments, and supports most combinations of the table below (and more). But the DSL only supports the combinations specifying what type of fragment can be used:") }

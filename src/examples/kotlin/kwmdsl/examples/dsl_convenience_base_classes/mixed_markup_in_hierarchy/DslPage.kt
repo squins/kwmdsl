@@ -1,7 +1,13 @@
 package kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import org.apache.wicket.markup.html.basic.Label
 
@@ -20,8 +26,8 @@ abstract class DslPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("DSL, None, HTML, None, DSL") }
-    classDiv("content") {
+    h1(attrClass("title")) { text("DSL, None, HTML, None, DSL") }
+    div(attrClass("content")) {
         p {
             text("This is from ")
             code { text("DslPage") }

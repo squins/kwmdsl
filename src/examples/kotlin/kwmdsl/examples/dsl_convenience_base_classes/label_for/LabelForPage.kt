@@ -1,8 +1,22 @@
 package kwmdsl.examples.dsl_convenience_base_classes.label_for
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.borderMarkup
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupBorder
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.form
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.h3
+import com.squins.kwmdsl.i
+import com.squins.kwmdsl.input
+import com.squins.kwmdsl.label
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.span
+import com.squins.kwmdsl.strong
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.markup.html.WebMarkupContainer
@@ -96,16 +110,16 @@ class LabelForPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Label for Form Component") }
+    h1(attrClass("title")) { text("Label for Form Component") }
 
-    classDiv("content") {
+    div(attrClass("content")) {
         form {
             h2 { text("At Root") }
 
             h3 { text("Sibling") }
 
             p {
-                label(wicketForAttribute(LFPS::rootSibling)) { wicketLabel() }
+                label(attrWicketFor(LFPS::rootSibling)) { wicketLabel() }
                 text(": ")
                 input(LFPS::rootSibling, attr("type", "text"))
             }
@@ -113,7 +127,7 @@ wicketExtend {
             h3 { text("Child") }
 
             p {
-                label(wicketForAttribute(LFPS::rootChild)) {
+                label(attrWicketFor(LFPS::rootChild)) {
                     wicketLabel()
                     text(": ")
                     input(LFPS::rootChild, attr("type", "text"))
@@ -124,7 +138,7 @@ wicketExtend {
 
             p {
                 span(LFPS::rootSiblingOfParentLabelContainer) {
-                    label(wicketForAttribute(LFPS::rootSiblingOfParent)) { wicketLabel() }
+                    label(attrWicketFor(LFPS::rootSiblingOfParent)) { wicketLabel() }
                 }
                 text(": ")
                 input(LFPS::rootSiblingOfParent, attr("type", "text"))
@@ -134,7 +148,7 @@ wicketExtend {
 
             p {
                 span(LFPS::rootChildOfSiblingLabelContainer) {
-                    label(wicketForAttribute(LFPS::rootChildOfSibling)) { wicketLabel() }
+                    label(attrWicketFor(LFPS::rootChildOfSibling)) { wicketLabel() }
                 }
                 span(LFPS::rootChildOfSiblingInputContainer) {
                     text(": ")
@@ -158,7 +172,7 @@ wicketExtend {
 
             p {
                 span(LFPS::nestedSiblingRootContainer) {
-                    label(wicketForAttribute(LFPS::nestedSibling)) { wicketLabel() }
+                    label(attrWicketFor(LFPS::nestedSibling)) { wicketLabel() }
                     text(": ")
                     input(LFPS::nestedSibling, attr("type", "text"))
                 }
@@ -168,7 +182,7 @@ wicketExtend {
 
             p {
                 span(LFPS::nestedChildRootContainer) {
-                    label(wicketForAttribute(LFPS::nestedChild)) {
+                    label(attrWicketFor(LFPS::nestedChild)) {
                         wicketLabel()
                         text(": ")
                         input(LFPS::nestedChild, attr("type", "text"))
@@ -181,7 +195,7 @@ wicketExtend {
             p {
                 span(LFPS::nestedSiblingOfParentRootContainer) {
                     span(LFPS::nestedSiblingOfParentLabelContainer) {
-                        label(wicketForAttribute(LFPS::nestedSiblingOfParent)) { wicketLabel() }
+                        label(attrWicketFor(LFPS::nestedSiblingOfParent)) { wicketLabel() }
                     }
                     text(": ")
                     input(LFPS::nestedSiblingOfParent, attr("type", "text"))
@@ -193,7 +207,7 @@ wicketExtend {
             p {
                 span(LFPS::nestedChildOfSiblingRootContainer) {
                     span(LFPS::nestedChildOfSiblingLabelContainer) {
-                        label(wicketForAttribute(LFPS::nestedChildOfSibling)) { wicketLabel() }
+                        label(attrWicketFor(LFPS::nestedChildOfSibling)) { wicketLabel() }
                     }
                     span(LFPS::nestedChildOfSiblingInputContainer) {
                         text(": ")
@@ -207,7 +221,7 @@ wicketExtend {
             p {
                 span(LFPS::nestedNoCommonPathPartsLabelRootContainer) {
                     span(LFPS::nestedNoCommonPathPartsLabelContainer) {
-                        label(wicketForAttribute(LFPS::nestedNoCommonPathParts)) { wicketLabel() }
+                        label(attrWicketFor(LFPS::nestedNoCommonPathParts)) { wicketLabel() }
                     }
                 }
                 span(LFPS::nestedNoCommonPathPartsInputRootContainer) {
@@ -227,7 +241,7 @@ wicketExtend {
                             span(LFPS::labelLevel2Border) {
                                 span(LFPS::nestedNoCommonPathPartsLabelContainerManyBorders) {
                                     span(LFPS::labelLevel3Border) {
-                                        label(wicketForAttribute(LFPS::nestedNoCommonPathPartsManyBorders)) {
+                                        label(attrWicketFor(LFPS::nestedNoCommonPathPartsManyBorders)) {
                                             wicketLabel()
                                         }
                                     }

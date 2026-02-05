@@ -1,7 +1,14 @@
 package kwmdsl.examples.dsl_convenience_base_classes.variants
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.form
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.hr
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.select
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
 import kwmdsl.examples.sourceCodeLink
@@ -10,7 +17,7 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.Model
-import java.util.*
+import java.util.Locale
 
 class VariantsPage : ExamplesConvenienceBasePage() {
     private val styleModel = Model.of("")
@@ -59,7 +66,7 @@ class VariantsPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Variants") }
+    h1(attrClass("title")) { text("Variants") }
     form(S::variantsForm) {
         p {
             text("Style: ")

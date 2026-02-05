@@ -1,9 +1,22 @@
 package kwmdsl.examples
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.MarkupBuilder
+import com.squins.kwmdsl.a
+import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
 import com.squins.kwmdsl.component.resourcePath
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.h3
+import com.squins.kwmdsl.img
+import com.squins.kwmdsl.li
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
+import com.squins.kwmdsl.ul
 import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.DslNoneHtmlNoneDslPage
 import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithLateinitVarPropertiesPage
 import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithValPropertiesPage
@@ -59,8 +72,8 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Kotlin Wicket Markup DSL Examples") }
-    classDiv("content") {
+    h1(attrClass("title")) { text("Kotlin Wicket Markup DSL Examples") }
+    div(attrClass("content")) {
         h2 { text("Encoding") }
         p {
             text("Are we happy about the encoding (")

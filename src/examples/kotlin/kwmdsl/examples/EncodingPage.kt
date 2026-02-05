@@ -1,15 +1,20 @@
 package kwmdsl.examples
 
-import com.squins.kwmdsl.*
+import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
+import com.squins.kwmdsl.div
+import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
 
 class EncodingPage : ExamplesConvenienceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup<S> {
 // @formatter:off
 wicketExtend {
-    classH1("title") { text("Wicket and the Default JVM Encoding") }
-    classDiv("content") {
+    h1(attrClass("title")) { text("Wicket and the Default JVM Encoding") }
+    div(attrClass("content")) {
         p {
             text("If you did not see a happy face, system property ")
             code { text("file.encoding") }

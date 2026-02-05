@@ -260,6 +260,8 @@ val generateConvenienceFunctions by tasks.registering {
                         println(" * @param cssClasses the value for attribute `class`. **Warning**: there is no validation and no escaping, so make sure the value is valid and safe.")
                         blockDoc()
                         docEnd()
+                        // No `ReplaceWith` as this is more cumbersome than doing a search & replace manually.
+                        println("""@Deprecated("Makes it cumbersome to switch between tag with attached component and without. Use `attrClass(...)` with `$elementName(...)` instead. Replace `class([A-Z][a-zA-Z0-9]*)\\((\"[^\"]*\")\\)` with `\\l$1(attrClass($2))` in your codebase.")""")
                         println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.class${elementName[0].uppercase()}${elementName.substring(1)}(")
                         println("    cssClasses: String,")
                         blockDeclaration()
