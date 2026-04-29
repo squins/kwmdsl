@@ -17,9 +17,14 @@ class KwmDslExamplesApplication : WebApplication() {
             response.render(META_DEVICE_WIDTH_INITIAL_SCALE_1)
             response.render(BULMA_ITEM)
         }
-        (resourceSettings.packageResourceGuard as? SecurePackageResourceGuard)?.apply {
-            addPattern("+*.kt")
+        resourceSettings.packageResourceGuard = object : SecurePackageResourceGuard() {
+            // Always allow HTML so the source markup can be shown.
+            override fun accept(path: String) =
+                path.endsWith(".html") || super.accept(path)
         }
+            .apply {
+                addPattern("+*.kt")
+            }
     }
 }
 

@@ -9,6 +9,7 @@ import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.firstSourceCodeLink
+import kwmdsl.examples.sourceCodeLink
 import org.apache.wicket.markup.html.basic.Label
 
 class BorderPage : ExamplesConvenienceBasePage() {
@@ -35,6 +36,8 @@ wicketExtend {
         }
     }
     firstSourceCodeLink(this@Companion)
+    sourceCodeLink(BaseBorder::class)
+    sourceCodeLink(SubBorder::class)
 }
 // @formatter:on
         }

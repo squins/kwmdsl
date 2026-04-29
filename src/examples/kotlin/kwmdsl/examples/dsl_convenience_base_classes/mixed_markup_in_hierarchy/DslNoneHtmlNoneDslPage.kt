@@ -7,10 +7,25 @@ import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import kwmdsl.examples.firstSourceCodeLink
 import kwmdsl.examples.sourceCodeLink
+import kwmdsl.examples.sourceMarkupLink
 import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.markup.html.link.ResourceLink
+import org.apache.wicket.request.resource.PackageResourceReference
+import java.nio.charset.StandardCharsets.UTF_8
 
 class DslNoneHtmlNoneDslPage : DslNoneHtmlNonePage() {
     private val dslNoneHtmlNoneDslLabel: Label = Label(::dslNoneHtmlNoneDslLabel.name, "DslNoneHtmlNoneDslPage")
+    private val dslNoneHtmlPageMarkupLink: ResourceLink<Unit> =
+        ResourceLink<Unit>(
+            ::dslNoneHtmlPageMarkupLink.name,
+            object : PackageResourceReference(DslNoneHtmlPage::class.java, "DslNoneHtmlPage.html") {
+                override fun getResource() =
+                    super.getResource()
+                        .apply {
+                            textEncoding = UTF_8.name()
+                        }
+            }
+        )
 
     override fun onInitialize() {
         super.onInitialize()
@@ -30,6 +45,7 @@ wicketExtend {
     firstSourceCodeLink(DslPage::class)
     sourceCodeLink(DslNonePage::class)
     sourceCodeLink(DslNoneHtmlPage::class)
+    sourceMarkupLink(DslNoneHtmlPage::class, DNHNDPS::dslNoneHtmlPageMarkupLink)
     sourceCodeLink(DslNoneHtmlNonePage::class)
     sourceCodeLink(this@Companion)
 }

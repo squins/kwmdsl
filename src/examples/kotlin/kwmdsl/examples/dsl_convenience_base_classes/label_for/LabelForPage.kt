@@ -283,7 +283,7 @@ internal class LabelForDivBorder(id: String) : KotlinWicketMarkupBorder(id) {
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = borderMarkup {
+        override val noVariantMarkup = borderMarkup<LabelForDivBorder> {
             wicketBorder {
                 div {
                     wicketBody()
@@ -301,7 +301,7 @@ internal class LabelForStrongBorder(id: String) : KotlinWicketMarkupBorder(id) {
     }
 
     companion object : IKotlinWicketMarkupProvider {
-        override val noVariantMarkup = borderMarkup {
+        override val noVariantMarkup = borderMarkup<LabelForStrongBorder> {
             wicketBorder {
                 strong {
                     wicketBody()
