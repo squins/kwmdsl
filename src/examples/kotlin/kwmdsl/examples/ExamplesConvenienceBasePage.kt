@@ -1,7 +1,7 @@
 package kwmdsl.examples
 
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrLang
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
@@ -13,6 +13,7 @@ import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.section
 import com.squins.kwmdsl.title
 import org.apache.wicket.request.mapper.parameter.PageParameters
+import java.util.Locale.ENGLISH
 
 abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : KotlinWicketMarkupWebPage<Unit>(pageParameters) {
     constructor() : this(null)
@@ -27,7 +28,7 @@ abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : Ko
         override val noVariantMarkup = markup<ECBPS> {
 // @formatter:off
 docTypeHtml()
-html(attr("lang", "en")) {
+html(attrLang(ENGLISH)) {
     head {
         title { text("Kotlin Wicket Markup DSL Examples") }
     }

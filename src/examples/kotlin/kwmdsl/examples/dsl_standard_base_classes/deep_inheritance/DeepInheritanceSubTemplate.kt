@@ -1,7 +1,7 @@
 package kwmdsl.examples.dsl_standard_base_classes.deep_inheritance
 
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrLang
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
@@ -15,6 +15,7 @@ import com.squins.kwmdsl.section
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.title
 import org.apache.wicket.markup.html.basic.Label
+import java.util.Locale.ENGLISH
 
 open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {
     private val subTemplateLabel: Label = Label(::subTemplateLabel.name, "Deep inheritance, sub template component")
@@ -28,7 +29,7 @@ open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             docTypeHtml()
-            html(attr("lang", "en")) {
+            html(attrLang(ENGLISH)) {
                 head {
                     title { text("Deep Inheritance - Sub Template") }
                 }

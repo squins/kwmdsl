@@ -2,8 +2,10 @@ package kwmdsl.examples
 
 import com.squins.kwmdsl.MarkupBuilder
 import com.squins.kwmdsl.a
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrHref
+import com.squins.kwmdsl.attrSrc
+import com.squins.kwmdsl.attrWidth
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
@@ -81,7 +83,7 @@ wicketExtend {
             text(")? \uD83D\uDE04")
             text(" If you do not see a happy face to the left, read about ")
             wicketLink {
-                a(attr("href", EncodingPage::class.linkPath())) {
+                a(attrHref(EncodingPage::class.linkPath())) {
                     text("Wicket and the default JVM encoding")
                 }
             }
@@ -99,16 +101,15 @@ wicketExtend {
             wicketLink {
                 text("In this package: ")
                 img(
-                    attr("src", "Apache Wicket.svg"),
-                    attr("width", "50")
+                    attrSrc("Apache Wicket.svg"),
+                    attrWidth(50)
                 )
                 text(", from a sub package: ")
                 img(
-                    attr(
-                        "src",
+                    attrSrc(
                         ELPS::class.resourcePath<DslConvenienceLinkPage>("Apache Wicket.svg")
                     ),
-                    attr("width", "50")
+                    attrWidth(50)
                 )
             }
         }
@@ -155,7 +156,7 @@ wicketExtend {
             ul {
                 link(DslConvenienceHelloWorldPage::class, "Hello World!") {
                     text(" (the DSL version of the ")
-                    a(attr("href", "https://wicket.apache.org/learn/examples/helloworld.html")) {
+                    a(attrHref("https://wicket.apache.org/learn/examples/helloworld.html")) {
                         text("Wicket Hello World! example")
                     }
                     text(")")
@@ -194,7 +195,7 @@ private fun MarkupBuilder<ELPS>.link(
     block: MarkupBuilder<ELPS>.() -> Unit = {},
 ) {
     li {
-        a(attr("href", examplePageClass.linkPath())) { text(text) }
+        a(attrHref(examplePageClass.linkPath())) { text(text) }
         block()
     }
 }

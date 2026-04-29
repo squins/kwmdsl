@@ -1,7 +1,9 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrColspan
+import com.squins.kwmdsl.attrRowspan
+import com.squins.kwmdsl.attrStyle
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.fragmentBodyMarkup
@@ -259,9 +261,9 @@ wicketExtend {
         table {
             thead {
               tr {
-                  td(attr("rowspan", "2")) { text("") }
-                  th(attr("rowspan", "2")) { text("Own markup") }
-                  th(attr("colspan", "3"), attr("style", "text-align: center;")) { text("External markup") }
+                  td(attrRowspan(2)) { text("") }
+                  th(attrRowspan(2)) { text("Own markup") }
+                  th(attrColspan(3), attrStyle("text-align: center;")) { text("External markup") }
               }
               tr {
                   th { text("Markup in parent") }

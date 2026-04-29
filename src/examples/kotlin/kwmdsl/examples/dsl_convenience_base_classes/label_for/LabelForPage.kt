@@ -1,7 +1,8 @@
 package kwmdsl.examples.dsl_convenience_base_classes.label_for
 
-import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.InputType.TEXT
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrType
 import com.squins.kwmdsl.borderMarkup
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupBorder
@@ -121,7 +122,7 @@ wicketExtend {
             p {
                 label(attrWicketFor(LFPS::rootSibling)) { wicketLabel() }
                 text(": ")
-                input(LFPS::rootSibling, attr("type", "text"))
+                input(LFPS::rootSibling, attrType(TEXT))
             }
 
             h3 { text("Child") }
@@ -130,7 +131,7 @@ wicketExtend {
                 label(attrWicketFor(LFPS::rootChild)) {
                     wicketLabel()
                     text(": ")
-                    input(LFPS::rootChild, attr("type", "text"))
+                    input(LFPS::rootChild, attrType(TEXT))
                 }
             }
 
@@ -141,7 +142,7 @@ wicketExtend {
                     label(attrWicketFor(LFPS::rootSiblingOfParent)) { wicketLabel() }
                 }
                 text(": ")
-                input(LFPS::rootSiblingOfParent, attr("type", "text"))
+                input(LFPS::rootSiblingOfParent, attrType(TEXT))
             }
 
             h3 { text("Child of Sibling") }
@@ -152,7 +153,7 @@ wicketExtend {
                 }
                 span(LFPS::rootChildOfSiblingInputContainer) {
                     text(": ")
-                    input(LFPS::rootChildOfSibling, attr("type", "text"))
+                    input(LFPS::rootChildOfSibling, attrType(TEXT))
                 }
             }
 
@@ -174,7 +175,7 @@ wicketExtend {
                 span(LFPS::nestedSiblingRootContainer) {
                     label(attrWicketFor(LFPS::nestedSibling)) { wicketLabel() }
                     text(": ")
-                    input(LFPS::nestedSibling, attr("type", "text"))
+                    input(LFPS::nestedSibling, attrType(TEXT))
                 }
             }
 
@@ -185,7 +186,7 @@ wicketExtend {
                     label(attrWicketFor(LFPS::nestedChild)) {
                         wicketLabel()
                         text(": ")
-                        input(LFPS::nestedChild, attr("type", "text"))
+                        input(LFPS::nestedChild, attrType(TEXT))
                     }
                 }
             }
@@ -198,7 +199,7 @@ wicketExtend {
                         label(attrWicketFor(LFPS::nestedSiblingOfParent)) { wicketLabel() }
                     }
                     text(": ")
-                    input(LFPS::nestedSiblingOfParent, attr("type", "text"))
+                    input(LFPS::nestedSiblingOfParent, attrType(TEXT))
                 }
             }
 
@@ -211,7 +212,7 @@ wicketExtend {
                     }
                     span(LFPS::nestedChildOfSiblingInputContainer) {
                         text(": ")
-                        input(LFPS::nestedChildOfSibling, attr("type", "text"))
+                        input(LFPS::nestedChildOfSibling, attrType(TEXT))
                     }
                 }
             }
@@ -227,7 +228,7 @@ wicketExtend {
                 span(LFPS::nestedNoCommonPathPartsInputRootContainer) {
                     span(LFPS::nestedNoCommonPathPartsInputContainer) {
                         text(": ")
-                        input(LFPS::nestedNoCommonPathParts, attr("type", "text"))
+                        input(LFPS::nestedNoCommonPathParts, attrType(TEXT))
                     }
                 }
             }
@@ -255,7 +256,7 @@ wicketExtend {
                                 span(LFPS::nestedNoCommonPathPartsInputContainerManyBorders) {
                                     text(": ")
                                     span(LFPS::inputLevel3Border) {
-                                        input(LFPS::nestedNoCommonPathPartsManyBorders, attr("type", "text"))
+                                        input(LFPS::nestedNoCommonPathPartsManyBorders, attrType(TEXT))
                                     }
                                 }
                             }

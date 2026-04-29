@@ -1,6 +1,6 @@
 package kwmdsl.examples.dsl_standard_base_classes.deep_inheritance
 
-import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrLang
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.docTypeHtml
@@ -11,6 +11,7 @@ import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.title
 import org.apache.wicket.markup.html.basic.Label
+import java.util.Locale.ENGLISH
 
 class DeepInheritanceSubPage : DeepInheritanceBasePage() {
     private val subPageLabel: Label = Label(::subPageLabel.name, "Deep inheritance, sub page component")
@@ -24,7 +25,7 @@ class DeepInheritanceSubPage : DeepInheritanceBasePage() {
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
             docTypeHtml()
-            html(attr("lang", "en")) {
+            html(attrLang(ENGLISH)) {
                 head {
                     title { text("Deep Inheritance - Sub Page") }
                 }

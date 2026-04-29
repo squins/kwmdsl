@@ -1,8 +1,9 @@
 package kwmdsl.examples.dsl_convenience_base_classes.repeat
 
+import com.squins.kwmdsl.InputType.CHECKBOX
 import com.squins.kwmdsl.Repeated
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrType
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.form
@@ -71,7 +72,7 @@ wicketExtend {
             span(S::group) {
                 ul {
                     li(S::persons) {
-                        input(Repeated(S::checkbox), attr("type", "checkbox"))
+                        input(Repeated(S::checkbox), attrType(CHECKBOX))
                         text(" ")
                         span(Repeated(S::name))
                         text(" ")

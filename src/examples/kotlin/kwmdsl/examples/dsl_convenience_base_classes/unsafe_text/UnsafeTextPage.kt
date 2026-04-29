@@ -1,8 +1,8 @@
 package kwmdsl.examples.dsl_convenience_base_classes.unsafe_text
 
 import com.squins.kwmdsl.a
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrHref
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
@@ -45,7 +45,7 @@ wicketExtend {
         <p>
             If you are careful, and you do need some Wicket components within text content, you can mix unsafe text and regular markup. Here is a link to the 
         """)
-        wicketLink { a(attr("href", ExamplesListPage::class.linkPath())) { text("examples list page") } }
+        wicketLink { a(attrHref(ExamplesListPage::class.linkPath())) { text("examples list page") } }
         //language=html
         unsafeText(""", for example. But it is probably wiser to write an HTML element fully in either markup or unsafe text.
         </p>
@@ -57,15 +57,15 @@ wicketExtend {
 
         h2{ text("DSL") }
         p {
-            text("If you have large pieces of rich text content (for example the "); a(attr("href", "https://nightlies.apache.org/wicket/guide/10.x/single.html")) { text("Wicket Reference Guide") }; text("), the DSL is not convenient: the code becomes verbose, and hard to read and modify. Compare how "); strong { text("this section") }; text(" is written, with the "); em { text("other section") }; text(".")
+            text("If you have large pieces of rich text content (for example the "); a(attrHref("https://nightlies.apache.org/wicket/guide/10.x/single.html")) { text("Wicket Reference Guide") }; text("), the DSL is not convenient: the code becomes verbose, and hard to read and modify. Compare how "); strong { text("this section") }; text(" is written, with the "); em { text("other section") }; text(".")
         }
 
         p {
-            text("For writing rich text content you can use the function "); code { text("unsafeText(String)") }; text(". In IntelliJ IDEA you can use a "); a(attr("href", "https://www.jetbrains.com/help/idea/using-language-injections.html")) { text("language injection") }; text(" comment to get HTML editing support: "); code { text("//language=html") }; text(".")
+            text("For writing rich text content you can use the function "); code { text("unsafeText(String)") }; text(". In IntelliJ IDEA you can use a "); a(attrHref("https://www.jetbrains.com/help/idea/using-language-injections.html")) { text("language injection") }; text(" comment to get HTML editing support: "); code { text("//language=html") }; text(".")
         }
 
         p {
-            text("If you are careful, and you do need some Wicket components within text content, you can mix unsafe text and regular markup. Here is a link to the "); wicketLink { a(attr("href", ExamplesListPage::class.linkPath())) { text("examples list page") } }; text(", for example. But it is probably wiser to write an HTML element fully in either markup or unsafe text.")
+            text("If you are careful, and you do need some Wicket components within text content, you can mix unsafe text and regular markup. Here is a link to the "); wicketLink { a(attrHref(ExamplesListPage::class.linkPath())) { text("examples list page") } }; text(", for example. But it is probably wiser to write an HTML element fully in either markup or unsafe text.")
         }
 
         p {

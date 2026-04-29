@@ -1,7 +1,8 @@
 package kwmdsl.examples.dsl_convenience_base_classes.label_for
 
-import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.InputType.TEXT
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrType
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.form
@@ -106,7 +107,7 @@ wicketExtend {
             p {
                 wicketLabel(WLFPS::rootSibling)
                 text(": ")
-                input(WLFPS::rootSibling, attr("type", "text"))
+                input(WLFPS::rootSibling, attrType(TEXT))
             }
 
             h3 { text("Sibling of Parent") }
@@ -116,7 +117,7 @@ wicketExtend {
                     wicketLabel(WLFPS::rootSiblingOfParent)
                 }
                 text(": ")
-                input(WLFPS::rootSiblingOfParent, attr("type", "text"))
+                input(WLFPS::rootSiblingOfParent, attrType(TEXT))
             }
 
             h3 { text("Child of Sibling") }
@@ -127,7 +128,7 @@ wicketExtend {
                 }
                 span(WLFPS::rootChildOfSiblingInputContainer) {
                     text(": ")
-                    input(WLFPS::rootChildOfSibling, attr("type", "text"))
+                    input(WLFPS::rootChildOfSibling, attrType(TEXT))
                 }
             }
 
@@ -149,7 +150,7 @@ wicketExtend {
                 span(WLFPS::nestedSiblingRootContainer) {
                     wicketLabel(WLFPS::nestedSibling)
                     text(": ")
-                    input(WLFPS::nestedSibling, attr("type", "text"))
+                    input(WLFPS::nestedSibling, attrType(TEXT))
                 }
             }
 
@@ -161,7 +162,7 @@ wicketExtend {
                         wicketLabel(WLFPS::nestedSiblingOfParent)
                     }
                     text(": ")
-                    input(WLFPS::nestedSiblingOfParent, attr("type", "text"))
+                    input(WLFPS::nestedSiblingOfParent, attrType(TEXT))
                 }
             }
 
@@ -174,7 +175,7 @@ wicketExtend {
                     }
                     span(WLFPS::nestedChildOfSiblingInputContainer) {
                         text(": ")
-                        input(WLFPS::nestedChildOfSibling, attr("type", "text"))
+                        input(WLFPS::nestedChildOfSibling, attrType(TEXT))
                     }
                 }
             }
@@ -190,7 +191,7 @@ wicketExtend {
                 span(WLFPS::nestedNoCommonPathPartsInputRootContainer) {
                     span(WLFPS::nestedNoCommonPathPartsInputContainer) {
                         text(": ")
-                        input(WLFPS::nestedNoCommonPathParts, attr("type", "text"))
+                        input(WLFPS::nestedNoCommonPathParts, attrType(TEXT))
                     }
                 }
             }
@@ -217,7 +218,7 @@ wicketExtend {
                             span(WLFPS::nestedNoCommonPathPartsInputContainerManyBorders) {
                                 text(": ")
                                 span(WLFPS::inputLevel3Border) {
-                                    input(WLFPS::nestedNoCommonPathPartsManyBorders, attr("type", "text"))
+                                    input(WLFPS::nestedNoCommonPathPartsManyBorders, attrType(TEXT))
                                 }
                             }
                         }

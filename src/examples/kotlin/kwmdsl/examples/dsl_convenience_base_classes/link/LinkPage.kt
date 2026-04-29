@@ -1,8 +1,10 @@
 package kwmdsl.examples.dsl_convenience_base_classes.link
 
 import com.squins.kwmdsl.a
-import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.attrHref
+import com.squins.kwmdsl.attrSrc
+import com.squins.kwmdsl.attrWidth
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
 import com.squins.kwmdsl.component.resourcePath
@@ -33,20 +35,20 @@ wicketExtend {
             wicketLink {
                 text("In this package: ")
                 img(
-                    attr("src", "Apache Wicket.svg"),
-                    attr("width", "50")
+                    attrSrc("Apache Wicket.svg"),
+                    attrWidth(50)
                 )
                 text(", from (a sub package of) an ancestor package: ")
                 img(
-                    attr("src", S::class.resourcePath<ExamplesListPage>("Apache Wicket.svg")),
-                    attr("width", "50")
+                    attrSrc(S::class.resourcePath<ExamplesListPage>("Apache Wicket.svg")),
+                    attrWidth(50)
                 )
             }
         }
 
         p {
             wicketLink {
-                a(attr("href", ExamplesListPage::class.linkPath())) {
+                a(attrHref(ExamplesListPage::class.linkPath())) {
                     text("Back to the list of examples.")
                 }
             }

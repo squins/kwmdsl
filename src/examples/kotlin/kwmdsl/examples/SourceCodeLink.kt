@@ -2,7 +2,7 @@ package kwmdsl.examples
 
 import com.squins.kwmdsl.MarkupBuilder
 import com.squins.kwmdsl.a
-import com.squins.kwmdsl.attr
+import com.squins.kwmdsl.attrHref
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.hr
 import kotlin.reflect.KClass
@@ -28,7 +28,7 @@ fun MarkupBuilder<*>.sourceCodeLink(kClass: KClass<*>) {
 private fun MarkupBuilder<*>.sourceCodeLink(sourceFilename: String) {
     div {
         wicketLink {
-            a(attr("href", sourceFilename)) {
+            a(attrHref(sourceFilename)) {
                 text("Source code of ")
                 text(sourceFilename)
             }
