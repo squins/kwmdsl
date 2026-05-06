@@ -11,10 +11,10 @@ pluginManagement {
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 
         // https://plugins.gradle.org/plugin/org.jetbrains.dokka
-        id("org.jetbrains.dokka") version "2.1.0"
+        id("org.jetbrains.dokka") version "2.2.0"
 
         // https://plugins.gradle.org/plugin/org.jetbrains.dokka
-        id("org.jetbrains.dokka-javadoc") version "2.1.0"
+        id("org.jetbrains.dokka-javadoc") version "2.2.0"
     }
 
     repositories {
@@ -28,13 +28,13 @@ plugins {
 }
 
 // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
-val jettyVersion = "12.1.6"
+val jettyVersion = "12.1.8"
 // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-val junitPlatformLauncherVersion = "1.14.2"
+val junitPlatformLauncherVersion = "1.14.4"
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-val junitVersion = "5.14.2"
+val junitVersion = "5.14.4"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-val logbackVersion = "1.5.27"
+val logbackVersion = "1.5.32"
 // https://mvnrepository.com/artifact/io.github.eamonnmcmanus/serialysis
 val serialysisVersion = "0.9"
 // https://wicket.apache.org/start/download.html
