@@ -6,10 +6,13 @@ import com.squins.kwmdsl.component.findMarkup
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
+import com.squins.kwmdsl.li
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
+import com.squins.kwmdsl.ul
 import kwmdsl.examples.ExamplesStandardBasePage
+import kwmdsl.examples.firstSourceCodeLink
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.WebMarkupContainer
@@ -25,7 +28,6 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
     private val autoSpanAttribute: Label = Label(::autoSpanAttribute.name, "Auto")
     private val directSpanAttribute: Label = Label(::directSpanAttribute.name, "Direct")
     private val twoSpansAttribute: WebMarkupContainer = WebMarkupContainer(::twoSpansAttribute.name)
-    // TODO("Unique names are now required as the whole hierarchy is flattened. Is that a problem?")
     private val firstSpanAttribute: Label = Label(::firstSpanAttribute.name, "First")
     private val secondSpanAttribute: Label = Label(::secondSpanAttribute.name, "Second")
 
@@ -51,59 +53,69 @@ class EnclosuresPage : ExamplesStandardBasePage(), IMarkupResourceStreamProvider
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                h1(attrClass("title")) { text("Enclosures") }
+// @formatter:off
+wicketExtend {
+    h1(attrClass("title")) { text("Enclosures (DSL, Standard Base Classes)") }
 
-                div(attrClass("content")) {
-                    p { text("Refresh to update the visibility of child components.") }
+    div(attrClass("content")) {
+        p { text("Shows enclosures that:") }
+        ul {
+            li { text("Detect the single component within them.") }
+            li { text("Have the single component within them specified.") }
+            li { text("Have the (nested) component of multiple components within them specified.") }
+        }
+        p { text("For both enclosure elements and attributes.") }
+        p { text("Refresh to update the visibility of child components.") }
 
-                    h2 { text("Element") }
+        h2 { text("Element") }
 
-                    wicketEnclosure {
-                        p {
-                            text("Auto: ")
-                            span(EnclosuresPage::autoSpan)
-                        }
-                    }
-
-                    wicketEnclosure(EnclosuresPage::directSpan) {
-                        p {
-                            text("Direct: ")
-                            span(EnclosuresPage::directSpan)
-                        }
-                    }
-
-                    wicketEnclosure(EnclosuresPage::secondSpan) {
-                        div(EnclosuresPage::twoSpans) {
-                            text("First: ")
-                            span(EnclosuresPage::firstSpan)
-                            text(", second: ")
-                            span(EnclosuresPage::secondSpan)
-                        }
-                    }
-
-                    h2 { text("Attribute") }
-
-                    p(attrWicketEnclosure()) {
-                        text("Auto: ")
-                        span(EnclosuresPage::autoSpanAttribute)
-                    }
-
-                    p(attrWicketEnclosure(EnclosuresPage::directSpanAttribute)) {
-                        text("Direct: ")
-                        span(EnclosuresPage::directSpanAttribute)
-                    }
-
-                    div(attrWicketEnclosure(EnclosuresPage::secondSpanAttribute)) {
-                        div(EnclosuresPage::twoSpansAttribute) {
-                            text("First: ")
-                            span(EnclosuresPage::firstSpanAttribute)
-                            text(", second: ")
-                            span(EnclosuresPage::secondSpanAttribute)
-                        }
-                    }
-                }
+        wicketEnclosure {
+            p {
+                text("Auto: ")
+                span(EnclosuresPage::autoSpan)
             }
+        }
+
+        wicketEnclosure(EnclosuresPage::directSpan) {
+            p {
+                text("Direct: ")
+                span(EnclosuresPage::directSpan)
+            }
+        }
+
+        wicketEnclosure(EnclosuresPage::secondSpan) {
+            div(EnclosuresPage::twoSpans) {
+                text("First: ")
+                span(EnclosuresPage::firstSpan)
+                text(", second: ")
+                span(EnclosuresPage::secondSpan)
+            }
+        }
+
+        h2 { text("Attribute") }
+
+        p(attrWicketEnclosure()) {
+            text("Auto: ")
+            span(EnclosuresPage::autoSpanAttribute)
+        }
+
+        p(attrWicketEnclosure(EnclosuresPage::directSpanAttribute)) {
+            text("Direct: ")
+            span(EnclosuresPage::directSpanAttribute)
+        }
+
+        div(attrWicketEnclosure(EnclosuresPage::secondSpanAttribute)) {
+            div(EnclosuresPage::twoSpansAttribute) {
+                text("First: ")
+                span(EnclosuresPage::firstSpanAttribute)
+                text(", second: ")
+                span(EnclosuresPage::secondSpanAttribute)
+            }
+        }
+    }
+    firstSourceCodeLink(this@Companion)
+}
+// @formatter:on
         }
     }
 }

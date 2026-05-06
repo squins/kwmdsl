@@ -1,6 +1,7 @@
 package kwmdsl.examples.standard.enclosure
 
 import kwmdsl.examples.ExamplesStandardBasePage
+import kwmdsl.examples.htmlResourceLink
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 import kotlin.random.Random
@@ -30,6 +31,7 @@ class EnclosuresPage : ExamplesStandardBasePage() {
             add(firstSpanAttribute)
             add(secondSpanAttribute)
         })
+        add(htmlResourceLink("enclosuresPageMarkupLink", EnclosuresPage::class))
     }
 
     override fun onConfigure() {

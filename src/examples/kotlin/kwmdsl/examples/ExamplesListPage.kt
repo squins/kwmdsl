@@ -126,11 +126,11 @@ wicketExtend {
         }
 
         p {
-            text("The last 2 are almost completely the same, as the only difference is where the code to enable using the DSL is located.")
+            text("The last 2 are almost completely the same, as the only difference is where the code to enable using the DSL is located. This is also the reason why there are only 3 examples for the DSL with the standard base classes. Further examples do not add any value.")
         }
 
         p {
-            text("Most examples link to (some) source files. But it is best to look at all of the source files using your IDE.")
+            text("The examples link to the source files. But it is best to look at all of the source files using your IDE.")
         }
 
         h3 { text("Standard") }

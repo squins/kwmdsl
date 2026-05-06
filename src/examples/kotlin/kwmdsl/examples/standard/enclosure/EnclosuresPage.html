@@ -1,6 +1,17 @@
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
-    <h1 class="title">Enclosures</h1>
+    <h1 class="title">Enclosures (Standard)</h1>
     <div class="content">
+        <p>
+            Shows enclosures that:
+        </p>
+        <ul>
+            <li>Detect the single component within them.</li>
+            <li>Have the single component within them specified.</li>
+            <li>Have the (nested) component of multiple components within them specified.</li>
+        </ul>
+        <p>
+            For both enclosure elements and attributes.
+        </p>
         <p>
             Refresh to update the visibility of child components.
         </p>
@@ -46,5 +57,12 @@
                 <span wicket:id="secondSpanAttribute"></span>
             </p>
         </div>
+    </div>
+    <hr>
+    <div>
+        <wicket:link><a href="EnclosuresPage.kt">Source code of EnclosuresPage.kt</a></wicket:link>
+    </div>
+    <div>
+        <a wicket:id="enclosuresPageMarkupLink">Source code of EnclosuresPage.html</a>
     </div>
 </wicket:extend>
