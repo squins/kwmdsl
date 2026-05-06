@@ -24,19 +24,21 @@ class DeepInheritanceSubPage : DeepInheritanceBasePage() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            docTypeHtml()
-            html(attrLang(ENGLISH)) {
-                head {
-                    title { text("Deep Inheritance - Sub Page") }
-                }
-                body {
-                    wicketExtend {
-                        p {
-                            span(DeepInheritanceSubPage::subPageLabel)
-                        }
-                    }
-                }
+// @formatter:off
+docTypeHtml()
+html(attrLang(ENGLISH)) {
+    head {
+        title { text("Deep Inheritance - Sub Page") }
+    }
+    body {
+        wicketExtend {
+            p {
+                span(DeepInheritanceSubPage::subPageLabel)
             }
+        }
+    }
+}
+// @formatter:on
         }
     }
 }

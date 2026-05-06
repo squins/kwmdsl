@@ -27,15 +27,17 @@ open class DeepInheritanceBaseTemplate : ExamplesStandardBasePage(), IMarkupReso
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            wicketExtend {
-                h1(attrClass("title")) { text("Deep Inheritance") }
-                div(attrClass("content")) {
-                    p {
-                        span(DeepInheritanceBaseTemplate::baseTemplateLabel)
-                    }
-                    wicketChild()
-                }
-            }
+// @formatter:off
+wicketExtend {
+    h1(attrClass("title")) { text("Deep Inheritance") }
+    div(attrClass("content")) {
+        p {
+            span(DeepInheritanceBaseTemplate::baseTemplateLabel)
+        }
+        wicketChild()
+    }
+}
+// @formatter:on
         }
     }
 }

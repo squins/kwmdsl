@@ -24,20 +24,22 @@ open class DeepInheritanceBasePage : DeepInheritanceSubTemplate() {
 
     companion object : IKotlinWicketMarkupProvider {
         override val noVariantMarkup = markup {
-            docTypeHtml()
-            html(attrLang(ENGLISH)) {
-                head {
-                    title { text("Deep Inheritance - Base Page") }
-                }
-                body {
-                    wicketExtend {
-                        p {
-                            span(DeepInheritanceBasePage::basePageLabel)
-                        }
-                        wicketChild()
-                    }
-                }
+// @formatter:off
+docTypeHtml()
+html(attrLang(ENGLISH)) {
+    head {
+        title { text("Deep Inheritance - Base Page") }
+    }
+    body {
+        wicketExtend {
+            p {
+                span(DeepInheritanceBasePage::basePageLabel)
             }
+            wicketChild()
+        }
+    }
+}
+// @formatter:on
         }
     }
 }

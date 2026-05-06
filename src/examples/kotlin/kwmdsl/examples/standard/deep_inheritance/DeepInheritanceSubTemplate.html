@@ -8,13 +8,60 @@
 <body>
 <section class="section">
     <div class="container">
-        <h1 class="title">Deep Inheritance</h1>
+        <h1 class="title">Deep Inheritance (Standard)</h1>
         <div class="content">
+            <p>Shows a deep hierarchy of pages. The 2 template base classes provide common markup. And the pages provide specific content:</p>
+            <ul>
+                <li>
+                    <div><code>DeepInheritanceBaseTemplate</code>: provides very simple common markup, which is not used as <code>DeepInheritanceSubTemplate</code> overrides it with its own markup.</div>
+                    <ul>
+                        <li>
+                            <div><code>DeepInheritanceSubTemplate</code>: provides a proper HTML page as the common markup for subpages.</div>
+                            <ul>
+                                <li>
+                                    <div><code>DeepInheritanceBasePage</code>: adds a label, and allows for child pages to provide markup.</div>
+                                    <ul>
+                                        <li>
+                                            <div><code>DeepInheritanceSubPage</code>: adds a label.</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <p>Here are the components of each of the classes above:</p>
             <p><span wicket:id="subTemplateLabel"></span></p>
             <wicket:child/>
             <p><span wicket:id="baseTemplateLabel"></span></p>
         </div>
     </div>
 </section>
+<hr>
+<div>
+    <wicket:link><a href="DeepInheritanceBasePage.kt">Source code of DeepInheritanceBasePage.kt</a></wicket:link>
+</div>
+<div>
+    <a wicket:id="deepInheritanceBasePageMarkupLink">Source code of DeepInheritanceBasePage.html</a>
+</div>
+<div>
+    <wicket:link><a href="DeepInheritanceBaseTemplate.kt">Source code of DeepInheritanceBaseTemplate.kt</a></wicket:link>
+</div>
+<div>
+    <a wicket:id="deepInheritanceBaseTemplateMarkupLink">Source code of DeepInheritanceBaseTemplate.html</a>
+</div>
+<div>
+    <wicket:link><a href="DeepInheritanceSubPage.kt">Source code of DeepInheritanceSubPage.kt</a></wicket:link>
+</div>
+<div>
+    <a wicket:id="deepInheritanceSubPageMarkupLink">Source code of DeepInheritanceSubPage.html</a>
+</div>
+<div>
+    <wicket:link><a href="DeepInheritanceSubTemplate.kt">Source code of DeepInheritanceSubTemplate.kt</a></wicket:link>
+</div>
+<div>
+    <a wicket:id="deepInheritanceSubTemplateMarkupLink">Source code of DeepInheritanceSubTemplate.html</a>
+</div>
 </body>
 </html>
