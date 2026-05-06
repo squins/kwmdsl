@@ -57,7 +57,7 @@ wicketExtend {
             text("""fun onInitialize() {
     super.onInitialize()
     
-    // Check if page can be shown, throw a sub class of `ReplaceHandlerException` if not
+    // Check if page can be shown, throw a subclass of `ReplaceHandlerException` if not
     
     // Do the (possibly expensive) initialization
 }""")

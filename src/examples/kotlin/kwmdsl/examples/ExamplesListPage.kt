@@ -26,6 +26,7 @@ import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlN
 import kwmdsl.examples.standard.border.BorderPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
+import kwmdsl.examples.standard.fragment.FragmentPage
 import kwmdsl.examples.standard.variants.VariantsPage
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.link.Link
@@ -122,7 +123,7 @@ wicketExtend {
 
         ul {
             li { text("Standard: Wicket without using the DSL at all.") }
-            li { text("DSL, standard base classes: markup defined using the DSL, but using the standard Wicket base classes. This shows that you can use the DSL for sub classes of existing Wicket components.") }
+            li { text("DSL, standard base classes: markup defined using the DSL, but using the standard Wicket base classes. This shows that you can use the DSL for subclasses of existing Wicket components.") }
             li { text("DSL, convenience base classes: markup defined using the DSL, and using the convenience base classes that provide part of the functionality needed to use the DSL.") }
         }
 
@@ -140,6 +141,7 @@ wicketExtend {
                 link(DeepInheritanceSubPage::class, "Deep inheritance")
                 link(EnclosuresPage::class, "Enclosures")
                 link(BorderPage::class, "Border")
+                link(FragmentPage::class, "Fragments")
                 link(VariantsPage::class, "Variants")
             }
         }

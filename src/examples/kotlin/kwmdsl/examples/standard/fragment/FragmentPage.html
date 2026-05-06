@@ -1,0 +1,234 @@
+<wicket:head>
+    <style>
+        .specialized { color: coral; }
+    </style>
+</wicket:head>
+<wicket:extend>
+    <h1 class="title">Fragment (Standard)</h1>
+    <div class="content">
+        <h2>Introduction</h2>
+        
+        <p>
+            Wicket is very flexible when it comes to fragments, and supports most combinations of the table below (and
+            more). But the DSL only supports the combinations specifying which <code>Fragment</code> classes can be
+            used. Explanation of the table headers and cell values:
+        </p>
+        
+        <h3>Markup Location</h3>
+        
+        <dl>
+            <dt>Own markup</dt>
+            <dd>The fragment has its own markup file.</dd>
+            
+            <dt>Markup in parent</dt>
+            <dd>The fragment markup is embedded in the parent markup to which the fragment is added.</dd>
+
+            <dt>Markup in other component, also supplying components</dt>
+            <dd>The fragment markup is embedded in the markup of a descendent component. The descendent component also creates the descendent components of the fragment. However, the adding of the components to the fragment is still done by the parent.</dd>
+
+            <dt>Markup in other component, not supplying components</dt>
+            <dd>The fragment markup is embedded in the markup of a descendent component. The fragment does not contain descendent components.</dd>
+        </dl>
+        
+        <h3>Components Location</h3>
+
+        <dl>
+            <dt>No components</dt>
+            <dd>The fragment does not contain components.</dd>
+
+            <dt>Own components</dt>
+            <dd>The fragment creates its descendent components itself.</dd>
+
+            <dt>Components in parent</dt>
+            <dd>The parent of the fragment creates the descendent components of the fragment. The adding of the components to the fragment is done by the parent.</dd>
+
+            <dt>Components in other component, also supplying markup.</dt>
+            <dd>A descendent component creates the descendent components of the fragment. However, the adding of the components to the fragment is still done by the parent. The descendent component also supplies the fragment markup.</dd>
+
+            <dt>Components in other component, not supplying markup</dt>
+            <dd>A descendent component creates the descendent components of the fragment. The fragment markup is located somewhere else than embedded in the descendent component markup.</dd>
+        </dl>
+
+        <h3>Allowed Fragment Classes</h3>
+
+        <dl>
+            <dt>-</dt>
+            <dd>This combination is not supported by the DSL.</dd>
+
+            <dt>(Un)specialized</dt>
+            <dd><code>Fragment</code> can be used as is. A subclass is also allowed.</dd>
+
+            <dt>Specialized only</dt>
+            <dd>A subclass of <code>Fragment</code> must be used.</dd>
+        </dl>
+
+        <table>
+            <thead>
+            <tr>
+                <td rowspan="2"></td>
+                <th rowspan="2">Own markup</th>
+                <th colspan="3" style="">External markup</th>
+            </tr>
+            <tr>
+                <th>Markup in parent</th>
+                <th>Markup in other component, also supplying components</th>
+                <th>Markup in other component, not supplying components</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>No components</th>
+                <td>Specialized only</td>
+                <td>(Un)specialized</td>
+                <td>-</td>
+                <td>(Un)specialized</td>
+            </tr>
+            <tr>
+                <th>Own components</th>
+                <td>Specialized only</td>
+                <td>Specialized only</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>Components in parent</th>
+                <td>-</td>
+                <td>(Un)specialized</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>Components in other component, also supplying markup</th>
+                <td>-</td>
+                <td>-</td>
+                <td>(Un)specialized</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>Components in other component, not supplying markup</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>Note that the (subclass of) <code>Fragment</code> is always added directly to the page in the examples below.</p>
+
+        <p>In all cases multiple fragment markup variants are supported. A random one is chosen in each example when the page is loaded and refreshed.</p>
+
+        <h2>Examples</h2>
+
+        <h3>Own Markup</h3>
+
+        <p>
+            <span wicket:id="noComponentsOwnMarkupFragment"></span>
+        </p>
+
+        <p>
+            <span wicket:id="ownComponentsOwnMarkupFragment"></span>
+        </p>
+
+        <h3>Markup in Parent</h3>
+
+        <p>
+            <span wicket:id="noComponentsMarkupInParentUnspecializedFragment"></span>
+        </p>
+
+        <p>
+            <span wicket:id="noComponentsMarkupInParentSpecializedFragment"></span>
+        </p>
+
+        <p>
+            <span wicket:id="ownComponentsMarkupInParentFragment"></span>
+        </p>
+
+        <p>
+            <span wicket:id="componentsInParentMarkupInParentUnspecializedFragment"></span>
+        </p>
+
+        <p>
+            <span wicket:id="componentsInParentMarkupInParentSpecializedFragment"></span>
+        </p>
+
+        <h3>Markup in Other Component, Also Supplying Components</h3>
+
+        <div wicket:id="componentsAndMarkupSupplyingPanelForUnspecialized"></div>
+        <p>
+            <span wicket:id="componentsAndMarkupInOtherComponentUnspecializedFragment"></span>
+        </p>
+
+        <div wicket:id="componentsAndMarkupSupplyingPanelForSpecialized"></div>
+        <p>
+            <span wicket:id="componentsAndMarkupInOtherComponentSpecializedFragment"></span>
+        </p>
+
+        <h3>Markup in Other Component, Not Supplying Components</h3>
+
+        <div wicket:id="noComponentsMarkupSupplyingPanelForUnspecialized"></div>
+        <p>
+            <span wicket:id="noComponentsMarkupInOtherComponentUnspecializedFragment"></span>
+        </p>
+
+        <div wicket:id="noComponentsMarkupSupplyingPanelForSpecialized"></div>
+        <p>
+            <span wicket:id="noComponentsMarkupInOtherComponentSpecializedFragment"></span>
+        </p>
+
+        <wicket:fragment wicket:id="noComponentsMarkupInParentUnspecializedFragmentBody1">
+            No components, unspecialized fragment, fragment markup #1
+        </wicket:fragment>
+        <wicket:fragment wicket:id="noComponentsMarkupInParentUnspecializedFragmentBody2">
+            No components, unspecialized fragment, fragment markup #2
+        </wicket:fragment>
+        <wicket:fragment wicket:id="noComponentsMarkupInParentSpecializedFragmentBody1">
+            No components, specialized fragment, fragment markup #1
+        </wicket:fragment>
+        <wicket:fragment wicket:id="noComponentsMarkupInParentSpecializedFragmentBody2">
+            No components, specialized fragment, fragment markup #2
+        </wicket:fragment>
+        <wicket:fragment wicket:id="componentsInParentMarkupInParentUnspecializedFragmentBody1">
+            Components in parent, unspecialized fragment, fragment markup #1. At: <span wicket:id="componentsInParentMarkupInParentUnspecializedFragmentCurrentTime"></span>
+        </wicket:fragment>
+        <wicket:fragment wicket:id="componentsInParentMarkupInParentUnspecializedFragmentBody2">
+            Components in parent, unspecialized fragment, fragment markup #2. At: <span wicket:id="componentsInParentMarkupInParentUnspecializedFragmentCurrentTime"></span>
+        </wicket:fragment>
+        <wicket:fragment wicket:id="componentsInParentMarkupInParentSpecializedFragmentBody1">
+            Components in parent, specialized fragment, fragment markup #1. At: <span wicket:id="componentsInParentMarkupInParentSpecializedFragmentCurrentTime"></span>
+        </wicket:fragment>
+        <wicket:fragment wicket:id="componentsInParentMarkupInParentSpecializedFragmentBody2">
+            Components in parent, specialized fragment, fragment markup #2. At: <span wicket:id="componentsInParentMarkupInParentSpecializedFragmentCurrentTime"></span>
+        </wicket:fragment>
+        <wicket:fragment wicket:id="ownComponentsMarkupInParentBody1">
+            Own components, specialized fragment, fragment markup #1. At: <span wicket:id="currentTime"></span>
+        </wicket:fragment>
+        <wicket:fragment wicket:id="ownComponentsMarkupInParentBody2">
+            Own components, specialized fragment, fragment markup #2. At: <span wicket:id="currentTime"></span>
+        </wicket:fragment>
+
+    </div>
+    <hr>
+    <div><wicket:link><a href="ComponentsAndMarkupSupplyingPanel.kt">Source code of ComponentsAndMarkupSupplyinganel.kt</a></wicket:link></div>
+    <div>
+        <a wicket:id="componentsAndMarkupSupplyingPanelMarkupLink">Source code of ComponentsAndMarkupSupplyingPanel.html</a>
+    </div>
+    <div><wicket:link><a href="FragmentPage.kt">Source code of FragmentPage.kt</a></wicket:link></div>
+    <div>
+        <a wicket:id="fragmentPageMarkupLink">Source code of FragmentPage.html</a>
+    </div>
+    <div><wicket:link><a href="NoComponentsMarkupSupplyingPanel.kt">Source code of NoComponentsMarkupSupplyingPanel.kt</a></wicket:link></div>
+    <div>
+        <a wicket:id="noComponentsMarkupSupplyingPanelMarkupLink">Source code of NoComponentsMarkupSupplyingPanel.html</a>
+    </div>
+    <div><wicket:link><a href="NoComponentsNoMarkupFragment.kt">Source code of NoComponentsNoMarkupFragment.kt</a></wicket:link></div>
+    <div><wicket:link><a href="NoComponentsOwnMarkupFragment.kt">Source code of NoComponentsOwnMarkupFragment.kt</a></wicket:link></div>
+    <div>
+        <a wicket:id="noComponentsOwnMarkupFragmentMarkupLink">Source code of NoComponentsOwnMarkupFragment.html</a>
+    </div>
+    <div><wicket:link><a href="OwnComponentsMarkupInParentFragment.kt">Source code of OwnComponentsMarkupInParentFragment.kt</a></wicket:link></div>
+    <div><wicket:link><a href="OwnComponentsOwnMarkupFragment.kt">Source code of OwnComponentsOwnMarkupFragment.kt</a></wicket:link></div>
+    <div>
+        <a wicket:id="ownComponentsOwnMarkupFragmentMarkupLink">Source code of OwnComponentsOwnMarkupFragment.html</a>
+    </div>
+</wicket:extend>

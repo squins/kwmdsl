@@ -11,7 +11,7 @@ import org.apache.wicket.markup.html.basic.Label
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
+class OwnComponentsOwnMarkupFragment(id: String, markupId: String) :
     KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
     private val currentTime: Label = Label(::currentTime.name) {
         DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
@@ -27,12 +27,12 @@ class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
 
     companion object : IKotlinWicketMarkupProvider {
         val ownComponentsOwnMarkupBody1 = fragmentBodyMarkup {
-            text("Own components, specialized DSL Fragment, fragment #1. At: ")
+            text("Own components, specialized fragment, fragment markup #1. At: ")
             span(OCOMDFS::currentTime)
         }
 
         val ownComponentsOwnMarkupBody2 = fragmentBodyMarkup {
-            text("Own components, specialized DSL Fragment, fragment #2. At: ")
+            text("Own components, specialized fragment, fragment markup #2. At: ")
             span(OCOMDFS::currentTime)
         }
 
@@ -43,4 +43,4 @@ class OwnComponentsOwnMarkupDslFragment(id: String, markupId: String) :
     }
 }
 
-private typealias OCOMDFS = OwnComponentsOwnMarkupDslFragment
+private typealias OCOMDFS = OwnComponentsOwnMarkupFragment

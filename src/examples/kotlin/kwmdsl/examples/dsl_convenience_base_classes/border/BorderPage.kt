@@ -43,9 +43,9 @@ wicketExtend {
             }
         }
     }
-    firstSourceCodeLink(BaseBorder::class)
+    firstSourceCodeLink(BaseBorder.Companion)
     sourceCodeLink(this@Companion)
-    sourceCodeLink(SubBorder::class)
+    sourceCodeLink(SubBorder.Companion)
 }
 // @formatter:on
         }

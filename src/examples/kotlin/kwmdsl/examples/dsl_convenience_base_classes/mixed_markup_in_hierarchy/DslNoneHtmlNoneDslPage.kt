@@ -37,7 +37,7 @@ wicketExtend {
     sourceCodeLink(DslNoneHtmlPage::class)
     sourceMarkupLink(DslNoneHtmlPage::class, DNHNDPS::dslNoneHtmlPageMarkupLink)
     sourceCodeLink(DslNonePage::class)
-    sourceCodeLink(DslPage::class)
+    sourceCodeLink(DslPage.Companion)
 }
 // @formatter:on
         }
