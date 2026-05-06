@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.link.ResourceLink
 
 class DslNoneHtmlNoneDslPage : DslNoneHtmlNonePage() {
     private val dslNoneHtmlNoneDslLabel: Label = Label(::dslNoneHtmlNoneDslLabel.name, "DslNoneHtmlNoneDslPage")
+
     private val dslNoneHtmlPageMarkupLink: ResourceLink<Unit> = htmlResourceLink(::dslNoneHtmlPageMarkupLink.name, DslNoneHtmlPage::class)
 
     override fun onInitialize() {
@@ -31,12 +32,12 @@ wicketExtend {
         code { span(DNHNDPS::dslNoneHtmlNoneDslLabel) }
         text(".")
     }
-    firstSourceCodeLink(DslPage::class)
-    sourceCodeLink(DslNonePage::class)
+    firstSourceCodeLink(this@Companion)
+    sourceCodeLink(DslNoneHtmlNonePage::class)
     sourceCodeLink(DslNoneHtmlPage::class)
     sourceMarkupLink(DslNoneHtmlPage::class, DNHNDPS::dslNoneHtmlPageMarkupLink)
-    sourceCodeLink(DslNoneHtmlNonePage::class)
-    sourceCodeLink(this@Companion)
+    sourceCodeLink(DslNonePage::class)
+    sourceCodeLink(DslPage::class)
 }
 // @formatter:on
         }

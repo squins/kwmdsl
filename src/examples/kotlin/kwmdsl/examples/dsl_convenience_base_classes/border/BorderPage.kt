@@ -1,6 +1,7 @@
 package kwmdsl.examples.dsl_convenience_base_classes.border
 
 import com.squins.kwmdsl.attrClass
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.h1
@@ -26,8 +27,15 @@ class BorderPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Border") }
+    h1(attrClass("title")) { text("Border (DSL, Convenience Base Classes)") }
     div(attrClass("content")) {
+        p {
+            text("The page uses a single border: ")
+            code { text("SubBorder") }
+            text(", which is a specialized version of ")
+            code { text("BaseBorder") }
+            text(". The page and the 2 borders each add a label to the page. The label of the page is inside the border.")
+        }
         div(BPS::border) {
             p {
                 text("Page: ")
@@ -35,8 +43,8 @@ wicketExtend {
             }
         }
     }
-    firstSourceCodeLink(this@Companion)
-    sourceCodeLink(BaseBorder::class)
+    firstSourceCodeLink(BaseBorder::class)
+    sourceCodeLink(this@Companion)
     sourceCodeLink(SubBorder::class)
 }
 // @formatter:on

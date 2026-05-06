@@ -31,6 +31,7 @@ class EnclosuresPage : ExamplesStandardBasePage() {
             add(firstSpanAttribute)
             add(secondSpanAttribute)
         })
+
         add(htmlResourceLink("enclosuresPageMarkupLink", EnclosuresPage::class))
     }
 

@@ -23,6 +23,7 @@ import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.Ds
 import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithLateinitVarPropertiesPage
 import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithValPropertiesPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
+import kwmdsl.examples.standard.border.BorderPage
 import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.standard.enclosure.EnclosuresPage
 import kwmdsl.examples.standard.variants.VariantsPage
@@ -138,6 +139,7 @@ wicketExtend {
             ul {
                 link(DeepInheritanceSubPage::class, "Deep inheritance")
                 link(EnclosuresPage::class, "Enclosures")
+                link(BorderPage::class, "Border")
                 link(VariantsPage::class, "Variants")
             }
         }

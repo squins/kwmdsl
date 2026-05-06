@@ -8,6 +8,7 @@ open class DeepInheritanceSubTemplate : DeepInheritanceBaseTemplate() {
         super.onInitialize()
 
         add(Label("subTemplateLabel", "Deep inheritance, sub template component"))
+
         add(htmlResourceLink("deepInheritanceBasePageMarkupLink", DeepInheritanceBasePage::class))
         add(htmlResourceLink("deepInheritanceBaseTemplateMarkupLink", DeepInheritanceBaseTemplate::class))
         add(htmlResourceLink("deepInheritanceSubPageMarkupLink", DeepInheritanceSubPage::class))
