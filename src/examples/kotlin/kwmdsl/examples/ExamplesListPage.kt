@@ -95,7 +95,7 @@ wicketExtend {
 
         ul {
             li { text("HTML: Wicket without using the DSL at all.") }
-            li { text("DSL, standard base classes: markup defined using the DSL, but using the standard Wicket base classes. This shows that you can use the DSL for subclasses of existing Wicket components.") }
+            li { text("DSL, standard base classes: markup defined using the DSL, but using the standard Wicket base classes. This shows that you can use the DSL for (subclasses of) existing Wicket components.") }
             li { text("DSL, convenience base classes: markup defined using the DSL, and using the convenience base classes that provide part of the functionality needed to use the DSL.") }
         }
 
