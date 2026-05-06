@@ -4,17 +4,12 @@ import com.squins.kwmdsl.MarkupBuilder
 import com.squins.kwmdsl.a
 import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.attrHref
-import com.squins.kwmdsl.attrSrc
-import com.squins.kwmdsl.attrWidth
-import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.linkPath
-import com.squins.kwmdsl.component.resourcePath
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.h1
 import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.h3
-import com.squins.kwmdsl.img
 import com.squins.kwmdsl.li
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
@@ -28,6 +23,7 @@ import kwmdsl.examples.html.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.html.enclosure.EnclosuresPage
 import kwmdsl.examples.html.fragment.FragmentPage
 import kwmdsl.examples.html.variants.VariantsPage
+import kwmdsl.examples.standard.link.LinkPage
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.request.mapper.parameter.PageParameters
@@ -92,30 +88,6 @@ wicketExtend {
             text(".")
         }
 
-        h2 { text("Wicket Links") }
-        p {
-            text("This page also shows the use of ")
-            code { text("<wicket:link>") }
-            text(" for resources (images) and links.")
-        }
-
-        p {
-            wicketLink {
-                text("In this package: ")
-                img(
-                    attrSrc("Apache Wicket.svg"),
-                    attrWidth(50)
-                )
-                text(", from a sub package: ")
-                img(
-                    attrSrc(
-                        ELPS::class.resourcePath<DslConvenienceLinkPage>("Apache Wicket.svg")
-                    ),
-                    attrWidth(50)
-                )
-            }
-        }
-
         h2 { text("Examples") }
         p {
             text("The examples are available in 3 variants, so you can easily compare the implementations:")
@@ -142,6 +114,7 @@ wicketExtend {
                 link(EnclosuresPage::class, "Enclosures")
                 link(BorderPage::class, "Border")
                 link(FragmentPage::class, "Fragments")
+                link(LinkPage::class, "Links")
                 link(VariantsPage::class, "Variants")
             }
         }

@@ -1,0 +1,32 @@
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <h1 class="title">Link (HTML)</h1>
+    <div class="content">
+        <p>
+            Shows the use of <code>&lt;wicket:link&gt;</code> for resources and pages. The DSL version has functions to calculate the paths, so renames and moves of types do not break links.
+        </p>
+        <p>
+            <wicket:link>
+                In this package: <img src="Apache Wicket.svg" width="50" alt="Wicket logo in red">,
+                from an ancestor package: <img src="../../Apache Wicket.svg" width="50" alt="Wicket logo in the official color (orange)">,
+                from a subpackage of an ancestor package: <img src="../../dsl_convenience_base_classes/link/Apache Wicket.svg" width="50" alt="Wicket logo in blue">
+            </wicket:link>
+        </p>
+        <p>
+            <wicket:link>
+                <a href="../../ExamplesListPage.html">Back to the list of examples.</a>
+            </wicket:link>
+        </p>
+        <p>
+            <wicket:link>
+                <a href="../../dsl_convenience_base_classes/link/LinkPage.html">View the DSL version.</a>
+            </wicket:link>
+        </p>
+        <hr>
+        <div>
+            <wicket:link><a href="LinkPage.kt">Source code of LinkPage.kt</a></wicket:link>
+        </div>
+        <div>
+            <a wicket:id="linkPageMarkupLink">Source code of LinkPage.html</a>
+        </div>
+    </div>
+</wicket:extend>
