@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.fragment
+package kwmdsl.examples.html.fragment
 
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.behavior.AttributeAppender

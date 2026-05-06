@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.variants
+package kwmdsl.examples.html.variants
 
 import org.apache.wicket.markup.html.panel.Panel
 

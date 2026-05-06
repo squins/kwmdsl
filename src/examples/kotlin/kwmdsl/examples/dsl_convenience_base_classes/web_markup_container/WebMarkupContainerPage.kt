@@ -37,8 +37,8 @@ wicketExtend {
             span(S::lastName)
             text(".")
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }

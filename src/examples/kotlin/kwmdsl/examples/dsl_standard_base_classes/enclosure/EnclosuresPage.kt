@@ -112,8 +112,8 @@ wicketExtend {
                 span(EnclosuresPage::secondSpanAttribute)
             }
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }

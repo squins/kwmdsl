@@ -26,7 +26,7 @@ abstract class DslPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("DSL, None, HTML, None, DSL") }
+    h1(attrClass("title")) { text("DSL, None, HTML, None, DSL (Convenience Base Classes)") }
     div(attrClass("content")) {
         p {
             text("This is from ")

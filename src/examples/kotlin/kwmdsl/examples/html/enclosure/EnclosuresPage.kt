@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.enclosure
+package kwmdsl.examples.html.enclosure
 
 import kwmdsl.examples.ExamplesStandardBasePage
 import kwmdsl.examples.htmlResourceLink

@@ -436,14 +436,14 @@ wicketExtend {
         wicketFragment(::componentsInParentMarkupInParentSpecializedFragmentBody2)
         wicketFragment(::ownComponentsMarkupInParentBody1)
         wicketFragment(::ownComponentsMarkupInParentBody2)
+        firstSourceCodeLink(ComponentsAndMarkupSupplyingPanel.Companion)
+        sourceCodeLink(this@Companion)
+        sourceCodeLink(NoComponentsMarkupSupplyingPanel.Companion)
+        sourceCodeLink(NoComponentsNoMarkupFragment::class)
+        sourceCodeLink(NoComponentsOwnMarkupFragment.Companion)
+        sourceCodeLink(OwnComponentsMarkupInParentFragment::class)
+        sourceCodeLink(OwnComponentsOwnMarkupFragment.Companion)
     }
-    firstSourceCodeLink(ComponentsAndMarkupSupplyingPanel.Companion)
-    sourceCodeLink(this@Companion)
-    sourceCodeLink(NoComponentsMarkupSupplyingPanel.Companion)
-    sourceCodeLink(NoComponentsNoMarkupFragment::class)
-    sourceCodeLink(NoComponentsOwnMarkupFragment.Companion)
-    sourceCodeLink(OwnComponentsMarkupInParentFragment::class)
-    sourceCodeLink(OwnComponentsOwnMarkupFragment.Companion)
 }
 // @formatter:on
         }

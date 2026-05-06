@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.border
+package kwmdsl.examples.html.border
 
 import kwmdsl.examples.ExamplesStandardBasePage
 import kwmdsl.examples.htmlResourceLink

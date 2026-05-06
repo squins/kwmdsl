@@ -91,11 +91,11 @@ html(attrLang(ENGLISH)) {
                     p {
                         span(DeepInheritanceSubTemplate::baseTemplateLabel.name)
                     }
+                    firstSourceCodeLink(DeepInheritanceBasePage.Companion)
+                    sourceCodeLink(DeepInheritanceBaseTemplate.Companion)
+                    sourceCodeLink(DeepInheritanceSubPage.Companion)
+                    sourceCodeLink(this@Companion)
                 }
-                firstSourceCodeLink(DeepInheritanceBasePage.Companion)
-                sourceCodeLink(DeepInheritanceBaseTemplate.Companion)
-                sourceCodeLink(DeepInheritanceSubPage.Companion)
-                sourceCodeLink(this@Companion)
             }
         }
     }

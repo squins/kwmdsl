@@ -23,11 +23,11 @@ import kwmdsl.examples.dsl_convenience_base_classes.mixed_markup_in_hierarchy.Ds
 import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithLateinitVarPropertiesPage
 import kwmdsl.examples.dsl_convenience_base_classes.page_parameters.PageParametersWithValPropertiesPage
 import kwmdsl.examples.dsl_standard_base_classes.mixed_markup_in_hierarchy.HtmlNoneDslNoneHtmlPage
-import kwmdsl.examples.standard.border.BorderPage
-import kwmdsl.examples.standard.deep_inheritance.DeepInheritanceSubPage
-import kwmdsl.examples.standard.enclosure.EnclosuresPage
-import kwmdsl.examples.standard.fragment.FragmentPage
-import kwmdsl.examples.standard.variants.VariantsPage
+import kwmdsl.examples.html.border.BorderPage
+import kwmdsl.examples.html.deep_inheritance.DeepInheritanceSubPage
+import kwmdsl.examples.html.enclosure.EnclosuresPage
+import kwmdsl.examples.html.fragment.FragmentPage
+import kwmdsl.examples.html.variants.VariantsPage
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.request.mapper.parameter.PageParameters
@@ -122,7 +122,7 @@ wicketExtend {
         }
 
         ul {
-            li { text("Standard: Wicket without using the DSL at all.") }
+            li { text("HTML: Wicket without using the DSL at all.") }
             li { text("DSL, standard base classes: markup defined using the DSL, but using the standard Wicket base classes. This shows that you can use the DSL for subclasses of existing Wicket components.") }
             li { text("DSL, convenience base classes: markup defined using the DSL, and using the convenience base classes that provide part of the functionality needed to use the DSL.") }
         }
@@ -132,10 +132,10 @@ wicketExtend {
         }
 
         p {
-            text("The examples link to the source files. But it is best to look at all of the source files using your IDE.")
+            text("Almost all examples link to the source files. But it is best to look at all of the source files using your IDE.")
         }
 
-        h3 { text("Standard") }
+        h3 { text("HTML") }
         wicketLink {
             ul {
                 link(DeepInheritanceSubPage::class, "Deep inheritance")

@@ -34,8 +34,8 @@ wicketExtend {
             code { text("-Dfile.encoding=COMPAT") }
             text(" from the JVM parameters.")
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }

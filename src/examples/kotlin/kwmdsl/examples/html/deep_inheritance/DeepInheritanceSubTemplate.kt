@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.deep_inheritance
+package kwmdsl.examples.html.deep_inheritance
 
 import kwmdsl.examples.htmlResourceLink
 import org.apache.wicket.markup.html.basic.Label

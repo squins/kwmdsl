@@ -71,8 +71,8 @@ wicketExtend {
         p {
             strong(attrClass("has-text-warning")) { text("WARNING") }; text(": as always with unsafe constructs, you are responsible for ensuring the final markup is valid and does not contain vulnerabilities.")
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }

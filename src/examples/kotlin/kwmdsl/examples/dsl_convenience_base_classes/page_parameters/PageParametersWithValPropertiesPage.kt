@@ -40,8 +40,8 @@ wicketExtend {
             text("This is the reverse of the text you sent me: ")
             span(PPWVPPS::text)
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }

@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.variants
+package kwmdsl.examples.html.variants
 
 import kwmdsl.examples.ExamplesStandardBasePage
 import org.apache.wicket.ajax.AjaxRequestTarget

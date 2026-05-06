@@ -1,0 +1,34 @@
+<wicket:extend>
+    <h1 class="title">Border (HTML)</h1>
+    <div class="content">
+        <p>
+            The page uses a single border: <code>SubBorder</code>, which is a specialized version of
+            <code>BaseBorder</code>. The page and the 2 borders each add a label to the page. The label of the page is
+            inside the border.
+        </p>
+        <div wicket:id="border">
+            <p>
+                Page: <span wicket:id="pageLabel"></span>
+            </p>
+        </div>
+        <hr>
+        <div>
+            <wicket:link><a href="BaseBorder.kt">Source code of BaseBorder.kt</a></wicket:link>
+        </div>
+        <div>
+            <a wicket:id="baseBorderMarkupLink">Source code of BaseBorder.html</a>
+        </div>
+        <div>
+            <wicket:link><a href="BorderPage.kt">Source code of BorderPage.kt</a></wicket:link>
+        </div>
+        <div>
+            <a wicket:id="borderPageMarkupLink">Source code of BorderPage.html</a>
+        </div>
+        <div>
+            <wicket:link><a href="SubBorder.kt">Source code of SubBorder.kt</a></wicket:link>
+        </div>
+        <div>
+            <a wicket:id="subBorderMarkupLink">Source code of SubBorder.html</a>
+        </div>
+    </div>
+</wicket:extend>

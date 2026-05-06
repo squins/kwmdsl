@@ -53,8 +53,8 @@ wicketExtend {
                 }
             }
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }

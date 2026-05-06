@@ -42,10 +42,10 @@ wicketExtend {
                 span(BPS::pageLabel)
             }
         }
+        firstSourceCodeLink(BaseBorder.Companion)
+        sourceCodeLink(this@Companion)
+        sourceCodeLink(SubBorder.Companion)
     }
-    firstSourceCodeLink(BaseBorder.Companion)
-    sourceCodeLink(this@Companion)
-    sourceCodeLink(SubBorder.Companion)
 }
 // @formatter:on
         }

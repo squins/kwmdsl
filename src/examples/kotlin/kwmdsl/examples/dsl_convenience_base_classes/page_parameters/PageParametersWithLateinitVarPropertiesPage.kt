@@ -62,8 +62,8 @@ wicketExtend {
     // Do the (possibly expensive) initialization
 }""")
         }
+        firstSourceCodeLink(this@Companion)
     }
-    firstSourceCodeLink(this@Companion)
 }
 // @formatter:on
         }
