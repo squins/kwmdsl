@@ -31,12 +31,12 @@ class Starter(private val restartRunnable: Runnable, private val mustStop: Atomi
         val kwmdslPackageDirectory = checkNotNull(examplesPackageDirectory.parent)
         val examplesSourceSetClassesDirectory = checkNotNull(kwmdslPackageDirectory.parent)
         val kotlinClassesDirectory = checkNotNull(examplesSourceSetClassesDirectory.parent)
-        
+
         val classesDirectory = checkNotNull(kotlinClassesDirectory.parent)
         val buildDirectory = checkNotNull(classesDirectory.parent)
 
         val resourcesDirectory = checkNotNull(buildDirectory.resolve("resources"))
-        
+
         val mainSourceSetClassesDirectory = checkNotNull(kotlinClassesDirectory.resolve("main"))
         val examplesSourceSetResourcesDirectory = checkNotNull(resourcesDirectory.resolve("examples"))
         val mainSourceSetResourcesDirectory = checkNotNull(resourcesDirectory.resolve("main"))
@@ -80,32 +80,37 @@ class Starter(private val restartRunnable: Runnable, private val mustStop: Atomi
 
         server.start()
 
-        var isStoppingBecauseFilesChanged = false
-        Scanner().apply {
-            var isFirstScan = true
-            pathsToWatch.forEach { addDirectory(it) }
-            addListener(object : Scanner.BulkListener, Scanner.ScanCycleListener {
-                override fun pathsChanged(pathNotifications: Map<Path, Scanner.Notification>) {
-                    if (isFirstScan) {
-                        isFirstScan = false
-                    } else {
-                        isStoppingBecauseFilesChanged = true
-                        stop()
-                        if (!server.isStopping && !server.isStopped) {
-                            server.stop()
-                            restartRunnable.run()
+        var isStoppingBecauseFilesChanged = AtomicBoolean()
+        try {
+            val scanner = Scanner().apply {
+                var isFirstScan = true
+                pathsToWatch.forEach { addDirectory(it) }
+                addListener(object : Scanner.BulkListener, Scanner.ScanCycleListener {
+                    override fun pathsChanged(pathNotifications: Map<Path, Scanner.Notification>) {
+                        if (isFirstScan) {
+                            isFirstScan = false
+                        } else {
+                            isStoppingBecauseFilesChanged.set(true)
                         }
                     }
+                })
+                scanInterval = 1
+                isAutoStartScanning = true
+                start()
+            }
+            try {
+                while (!mustStop.get() && !isStoppingBecauseFilesChanged.get()) {
+                    Thread.sleep(100L)
                 }
-            })
-            scanInterval = 1
-            isAutoStartScanning = true
-            start()
+            } finally {
+                scanner.stop()
+            }
+        } finally {
+            server.stop()
         }
 
-        while (!mustStop.get() && !isStoppingBecauseFilesChanged) {
-            Thread.sleep(100L)
+        if (isStoppingBecauseFilesChanged.get()) {
+            restartRunnable.run()
         }
-        server.stop()
     }
 }
