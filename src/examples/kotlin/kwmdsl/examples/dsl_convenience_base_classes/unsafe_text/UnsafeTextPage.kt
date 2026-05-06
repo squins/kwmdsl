@@ -35,7 +35,7 @@ wicketExtend {
         unsafeText("""
         <h2>Unsafe Text</h2>
         <p>
-            If you have large pieces of rich text content (for example the <a href="https://nightlies.apache.org/wicket/guide/10.x/single.html">Wicket Reference Guide</a>), the DSL is not convenient: the code becomes verbose, and hard to read and modify. Compare how <strong>this section</strong> is written, with the <em>other section</em>.
+            If you have large pieces of rich text content (for example the <a href="https://nightlies.apache.org/wicket/guide/9.x/single.html">Wicket Reference Guide</a>), the DSL is not convenient: the code becomes verbose, and hard to read and modify. Compare how <strong>this section</strong> is written, with the <em>other section</em>.
         </p>
         
         <p>
@@ -57,7 +57,7 @@ wicketExtend {
 
         h2{ text("DSL") }
         p {
-            text("If you have large pieces of rich text content (for example the "); a(attrHref("https://nightlies.apache.org/wicket/guide/10.x/single.html")) { text("Wicket Reference Guide") }; text("), the DSL is not convenient: the code becomes verbose, and hard to read and modify. Compare how "); strong { text("this section") }; text(" is written, with the "); em { text("other section") }; text(".")
+            text("If you have large pieces of rich text content (for example the "); a(attrHref("https://nightlies.apache.org/wicket/guide/9.x/single.html")) { text("Wicket Reference Guide") }; text("), the DSL is not convenient: the code becomes verbose, and hard to read and modify. Compare how "); strong { text("this section") }; text(" is written, with the "); em { text("other section") }; text(".")
         }
 
         p {

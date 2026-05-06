@@ -5,7 +5,7 @@ import java.util.Locale
 import kotlin.reflect.KClass
 
 /**
- * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
  *
  * @param TSupplier the border type having the properties and functions to get the Wicket components.
  * @param block the code specifying the markup and the component hierarchy.

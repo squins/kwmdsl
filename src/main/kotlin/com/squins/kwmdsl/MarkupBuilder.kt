@@ -41,14 +41,14 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:body`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_surrounding_existing_markup_with_border) element to the markup.
+     * Add a [`wicket:body`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) element to the markup.
      */
     fun wicketBody() {
         currentTextPart.append("<wicket:body></wicket:body>")
     }
 
     /**
-     * Add a [`wicket:border`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_surrounding_existing_markup_with_border) element to the markup, creating the children of the element using [block].
+     * Add a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) element to the markup, creating the children of the element using [block].
      *
      * @param block the code to build the children of the element.
      */
@@ -59,7 +59,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:child`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_markup_inheritance_with_the_wicket_extend_tag) element to the markup, (optionally) creating the children of the element using [block].
+     * Add a [`wicket:child`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_markup_inheritance_with_the_wicketextend_tag) element to the markup, (optionally) creating the children of the element using [block].
      *
      * @param block the (optional) code to build the children of the element.
      */
@@ -70,7 +70,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
+     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_put_javascript_inside_page_body) element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
      *
      * @param id the Wicket ID of the container. **Warning**: there is no validation and no escaping, so make sure the ID is valid and safe.
      * @param block the (optional) code for building the children of the element.
@@ -90,7 +90,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
+     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
      *
      * @param supplier the property that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
      * @param block the (optional) code for building the children of the element.
@@ -103,7 +103,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:enclosure`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_hiding_decorating_elements_with_the_wicket_enclosure_tag) element to the markup, and, if given, using [childSupplier] to determine the component path to use for the `child` attribute.
+     * Add a [`wicket:enclosure`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_hiding_decorating_elements_with_the_wicketenclosure_tag) element to the markup, and, if given, using [childSupplier] to determine the component path to use for the `child` attribute.
      *
      * @param childSupplier the supplier of the child Wicket component that determines the visibility of this enclosure.
      * @param block the code for building the children of the element.
@@ -179,7 +179,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         "wicket:enclosure" to Text(path)
 
     /**
-     * Add a [`wicket:extend`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_markup_inheritance_with_the_wicket_extend_tag) element to the markup, creating the children of the element using [block].
+     * Add a [`wicket:extend`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_markup_inheritance_with_the_wicketextend_tag) element to the markup, creating the children of the element using [block].
      *
      * @param block the code to build the children of the element.
      */

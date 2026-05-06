@@ -17,7 +17,7 @@ sealed interface AttributeValue
 class Text(internal val text: String) : AttributeValue
 
 /**
- * An attribute value referring to a descendent Wicket component. Used for [`wicket:enclosure`](https://nightlies.apache.org/wicket/guide/8.x/single.html#_hiding_decorating_elements_with_the_wicket_enclosure_tag) elements and attributes.
+ * An attribute value referring to a descendent Wicket component. Used for [`wicket:enclosure`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_hiding_decorating_elements_with_the_wicketenclosure_tag) elements and attributes.
  *
  * @param descendentSupplier the supplier of the descendent to refer to.
  */
