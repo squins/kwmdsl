@@ -22,6 +22,7 @@ import kwmdsl.examples.html.border.BorderPage
 import kwmdsl.examples.html.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.html.enclosure.EnclosuresPage
 import kwmdsl.examples.html.fragment.FragmentPage
+import kwmdsl.examples.html.repeater.RepeatersPage
 import kwmdsl.examples.html.variants.VariantsPage
 import kwmdsl.examples.standard.link.LinkPage
 import kwmdsl.examples.standard.web_markup_container.WebMarkupContainerPage
@@ -38,7 +39,7 @@ import kwmdsl.examples.dsl_convenience_base_classes.hello_world.HelloWorldPage a
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.LabelForPage as DslConvenienceLabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.label_for.WicketLabelForPage as DslConvenienceWicketLabelForPage
 import kwmdsl.examples.dsl_convenience_base_classes.link.LinkPage as DslConvenienceLinkPage
-import kwmdsl.examples.dsl_convenience_base_classes.repeat.RepeatPage as DslConvenienceRepeatPage
+import kwmdsl.examples.dsl_convenience_base_classes.repeater.RepeatersPage as DslConvenienceRepeatersPage
 import kwmdsl.examples.dsl_convenience_base_classes.unsafe_text.UnsafeTextPage as DslConvenienceUnsafeTextPage
 import kwmdsl.examples.dsl_convenience_base_classes.variants.VariantsPage as DslConvenienceVariantsPage
 import kwmdsl.examples.dsl_convenience_base_classes.web_markup_container.WebMarkupContainerPage as DslConvenienceWebMarkupContainerPage
@@ -117,6 +118,7 @@ wicketExtend {
                 link(FragmentPage::class, "Fragments")
                 link(LinkPage::class, "Links")
                 link(WebMarkupContainerPage::class, "Web markup container")
+                link(RepeatersPage::class, "Repeaters")
                 link(VariantsPage::class, "Variants")
             }
         }
@@ -147,7 +149,7 @@ wicketExtend {
                 link(DslConvenienceFragmentPage::class, "Fragments")
                 link(DslConvenienceLinkPage::class, "Link")
                 link(DslConvenienceWebMarkupContainerPage::class, "Web markup container")
-                link(DslConvenienceRepeatPage::class, "Repeat")
+                link(DslConvenienceRepeatersPage::class, "Repeaters")
                 link(DslConvenienceLabelForPage::class, "Label for form component")
                 link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
                 link(DslConvenienceVariantsPage::class, "Variants")

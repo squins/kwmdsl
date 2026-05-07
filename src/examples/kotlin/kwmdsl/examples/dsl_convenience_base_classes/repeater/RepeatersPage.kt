@@ -1,16 +1,19 @@
-package kwmdsl.examples.dsl_convenience_base_classes.repeat
+package kwmdsl.examples.dsl_convenience_base_classes.repeater
 
 import com.squins.kwmdsl.InputType.CHECKBOX
 import com.squins.kwmdsl.Repeated
 import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.attrType
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.form
 import com.squins.kwmdsl.h1
+import com.squins.kwmdsl.h2
 import com.squins.kwmdsl.input
 import com.squins.kwmdsl.li
 import com.squins.kwmdsl.markup
+import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.ul
 import kwmdsl.examples.ExamplesConvenienceBasePage
@@ -25,7 +28,7 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.model.PropertyModel
 import org.apache.wicket.util.io.IClusterable
 
-class RepeatPage : ExamplesConvenienceBasePage() {
+class RepeatersPage : ExamplesConvenienceBasePage() {
     private val firstThreeNumbers: RepeatingView = RepeatingView(::firstThreeNumbers.name)
 
     private val group: CheckGroup<Person> = CheckGroup(::group.name, mutableListOf<Person>())
@@ -63,13 +66,18 @@ class RepeatPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Repeat") }
+    h1(attrClass("title")) { text("Repeaters (Convenience Base Classes)") }
     div(attrClass("content")) {
+        p {
+            text("Shows repeaters without and with markup for the items.")
+        }
+        h2 { code { text("RepeatingView") } }
         ul {
             li(S::firstThreeNumbers)
         }
+        h2 { code { text("ListView") } }
         form {
-            span(S::group) {
+            div(S::group) {
                 ul {
                     li(S::persons) {
                         input(Repeated(S::checkbox), attrType(CHECKBOX))
@@ -90,7 +98,7 @@ wicketExtend {
 }
 
 // S stands for 'supplier'
-private typealias S = RepeatPage
+private typealias S = RepeatersPage
 
 data class Person(
     val name: String,

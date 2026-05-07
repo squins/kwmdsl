@@ -1,0 +1,31 @@
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <h1 class="title">Repeaters (HTML)</h1>
+    <div class="content">
+        <p>
+            Shows repeaters without and with markup for the items.
+        </p>
+        <h2><code>RepeatingView</code></h2>
+        <ul>
+            <li wicket:id="firstThreeNumbers"></li>
+        </ul>
+        <h2><code>ListView</code></h2>
+        <form>
+            <div wicket:id="group">
+                <ul>
+                    <li wicket:id="persons">
+                        <input wicket:id="checkbox" type="checkbox">
+                        <span wicket:id="name"></span>
+                        <span wicket:id="lastName"></span>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <hr>
+        <div>
+            <wicket:link><a href="RepeatersPage.kt">Source code of RepeatersPage.kt</a></wicket:link>
+        </div>
+        <div>
+            <a wicket:id="repeatersPageMarkupLink">Source code of RepeatersPage.html</a>
+        </div>
+    </div>
+</wicket:extend>
