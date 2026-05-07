@@ -314,6 +314,10 @@ kotlin {
     }
 }
 
+java {
+    withSourcesJar()
+}
+
 dokka {
     dokkaSourceSets.main {
         suppressGeneratedFiles.set(false)
