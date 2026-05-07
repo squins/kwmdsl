@@ -24,6 +24,7 @@ import kwmdsl.examples.html.enclosure.EnclosuresPage
 import kwmdsl.examples.html.fragment.FragmentPage
 import kwmdsl.examples.html.variants.VariantsPage
 import kwmdsl.examples.standard.link.LinkPage
+import kwmdsl.examples.standard.web_markup_container.WebMarkupContainerPage
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.request.mapper.parameter.PageParameters
@@ -115,6 +116,7 @@ wicketExtend {
                 link(BorderPage::class, "Border")
                 link(FragmentPage::class, "Fragments")
                 link(LinkPage::class, "Links")
+                link(WebMarkupContainerPage::class, "Web markup container")
                 link(VariantsPage::class, "Variants")
             }
         }
