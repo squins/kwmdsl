@@ -1,9 +1,9 @@
 package kwmdsl.examples.dsl_convenience_base_classes.fragment
 
+import com.squins.kwmdsl.attr
 import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.attrColspan
 import com.squins.kwmdsl.attrRowspan
-import com.squins.kwmdsl.attrStyle
 import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.dd
@@ -17,7 +17,6 @@ import com.squins.kwmdsl.h3
 import com.squins.kwmdsl.markup
 import com.squins.kwmdsl.p
 import com.squins.kwmdsl.span
-import com.squins.kwmdsl.style
 import com.squins.kwmdsl.table
 import com.squins.kwmdsl.tbody
 import com.squins.kwmdsl.td
@@ -236,12 +235,6 @@ class FragmentPage : ExamplesConvenienceBasePage() {
 
         override val noVariantMarkup = markup {
 // @formatter:off
-wicketHead {
-    style {
-        // language=css
-        text(".specialized { color: coral; }")
-    }
-}
 wicketExtend {
     h1(attrClass("title")) { text("Fragment (DSL, Convenience Base Classes)") }
     div(attrClass("content")) {
@@ -313,7 +306,7 @@ wicketExtend {
               tr {
                   td(attrRowspan(2)) { text("") }
                   th(attrRowspan(2)) { text("Own markup") }
-                  th(attrColspan(3), attrStyle("text-align: center;")) { text("External markup") }
+                  th(attrColspan(3), attr("align", "center")) { text("External markup") }
               }
               tr {
                   th { text("Markup in parent") }
