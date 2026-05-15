@@ -354,7 +354,7 @@ wicketExtend {
         }
 
         p {
-            text("Note that the (subclass of) ")
+            text("Note that the (subclass (shown in a different color) of) ")
             code { text("Fragment") }
             text(" is always added directly to the page in the examples below.")
         }
