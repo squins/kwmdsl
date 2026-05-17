@@ -4,6 +4,7 @@ import com.squins.kwmdsl.InputType.TEXT
 import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.attrType
 import com.squins.kwmdsl.borderMarkup
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.component.KotlinWicketMarkupBorder
 import com.squins.kwmdsl.div
@@ -111,7 +112,15 @@ class LabelForPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Label for Form Component") }
+    h1(attrClass("title")) { text("Label for Form Component (Convenience Base Classes)") }
+
+    p {
+        text("Shows the use of the ")
+        code { text("wicket:for") }
+        text(" attribute to attach an HTML ")
+        code { text("<label>") }
+        text(" to a form component.")
+    }
 
     div(attrClass("content")) {
         form {
@@ -164,7 +173,7 @@ wicketExtend {
                 i { text("At Root") }
                 text(" » ")
                 i { text("Child of Sibling") }
-                text(" above ")
+                text(" above.")
             }
 
             h2 { text("Nested") }

@@ -3,6 +3,7 @@ package kwmdsl.examples.dsl_convenience_base_classes.label_for
 import com.squins.kwmdsl.InputType.TEXT
 import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.attrType
+import com.squins.kwmdsl.code
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.form
@@ -96,7 +97,17 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Wicket Label for Form Component") }
+    h1(attrClass("title")) { text("Wicket Label for Form Component (Convenience Base Classes)") }
+
+    p {
+        text("Shows the use of the ")
+        code { text("<wicket:label>") }
+        text(" element to output the label of a form component. The labels cannot be used to activate the form component, as ")
+        code { text("<wicket:label>")}
+        text(" does not output a ")
+        code { text("<label>") }
+        text(".")
+    }
 
     div(attrClass("content")) {
         form {
@@ -139,7 +150,7 @@ wicketExtend {
                 i { text("At Root") }
                 text(" » ")
                 i { text("Child of Sibling") }
-                text(" above ")
+                text(" above.")
             }
 
             h2 { text("Nested") }

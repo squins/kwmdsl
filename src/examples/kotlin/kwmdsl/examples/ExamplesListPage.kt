@@ -22,6 +22,8 @@ import kwmdsl.examples.html.border.BorderPage
 import kwmdsl.examples.html.deep_inheritance.DeepInheritanceSubPage
 import kwmdsl.examples.html.enclosure.EnclosuresPage
 import kwmdsl.examples.html.fragment.FragmentPage
+import kwmdsl.examples.html.label_for.LabelForPage
+import kwmdsl.examples.html.label_for.WicketLabelForPage
 import kwmdsl.examples.html.repeater.RepeatersPage
 import kwmdsl.examples.html.variants.VariantsPage
 import kwmdsl.examples.standard.link.LinkPage
@@ -113,12 +115,14 @@ wicketExtend {
         wicketLink {
             ul {
                 link(DeepInheritanceSubPage::class, "Deep inheritance")
-                link(EnclosuresPage::class, "Enclosures")
+                link(EnclosuresPage::class, "Enclosure")
                 link(BorderPage::class, "Border")
-                link(FragmentPage::class, "Fragments")
-                link(LinkPage::class, "Links")
+                link(FragmentPage::class, "Fragment")
+                link(LinkPage::class, "Link")
                 link(WebMarkupContainerPage::class, "Web markup container")
-                link(RepeatersPage::class, "Repeaters")
+                link(RepeatersPage::class, "Repeater")
+                link(LabelForPage::class, "Label for form component")
+                link(WicketLabelForPage::class, "Wicket label for form component")
                 link(VariantsPage::class, "Variants")
             }
         }
@@ -127,7 +131,7 @@ wicketExtend {
         wicketLink {
             ul {
                 link(DslStandardDeepInheritanceSubPage::class, "Deep inheritance")
-                link(DslStandardEnclosuresPage::class, "Enclosures")
+                link(DslStandardEnclosuresPage::class, "Enclosure")
                 link(HtmlNoneDslNoneHtmlPage::class, "Mixed markup in hierarchy")
             }
         }
@@ -143,13 +147,13 @@ wicketExtend {
                     text(")")
                 }
                 link(DslConvenienceDeepInheritanceSubPage::class, "Deep inheritance")
-                link(DslConvenienceEnclosuresPage::class, "Enclosures")
+                link(DslConvenienceEnclosuresPage::class, "Enclosure")
                 link(DslNoneHtmlNoneDslPage::class, "Mixed markup in hierarchy")
                 link(DslConvenienceBorderPage::class, "Border")
-                link(DslConvenienceFragmentPage::class, "Fragments")
+                link(DslConvenienceFragmentPage::class, "Fragment")
                 link(DslConvenienceLinkPage::class, "Link")
                 link(DslConvenienceWebMarkupContainerPage::class, "Web markup container")
-                link(DslConvenienceRepeatersPage::class, "Repeaters")
+                link(DslConvenienceRepeatersPage::class, "Repeater")
                 link(DslConvenienceLabelForPage::class, "Label for form component")
                 link(DslConvenienceWicketLabelForPage::class, "Wicket label for form component")
                 link(DslConvenienceVariantsPage::class, "Variants")

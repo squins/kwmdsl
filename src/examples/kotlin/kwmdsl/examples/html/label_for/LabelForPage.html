@@ -1,0 +1,124 @@
+<wicket:extend xmlns:wicket="http://www.w3.org/1999/html">
+    <h1 class="title">Label for Form Component (HTML)</h1>
+
+    <p>
+        Shows the use of the <code>wicket:for</code> attribute to attach an HTML <code>&lt;label&gt;</code> to a form
+        component.
+    </p>
+
+    <div class="content">
+        <form>
+            <h2>At Root</h2>
+
+            <h3>Sibling</h3>
+
+            <p>
+                <label wicket:for="rootSibling"><wicket:label></wicket:label></label>:
+                <input wicket:id="rootSibling" type="text">
+            </p>
+
+            <h3>Child</h3>
+
+            <p>
+                <label wicket:for="rootChild"><wicket:label></wicket:label>:
+                    <input wicket:id="rootChild" type="text"></label>
+            </p>
+
+            <h3>Sibling of Parent</h3>
+
+            <p>
+                <span wicket:id="rootSiblingOfParentLabelContainer"><label wicket:for="..:rootSiblingOfParent"><wicket:label></wicket:label></label></span>:
+                <input wicket:id="rootSiblingOfParent" type="text">
+            </p>
+
+            <h3>Child of Sibling</h3>
+
+            <p>
+                <span wicket:id="rootChildOfSiblingLabelContainer"><label wicket:for="..:rootChildOfSiblingInputContainer:rootChildOfSibling"><wicket:label></wicket:label></label></span><span wicket:id="rootChildOfSiblingInputContainer">:
+                <input wicket:id="rootChildOfSibling" type="text"></span>
+            </p>
+
+            <h3>No Common Path Parts</h3>
+
+            <p>
+                This is the same case as <i>At Root</i> » <i>Child of Sibling</i> above.
+            </p>
+
+            <h2>Nested</h2>
+
+            <h3>Sibling</h3>
+
+            <p>
+                <span wicket:id="nestedSiblingRootContainer">
+                    <label wicket:for="nestedSibling"><wicket:label></wicket:label></label>:
+                    <input wicket:id="nestedSibling" type="text">
+                </span>
+            </p>
+
+            <h3>Child</h3>
+
+            <p>
+                <span wicket:id="nestedChildRootContainer">
+                    <label wicket:for="nestedChild">
+                        <wicket:label></wicket:label>:
+                        <input wicket:id="nestedChild" type="text">
+                    </label>
+                </span>
+            </p>
+
+            <h3>Sibling of Parent</h3>
+
+            <p>
+                <span wicket:id="nestedSiblingOfParentRootContainer">
+                    <span wicket:id="nestedSiblingOfParentLabelContainer"><label wicket:for="..:nestedSiblingOfParent"><wicket:label></wicket:label></label></span>:
+                    <input wicket:id="nestedSiblingOfParent" type="text">
+                </span>
+            </p>
+
+            <h3>Child of Sibling</h3>
+
+            <p>
+                <span wicket:id="nestedChildOfSiblingRootContainer">
+                    <span wicket:id="nestedChildOfSiblingLabelContainer"><label wicket:for="..:nestedChildOfSiblingInputContainer:nestedChildOfSibling"><wicket:label></wicket:label></label></span><span wicket:id="nestedChildOfSiblingInputContainer">:
+                    <input wicket:id="nestedChildOfSibling" type="text"></span>
+                </span>
+            </p>
+
+            <h3>No Common Path Parts</h3>
+
+            <p>
+                <span wicket:id="nestedNoCommonPathPartsLabelRootContainer">
+                    <span wicket:id="nestedNoCommonPathPartsLabelContainer">
+                        <label wicket:for="..:..:nestedNoCommonPathPartsInputRootContainer:nestedNoCommonPathPartsInputContainer:nestedNoCommonPathParts"><wicket:label></wicket:label></label></span></span><span wicket:id="nestedNoCommonPathPartsInputRootContainer"><span wicket:id="nestedNoCommonPathPartsInputContainer">:
+                        <input wicket:id="nestedNoCommonPathParts" type="text">
+                    </span>
+                </span>
+            </p>
+
+            <h3>No Common Path Parts, With Many Borders</h3>
+
+            <div wicket:id="rootBorder">
+                <p>
+                    <span wicket:id="labelLevel1Border">
+                        <span wicket:id="nestedNoCommonPathPartsLabelRootContainerManyBorders">
+                            <span wicket:id="labelLevel2Border">
+                                <span wicket:id="nestedNoCommonPathPartsLabelContainerManyBorders">
+                                    <span wicket:id="labelLevel3Border">
+                                        <label wicket:for="..:..:..:..:..:..:..:..:inputLevel1Border:inputLevel1Border_body:nestedNoCommonPathPartsInputRootContainerManyBorders:inputLevel2Border:inputLevel2Border_body:nestedNoCommonPathPartsInputContainerManyBorders:inputLevel3Border:inputLevel3Border_body:nestedNoCommonPathPartsManyBorders"><wicket:label></wicket:label></label></span></span></span></span></span><span wicket:id="inputLevel1Border"><span wicket:id="nestedNoCommonPathPartsInputRootContainerManyBorders"><span wicket:id="inputLevel2Border"><span wicket:id="nestedNoCommonPathPartsInputContainerManyBorders">:
+                                    <span wicket:id="inputLevel3Border">
+                                        <input wicket:id="nestedNoCommonPathPartsManyBorders" type="text">
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </p>
+            </div>
+        </form>
+        <hr>
+        <div><wicket:link><a href="LabelForPage.kt">Source code of LabelForPage.kt</a></wicket:link></div>
+        <div>
+            <a wicket:id="labelForPageMarkupLink">Source code of LabelForPage.html</a>
+        </div>
+    </div>
+</wicket:extend>
