@@ -97,19 +97,19 @@ class WicketLabelForPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Wicket Label for Form Component (Convenience Base Classes)") }
-
-    p {
-        text("Shows the use of the ")
-        code { text("<wicket:label>") }
-        text(" element to output the label of a form component. The labels cannot be used to activate the form component, as ")
-        code { text("<wicket:label>")}
-        text(" does not output a ")
-        code { text("<label>") }
-        text(".")
-    }
-
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Wicket Label for Form Component (Convenience Base Classes)") }
+
+        p {
+            text("Shows the use of the ")
+            code { text("<wicket:label>") }
+            text(" element to output the label of a form component. The labels cannot be used to activate the form component, as ")
+            code { text("<wicket:label>")}
+            text(" does not output a ")
+            code { text("<label>") }
+            text(".")
+        }
+
         form {
             h2 { text("At Root") }
 

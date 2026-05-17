@@ -42,8 +42,8 @@ html(attrLang(ENGLISH)) {
     body {
         section(attrClass("section")) {
             div(attrClass("container")) {
-                h1(attrClass("title")) { text("Deep Inheritance (DSL, Convenience Base Classes)") }
                 div(attrClass("content")) {
+                    h1(attrClass("title")) { text("Deep Inheritance (DSL, Convenience Base Classes)") }
                     p {
                         text("Shows a deep hierarchy of pages. The 2 template base classes provide common markup. And the pages provide specific content:")
                     }

@@ -31,7 +31,7 @@ class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
         private val variants = RootMarkupVariants<VariantsPanel>(this).apply {
             add(markup(Locale.UK) {
                 wicketPanel {
-                    text("English, United Kingdom.")
+                    text("English (United Kingdom).")
                 }
             })
             add(markup(Locale.FRENCH) {
@@ -46,7 +46,7 @@ class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
             })
             add(markup(Locale("nl", "BE")) {
                 wicketPanel {
-                    text("Dutch, Belgium.")
+                    text("Dutch (Belgium).")
                 }
             })
             add(markupStyle("style1") {
@@ -59,24 +59,9 @@ class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
                     text("Style 2.")
                 }
             })
-            add(markupVariation("variation1") {
-                wicketPanel {
-                    text("Variation 1.")
-                }
-            })
-            add(markupStyleAndVariation("style", "variation1") {
+            add(markupStyleAndVariation("style2", "variation1") {
                 wicketPanel {
                     text("Style 2, variation 1.")
-                }
-            })
-            add(markupStyleAndVariation("style3", "variation1") {
-                wicketPanel {
-                    text("Style 3, variation 1.")
-                }
-            })
-            add(markupVariation("variation2") {
-                wicketPanel {
-                    text("Variation 2.")
                 }
             })
             add(markupStyleAndVariation("style2", "variation2") {
@@ -84,9 +69,24 @@ class VariantsPanel(id: String) : KotlinWicketMarkupPanel(id) {
                     text("Style 2, variation 2.")
                 }
             })
-            add(markupStyleAndVariation("style3", "variation2") {
+            add(markupStyleAndVariation("style2", "variation2", Locale.FRANCE) {
                 wicketPanel {
-                    text("Style 3, variation 2.")
+                    text("Style 2, variation 2, French (France).")
+                }
+            })
+            add(markupStyleAndVariation("style3", "variation1") {
+                wicketPanel {
+                    text("Style 3, variation 1.")
+                }
+            })
+            add(markupVariation("variation1") {
+                wicketPanel {
+                    text("Variation 1.")
+                }
+            })
+            add(markupVariation("variation2") {
+                wicketPanel {
+                    text("Variation 2.")
                 }
             })
         }

@@ -49,9 +49,8 @@ class EnclosuresPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Enclosures (DSL, Convenience Base Classes)") }
-
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Enclosures (DSL, Convenience Base Classes)") }
         p { text("Shows enclosures that:") }
         ul {
             li { text("Detect the single component within them.") }

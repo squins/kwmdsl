@@ -29,8 +29,8 @@ open class DeepInheritanceBaseTemplate : ExamplesStandardBasePage(), IMarkupReso
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Deep Inheritance") }
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Deep Inheritance") }
         p {
             span(DeepInheritanceBaseTemplate::baseTemplateLabel)
         }

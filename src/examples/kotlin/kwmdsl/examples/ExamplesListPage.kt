@@ -76,8 +76,9 @@ class ExamplesListPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Kotlin Wicket Markup DSL Examples") }
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Kotlin Wicket Markup DSL Examples") }
+
         h2 { text("Encoding") }
         p {
             text("Are we happy about the encoding (")

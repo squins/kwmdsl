@@ -66,8 +66,8 @@ class RepeatersPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Repeaters (Convenience Base Classes)") }
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Repeaters (Convenience Base Classes)") }
         p {
             text("Shows repeaters without and with markup for the items.")
         }

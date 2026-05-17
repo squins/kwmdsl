@@ -236,8 +236,9 @@ class FragmentPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Fragment (DSL, Convenience Base Classes)") }
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Fragment (DSL, Convenience Base Classes)") }
+
         h2 { text("Introduction") }
 
         p {

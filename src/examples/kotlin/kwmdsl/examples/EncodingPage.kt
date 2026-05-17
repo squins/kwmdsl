@@ -13,8 +13,9 @@ class EncodingPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup<S> {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Wicket and the Default JVM Encoding") }
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Wicket and the Default JVM Encoding") }
+
         p {
             text("If you did not see a happy face, system property ")
             code { text("file.encoding") }

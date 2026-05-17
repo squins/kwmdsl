@@ -28,9 +28,9 @@ class WebMarkupContainerPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Web Markup Container (Convenience Base Classes)") }
-
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Web Markup Container (Convenience Base Classes)") }
+
         p {
             text("Shows that a basic Wicket component, ")
             code { text("WebMarkupContainer") }

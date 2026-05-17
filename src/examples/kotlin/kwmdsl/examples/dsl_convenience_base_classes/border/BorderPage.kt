@@ -27,8 +27,8 @@ class BorderPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Border (DSL, Convenience Base Classes)") }
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Border (DSL, Convenience Base Classes)") }
         p {
             text("The page uses a single border: ")
             code { text("SubBorder") }

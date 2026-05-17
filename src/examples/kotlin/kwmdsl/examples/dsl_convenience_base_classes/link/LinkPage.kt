@@ -31,9 +31,9 @@ class LinkPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup<S> {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Link (DSL, Convenience Base Classes)") }
-
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Link (DSL, Convenience Base Classes)") }
+
         p {
             text("Shows the use of ")
             code { text("<wicket:link>") }

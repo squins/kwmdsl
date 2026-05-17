@@ -33,9 +33,9 @@ class PageParametersWithLateinitVarPropertiesPage : ExamplesConvenienceBasePage(
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Components Defined by Lateinit Var Properties Accessing Page Parameters") }
-
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Components Defined by Lateinit Var Properties Accessing Page Parameters") }
+
         p {
             text("This page does not have a constructor accepting page parameters, so it must create the components after Wicket has set the page parameters: in ")
             code { text("onInitialize()") }

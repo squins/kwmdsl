@@ -112,17 +112,17 @@ class LabelForPage : ExamplesConvenienceBasePage() {
         override val noVariantMarkup = markup {
 // @formatter:off
 wicketExtend {
-    h1(attrClass("title")) { text("Label for Form Component (Convenience Base Classes)") }
-
-    p {
-        text("Shows the use of the ")
-        code { text("wicket:for") }
-        text(" attribute to attach an HTML ")
-        code { text("<label>") }
-        text(" to a form component.")
-    }
-
     div(attrClass("content")) {
+        h1(attrClass("title")) { text("Label for Form Component (Convenience Base Classes)") }
+
+        p {
+            text("Shows the use of the ")
+            code { text("wicket:for") }
+            text(" attribute to attach an HTML ")
+            code { text("<label>") }
+            text(" to a form component.")
+        }
+
         form {
             h2 { text("At Root") }
 

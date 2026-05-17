@@ -1,22 +1,159 @@
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
-    <h1 class="title">Variants</h1>
-    <form wicket:id="variantsForm">
+    <div class="content">
+        <h1 class="title">Variants (HTML)</h1>
+
         <p>
-            Style:
-            <select wicket:id="style">
-            </select>
+            Shows variants of markup based on the
+            <a href="https://nightlies.apache.org/wicket/guide/9.x/single.html#_style_and_variation_parameters_for_bundles">style,
+                variation and locale</a>. Markup is available for the following combinations:
         </p>
+
         <p>
-            Variation:
-            <select wicket:id="variation">
-            </select>
+            Note that Wickes uses the following order for style, variation and locale:
+            <code>&lt;base name&gt;[_variation][_style][_&lt;language code&gt;[_&lt;COUNTRY_CODE&gt;[_&lt;variant code&gt;]]]</code> in the
+            filename, but that the priority is: style, variation, locale. That is why the DSL uses the latter order in
+            its API.
         </p>
-        <p>
-            Locale:
-            <select wicket:id="locale">
-            </select>
-        </p>
-    </form>
-    <hr>
-    <div wicket:id="panel"></div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Style</th>
+                <th scope="col">Variation</th>
+                <th scope="col">Locale</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>en-GB</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>fr</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>nl</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>nl-BE</td>
+            </tr>
+            <tr>
+                <td>style1</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>style2</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>style2</td>
+                <td>variation1</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>style2</td>
+                <td>variation2</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>style2</td>
+                <td>variation2</td>
+                <td>fr-FR</td>
+            </tr>
+            <tr>
+                <td>style3</td>
+                <td>variation1</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>variation1</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>variation2</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+        <form wicket:id="variantsForm">
+            <p>
+                Style:
+                <select wicket:id="style">
+                </select>
+            </p>
+            <p>
+                Variation:
+                <select wicket:id="variation">
+                </select>
+            </p>
+            <p>
+                Locale:
+                <select wicket:id="locale">
+                </select>
+            </p>
+        </form>
+        <hr>
+        <div wicket:id="panel"></div>
+        <hr>
+        <div><wicket:link><a href="VariantsPanel.kt">Source code of VariantsPanel.kt</a></wicket:link></div>
+        <div>
+            <a wicket:id="variantsPanelMarkupLink">Source code of VariantsPanel.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelEnglishUnitedKingdomMarkupLink">Source code of VariantsPanel_en_GB.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelFrenchMarkupLink">Source code of VariantsPanel_fr.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelDutchMarkupLink">Source code of VariantsPanel_nl.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelDutchBelgiumMarkupLink">Source code of VariantsPanel_nl_BE.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelStyle1MarkupLink">Source code of VariantsPanel_style1.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelStyle2MarkupLink">Source code of VariantsPanel_style2.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelVariation1MarkupLink">Source code of VariantsPanel_variation1.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelStyle2Variation1MarkupLink">Source code of VariantsPanel_variation1_style2.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelStyle3Variation1MarkupLink">Source code of VariantsPanel_variation1_style3.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelVariation2MarkupLink">Source code of VariantsPanel_variation2.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelStyle2Variation2MarkupLink">Source code of VariantsPanel_variation2_style2.html</a>
+        </div>
+        <div>
+            <a wicket:id="variantsPanelStyle2Variation2FrenchFranceMarkupLink">Source code of VariantsPanel_variation2_style2_fr_FR.html</a>
+        </div>
+        <div><wicket:link><a href="VariantsPage.kt">Source code of VariantsPage.kt</a></wicket:link></div>
+        <div>
+            <a wicket:id="variantsPageMarkupLink">Source code of VariantsPage.html</a>
+        </div>
+    </div>
 </wicket:extend>
