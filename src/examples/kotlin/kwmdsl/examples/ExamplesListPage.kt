@@ -24,10 +24,10 @@ import kwmdsl.examples.html.enclosure.EnclosuresPage
 import kwmdsl.examples.html.fragment.FragmentPage
 import kwmdsl.examples.html.label_for.LabelForPage
 import kwmdsl.examples.html.label_for.WicketLabelForPage
+import kwmdsl.examples.html.link.LinkPage
 import kwmdsl.examples.html.repeater.RepeatersPage
 import kwmdsl.examples.html.variants.VariantsPage
-import kwmdsl.examples.standard.link.LinkPage
-import kwmdsl.examples.standard.web_markup_container.WebMarkupContainerPage
+import kwmdsl.examples.html.web_markup_container.WebMarkupContainerPage
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.link.Link
 import org.apache.wicket.request.mapper.parameter.PageParameters

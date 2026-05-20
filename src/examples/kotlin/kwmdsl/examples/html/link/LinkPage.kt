@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.link
+package kwmdsl.examples.html.link
 
 import kwmdsl.examples.ExamplesStandardBasePage
 import kwmdsl.examples.htmlResourceLink

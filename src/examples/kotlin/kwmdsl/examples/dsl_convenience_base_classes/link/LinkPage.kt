@@ -18,7 +18,7 @@ import com.squins.kwmdsl.p
 import kwmdsl.examples.ExamplesConvenienceBasePage
 import kwmdsl.examples.ExamplesListPage
 import kwmdsl.examples.firstSourceCodeLink
-import kwmdsl.examples.standard.link.LinkPage as StandardLinkPage
+import kwmdsl.examples.html.link.LinkPage as HtmlLinkPage
 
 class LinkPage : ExamplesConvenienceBasePage() {
     override fun onInitialize() {
@@ -55,7 +55,7 @@ wicketExtend {
                 )
                 text(", from a subpackage of an ancestor package: ")
                 img(
-                    attrSrc(S::class.resourcePath<StandardLinkPage>("Apache Wicket.svg")),
+                    attrSrc(S::class.resourcePath<HtmlLinkPage>("Apache Wicket.svg")),
                     attrWidth(50),
                     attrAlt("Wicket logo in red")
                 )
@@ -72,7 +72,7 @@ wicketExtend {
 
         p {
             wicketLink {
-                a(attrHref(StandardLinkPage::class.linkPath())) {
+                a(attrHref(HtmlLinkPage::class.linkPath())) {
                     text("View the HTML version.")
                 }
             }

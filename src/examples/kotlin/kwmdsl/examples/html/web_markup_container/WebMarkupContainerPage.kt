@@ -1,4 +1,4 @@
-package kwmdsl.examples.standard.web_markup_container
+package kwmdsl.examples.html.web_markup_container
 
 import kwmdsl.examples.ExamplesStandardBasePage
 import kwmdsl.examples.htmlResourceLink
