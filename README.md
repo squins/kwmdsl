@@ -181,7 +181,7 @@ In the examples:
 
 ## Example Code
 
-Almost all features are demonstrated in the examples. See [the example source files](src/examples/kotlin).
+Almost all features are demonstrated in the examples. See [the example source files](src/examples/kotlin/kwmdsl/examples).
 
 The examples can be run using [`KwmDslApp.kt`](src/examples/kotlin/kwmdsl/examples/KwmDslApp.kt). See the instructions written to the terminal.
 
