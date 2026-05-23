@@ -23,14 +23,14 @@ fun <TSupplier : MarkupContainer> fragmentBodyMarkup(
                 check(areCompatible(this, markupOfWhichToMatchComponentHierarchy)) {
                     """The children do not match the children of the markup that must be matched. Component hierarchy:
 ${
-    StringBuilder().apply {
-        getComponentHierarchyString(this, 0)
+    StringBuilder(500).also {
+        getComponentHierarchyString(it, 0)
     }
 }
 Component hierarchy that must be matched:
 ${
-    StringBuilder().apply {
-        markupOfWhichToMatchComponentHierarchy.getComponentHierarchyString(this, 0)
+    StringBuilder(500).also {
+        markupOfWhichToMatchComponentHierarchy.getComponentHierarchyString(it, 0)
     }
 }
 """
