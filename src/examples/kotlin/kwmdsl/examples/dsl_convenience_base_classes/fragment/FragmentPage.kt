@@ -191,7 +191,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             text("No components, unspecialized fragment, fragment markup #1")
         }
 
-        val noComponentsMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup<FPS> {
+        val noComponentsMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup<FPS>(noComponentsMarkupInParentUnspecializedFragmentBody1) {
             text("No components, unspecialized fragment, fragment markup #2")
         }
 
@@ -199,7 +199,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             text("No components, specialized fragment, fragment markup #1")
         }
 
-        val noComponentsMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup<FPS> {
+        val noComponentsMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup<FPS>(noComponentsMarkupInParentSpecializedFragmentBody1) {
             text("No components, specialized fragment, fragment markup #2")
         }
 
@@ -208,7 +208,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             span(FPS::componentsInParentMarkupInParentUnspecializedFragmentCurrentTime)
         }
 
-        val componentsInParentMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup {
+        val componentsInParentMarkupInParentUnspecializedFragmentBody2 = fragmentBodyMarkup(componentsInParentMarkupInParentUnspecializedFragmentBody1) {
             text("Components in parent, unspecialized fragment, fragment markup #2. At: ")
             span(FPS::componentsInParentMarkupInParentUnspecializedFragmentCurrentTime)
         }
@@ -218,7 +218,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             span(FPS::componentsInParentMarkupInParentSpecializedFragmentCurrentTime)
         }
 
-        val componentsInParentMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup {
+        val componentsInParentMarkupInParentSpecializedFragmentBody2 = fragmentBodyMarkup(componentsInParentMarkupInParentSpecializedFragmentBody1) {
             text("Components in parent, specialized fragment, fragment markup #2. At: ")
             span(FPS::componentsInParentMarkupInParentSpecializedFragmentCurrentTime)
         }
@@ -228,7 +228,7 @@ class FragmentPage : ExamplesConvenienceBasePage() {
             span(OwnComponentsMarkupInParentFragment::currentTime)
         }
 
-        val ownComponentsMarkupInParentBody2 = fragmentBodyMarkup {
+        val ownComponentsMarkupInParentBody2 = fragmentBodyMarkup(ownComponentsMarkupInParentBody1) {
             text("Own components, specialized fragment, fragment markup #2. At: ")
             span(OwnComponentsMarkupInParentFragment::currentTime)
         }

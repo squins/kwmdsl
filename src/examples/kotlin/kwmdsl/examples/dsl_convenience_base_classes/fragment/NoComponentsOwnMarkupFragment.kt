@@ -5,10 +5,9 @@ import com.squins.kwmdsl.component.KotlinWicketMarkupFragment
 import com.squins.kwmdsl.fragmentBodyMarkup
 import com.squins.kwmdsl.standaloneFragmentMarkup
 import org.apache.wicket.behavior.AttributeAppender
-import org.apache.wicket.markup.IMarkupResourceStreamProvider
 
 class NoComponentsOwnMarkupFragment(id: String, markupId: String) :
-    KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
+    KotlinWicketMarkupFragment(id, markupId, null) {
     override fun onInitialize() {
         super.onInitialize()
 
@@ -20,7 +19,7 @@ class NoComponentsOwnMarkupFragment(id: String, markupId: String) :
             text("No components, specialized fragment, fragment markup #1")
         }
 
-        val noComponentsOwnMarkupBody2 = fragmentBodyMarkup<NCOMFS> {
+        val noComponentsOwnMarkupBody2 = fragmentBodyMarkup(noComponentsOwnMarkupBody1) {
             text("No components, specialized fragment, fragment markup #2")
         }
 

@@ -12,7 +12,7 @@ class NoComponentsMarkupSupplyingPanel(id: String) : KotlinWicketMarkupPanel(id)
             text("No components, unspecialized fragment, fragment markup #1")
         }
 
-        val noComponentsMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup<NCMSPS> {
+        val noComponentsMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup(noComponentsMarkupSupplyingForUnspecializedBody1) {
             text("No components, unspecialized fragment, fragment markup #2")
         }
 
@@ -20,7 +20,7 @@ class NoComponentsMarkupSupplyingPanel(id: String) : KotlinWicketMarkupPanel(id)
             text("No components, specialized fragment, fragment markup #1")
         }
 
-        val noComponentsMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup<NCMSPS> {
+        val noComponentsMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup(noComponentsMarkupSupplyingForSpecializedBody1) {
             text("No components, specialized fragment, fragment markup #2")
         }
 

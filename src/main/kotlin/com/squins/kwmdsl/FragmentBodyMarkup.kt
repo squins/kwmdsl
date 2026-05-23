@@ -1,15 +1,42 @@
 package com.squins.kwmdsl
 
+import org.apache.wicket.Application
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.panel.Fragment
 
-// TODO("If another body is supplied, the component hierarchies can be compared")
-// TODO("Else document that there is no check to see if fragment markup bodies have the same component hierarchy.")
 fun <TSupplier : MarkupContainer> fragmentBodyMarkup(block: FragmentBodyMarkupBuilder<TSupplier>.() -> Unit) =
     FragmentBodyMarkupBuilder<TSupplier>().run {
         block()
         build()
     }
+
+fun <TSupplier : MarkupContainer> fragmentBodyMarkup(
+    markupOfWhichToMatchComponentHierarchy: FragmentBodyMarkup<TSupplier>,
+    block: FragmentBodyMarkupBuilder<TSupplier>.() -> Unit
+) =
+    FragmentBodyMarkupBuilder<TSupplier>().run {
+        block()
+        build()
+    }
+        .apply {
+            if (Application.get()?.usesDevelopmentConfig() == true) {
+                check(areCompatible(this, markupOfWhichToMatchComponentHierarchy)) {
+                    """The children do not match the children of the markup that must be matched. Component hierarchy:
+${
+    StringBuilder().apply {
+        getComponentHierarchyString(this, 0)
+    }
+}
+Component hierarchy that must be matched:
+${
+    StringBuilder().apply {
+        markupOfWhichToMatchComponentHierarchy.getComponentHierarchyString(this, 0)
+    }
+}
+"""
+                }
+            }
+        }
 
 class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
     override val markupText: String,

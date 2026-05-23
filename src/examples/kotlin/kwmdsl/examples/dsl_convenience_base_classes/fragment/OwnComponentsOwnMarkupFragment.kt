@@ -6,13 +6,12 @@ import com.squins.kwmdsl.fragmentBodyMarkup
 import com.squins.kwmdsl.span
 import com.squins.kwmdsl.standaloneFragmentMarkup
 import org.apache.wicket.behavior.AttributeAppender
-import org.apache.wicket.markup.IMarkupResourceStreamProvider
 import org.apache.wicket.markup.html.basic.Label
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 class OwnComponentsOwnMarkupFragment(id: String, markupId: String) :
-    KotlinWicketMarkupFragment(id, markupId, null), IMarkupResourceStreamProvider {
+    KotlinWicketMarkupFragment(id, markupId, null) {
     private val currentTime: Label = Label(::currentTime.name) {
         DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(ZonedDateTime.now())
     }
@@ -31,7 +30,7 @@ class OwnComponentsOwnMarkupFragment(id: String, markupId: String) :
             span(OCOMDFS::currentTime)
         }
 
-        val ownComponentsOwnMarkupBody2 = fragmentBodyMarkup {
+        val ownComponentsOwnMarkupBody2 = fragmentBodyMarkup(ownComponentsOwnMarkupBody1) {
             text("Own components, specialized fragment, fragment markup #2. At: ")
             span(OCOMDFS::currentTime)
         }

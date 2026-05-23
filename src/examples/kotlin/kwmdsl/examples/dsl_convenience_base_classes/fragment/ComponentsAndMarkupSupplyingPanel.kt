@@ -21,7 +21,7 @@ class ComponentsAndMarkupSupplyingPanel(id: String) : KotlinWicketMarkupPanel(id
             span(CAMSPS::currentTime)
         }
 
-        val componentsAndMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup {
+        val componentsAndMarkupSupplyingForUnspecializedBody2 = fragmentBodyMarkup(componentsAndMarkupSupplyingForUnspecializedBody1) {
             text("Components in external component, unspecialized fragment, fragment markup #2. At: ")
             span(CAMSPS::currentTime)
         }
@@ -31,7 +31,7 @@ class ComponentsAndMarkupSupplyingPanel(id: String) : KotlinWicketMarkupPanel(id
             span(CAMSPS::currentTime)
         }
 
-        val componentsAndMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup {
+        val componentsAndMarkupSupplyingForSpecializedBody2 = fragmentBodyMarkup(componentsAndMarkupSupplyingForSpecializedBody1) {
             text("Components in external component, specialized fragment, fragment markup #2. At: ")
             span(CAMSPS::currentTime)
         }
