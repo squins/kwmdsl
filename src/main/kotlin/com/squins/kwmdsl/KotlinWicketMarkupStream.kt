@@ -57,8 +57,13 @@ internal class KotlinWicketMarkupStream(
 
     override fun length(): Bytes = Bytes.bytes(utf8Bytes.size.toLong())
 
-    // TODO: explain why a time is returned: so Wicket can detect newer markup when a new version is rolled out. And explain
-    // why this time is chosen: changes are no longer possible after the JVM has started
+    /**
+     * Return an [Instant] so Wicket can detect newer markup when a new version is rolled out. The instant will created
+     * only once on each JVM run. As the markup cannot change while the JVM is running, the same instant can be returned
+     * for all resource streams for the whole lifetime of the JVM.
+     *
+     * @return the same `Instant` for all resource streams.
+     */
     override fun lastModifiedTime(): Instant = LAST_MODIFIED_TIME
 }
 

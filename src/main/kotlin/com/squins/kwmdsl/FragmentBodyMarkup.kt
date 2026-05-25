@@ -42,7 +42,12 @@ class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
     override val markupText: String,
     children: List<ChildMarkup<TSupplier>>,
 ) : Markup<TSupplier>(children), IFragmentBodyMarkup<TSupplier> {
-    // TODO("Document: for situations where the markup is provided by fragment itself")
+    /**
+     * Add the component hierarchy of the markup to `fragment`, where `fragment` itself supplies the components.
+     *
+     * @param supplier a [Fragment] that supplies the components of the markup, and to which the component hierarchy
+     * will be added. A runtime check will be made to ensure `supplier` is actually a `Fragment`.
+     */
     fun addToFragment(supplier: TSupplier) {
         check(supplier is Fragment) {
             "The supplier must be a fragment for this function. Use `addToFragment(Fragment, TSupplier)` for fragments that to not provide markup themselves."
@@ -50,7 +55,12 @@ class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
         addTo(supplier, supplier)
     }
 
-    // TODO("Document: for situations where the markup is not of the fragment itself. This is most common")
+    /**
+     * Add the component hierarchy of the markup to `fragment`, where `supplier` supplies the components.
+     *
+     * @param fragment the [Fragment] to add the component hierarchy to.
+     * @param supplier the supplier of the components.
+     */
     fun addToFragment(fragment: Fragment, supplier: TSupplier) {
         addTo(supplier, fragment)
     }
