@@ -9,13 +9,15 @@ The Kotlin Wicket markup DSL enables you to write markup in the Kotlin source fi
 * The markup is static jsut like HTML markup. Dynamic interfaces must use the visibility of components, panel replacement, etc.
 * The actual markup string is generated once per component class.
 * Only plain text is escaped. HTML element and attribute names and attribute values are output as is.
-* Makes navigation between code and markup simple.
+* Makes navigation between code and markup simple. _Jump to source_ and _go to declaration or usages_ in IntelliJ.
 * Adoption can be done incrementally. It is not necessary to convert large parts of your application to be able to use the DSL. Each component can be converted independently.
 * It is a small library. Most of the code contains (generated) convenience functions for HTML elements and attributes.
 
 ## Status
 
 The DSL is currently being used for pages with dozens of components, spread across multiple panels. What is currently lacking are a lot of tests, and comprehensive documentation. The examples do demonstrate that it is working correctly for lots of cases.
+
+There is still work to be done for fragments. Not all possibilities that could be supported are supported.
 
 # How to Use
 
@@ -103,7 +105,9 @@ Markup has to be defined in the companion object of the page or component class.
 
 If the markup does not contain descendent components, the class that contains the markup must be specified explicitly.
 
-Variants based on style, variation and/or locale can also be specified. The DSL will check that the component hierarchy of a variant matches the hierarchy of the no-variant markup.
+Variants based on style, variation and/or locale can also be specified. It is not possible to mix the DSL and HTML in the same class: all markup of a class must be written using the DSL or HTML.
+
+If the development configuration is used, the DSL will check that the component hierarchy of a variant of regular components and borders matches the hierarchy of the no-variant markup. Checking for matching hierarchies of the bodies of embedded fragments is not done automatically. You have to pass another fragment markup to the function used to define the fragment body markup.
 
 In the examples:
 
