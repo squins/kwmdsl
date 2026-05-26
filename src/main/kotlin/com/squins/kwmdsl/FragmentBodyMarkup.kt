@@ -43,10 +43,10 @@ class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
     children: List<ChildMarkup<TSupplier>>,
 ) : Markup<TSupplier>(children), IFragmentBodyMarkup<TSupplier> {
     /**
-     * Add the component hierarchy of the markup to `fragment`, where `fragment` itself supplies the components.
+     * Add the component hierarchy of the markup to [supplier], where `supplier` itself supplies the components.
      *
      * @param supplier a [Fragment] that supplies the components of the markup, and to which the component hierarchy
-     * will be added. A runtime check will be made to ensure `supplier` is actually a `Fragment`.
+     * will be added. A runtime check will be made to ensure it is actually a `Fragment`.
      */
     fun addToFragment(supplier: TSupplier) {
         check(supplier is Fragment) {
@@ -56,7 +56,7 @@ class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
     }
 
     /**
-     * Add the component hierarchy of the markup to `fragment`, where `supplier` supplies the components.
+     * Add the component hierarchy of the markup to [fragment], where [supplier] supplies the components.
      *
      * @param fragment the [Fragment] to add the component hierarchy to.
      * @param supplier the supplier of the components.

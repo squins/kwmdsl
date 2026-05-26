@@ -70,7 +70,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_put_javascript_inside_page_body) element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
+     * Add a [`wicket:container`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:container) element to the markup. The client is responsible for adding the associated Wicket component to the correct parent.
      *
      * @param id the Wicket ID of the container. **Warning**: there is no validation and no escaping, so make sure the ID is valid and safe.
      * @param block the (optional) code for building the children of the element.
@@ -82,6 +82,12 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         element("wicket:container", attr("wicket:id", id), block = block)
     }
 
+    /**
+     * Add a [`wicket:container`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:container) element to the markup, with the Wicket ID of the given supplier. It is the responsibility of the markup container to add a Wicket component with the same ID manually.
+     *
+     * @param repeated indicates that the component of this element will be added in a repeater. The Wicket ID of `repeated` is assigned to the element.
+     * @param block the (optional) code for building the children of the element.
+     */
     fun wicketContainer(
         repeated: Repeated,
         block: (MarkupBuilder<TSupplier>.() -> Unit)? = null
@@ -90,7 +96,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a [`wicket:container`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_put_javascript_inside_page_body) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
+     * Add a [`wicket:container`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:container) element to the markup, and use [supplier] to determine the Wicket ID to assign to the element, and to retrieve the associated Wicket component.
      *
      * @param supplier the property that will be used to determine the Wicket ID to assign to the element, and to retrieve the Wicket component when the root markup is added to the markup container.
      * @param block the (optional) code for building the children of the element.
@@ -227,6 +233,11 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     fun wicketForAttribute(path: String) =
         "wicket:for" to Text(path)
 
+    /**
+     * Add a [`wicket:fragment`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:fragment) element to the markup. The fragment markup is not specified by a block passed to this function, but has to be specified separately using [fragmentBodyMarkup].
+     *
+     * @param fragmentBodyMarkupSupplier the supplier of the fragment body markup.
+     */
     fun wicketFragment(fragmentBodyMarkupSupplier: KProperty0<IFragmentBodyMarkup<*>>) {
         currentTextPart
             .append("""<wicket:fragment wicket:id="""")
@@ -236,16 +247,31 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
             .append("</wicket:fragment>")
     }
 
+    /**
+     * Add a [`wicket:head`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:head) element to the markup.
+     *
+     * @param block the code for building the children of the element.
+     */
     fun wicketHead(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:head>")
         block()
         currentTextPart.append("</wicket:head>")
     }
 
+    /**
+     * Add a [`wicket:header-items`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:header-items) element to the markup.
+     */
     fun wicketHeaderItems() {
         currentTextPart.append("<wicket:header-items/>")
     }
 
+    /**
+     * Add a [`wicket:label`](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=27865#Wicket'sXHTMLtags-Attributewicket:for) element to the markup.
+     *
+     * @param forComponentSupplier the (optional) supplier of the component the label is for.
+     * @param key the (optional) key of the resource containing the label text.
+     * @param block the (optional) code for building the children of the element.
+     */
     fun wicketLabel(
         forComponentSupplier: (KProperty1<TSupplier, MarkupContainer>)? = null,
         key: String? = null,
@@ -277,7 +303,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a `wicket:link` element to the markup.
+     * Add a [`wicket:link`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:link) element to the markup.
      *
      * @param block the code for building the children of the element.
      */
@@ -288,7 +314,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a `wicket:message` element to the markup.
+     * Add a [`wicket:message`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:message) element to the markup.
      *
      * A convenience function for [wicketMessage] to keep internationalization code short and readable.
      *
@@ -305,7 +331,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a `wicket:message` element to the markup.
+     * Add a [`wicket:message`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:message) element to the markup.
      *
      * @param key the message key. **Warning**: there is no validation and no escaping, so make sure the key is valid and safe.
      * @param escape whether to escape the message. Optional, `true` by default.
@@ -328,6 +354,11 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         currentTextPart.append("</wicket:message>")
     }
 
+    /**
+     * Add a [`wicket:panel`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:panel) element to the markup.
+     *
+     * @param block the code for building the children of the element.
+     */
     fun wicketPanel(block: MarkupBuilder<TSupplier>.() -> Unit) {
         currentTextPart.append("<wicket:panel>")
         block()
@@ -335,7 +366,7 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     }
 
     /**
-     * Add a `wicket:remove` element to the markup.
+     * Add a [`wicket:remove`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Elementwicket:remove) element to the markup.
      *
      * @param block the code for building the children of the element.
      */
@@ -439,6 +470,11 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         currentTextPart.append("<!--").append(Strings.escapeMarkup(text)).append("-->")
     }
 
+    /**
+     * Append the text for all the markup parts to the given builder.
+     *
+     * @param builder the [StringBuilder] to which to append the text of each markup part of this markup.
+     */
     internal fun appendParts(builder: StringBuilder) {
         parts.forEach { part ->
             when (part) {
@@ -479,6 +515,11 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
      */
     internal abstract fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>): List<String>?
 
+    /**
+     * Build the child markup of all children of this markup.
+     *
+     * @return a list of [ChildMarkup] instances, one for child.
+     */
     internal fun buildChildren(): List<ChildMarkup<TSupplier>> = children.map { it.build() }
 
     /**
@@ -569,6 +610,12 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         }
     }
 
+    /**
+     * Append the given attribute to the markup text.
+     *
+     * @param name the attribute name. **Warning**: there is no validation and no escaping, so make sure the name is valid and safe.
+     * @param value the attribute value. **Warning**: there is no validation and no escaping, so make sure the value is valid and safe.
+     */
     private fun attribute(name: String, value: AttributeValue) {
         currentTextPart
             .append(' ')

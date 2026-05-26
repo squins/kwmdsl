@@ -59,7 +59,7 @@ internal class KotlinWicketMarkupStream(
 
     /**
      * Return an [Instant] so Wicket can detect newer markup when a new version is rolled out. The instant will created
-     * only once on each JVM run. As the markup cannot change while the JVM is running, the same instant can be returned
+     * only once in each JVM run. As the markup cannot change while the JVM is running, the same instant can be returned
      * for all resource streams for the whole lifetime of the JVM.
      *
      * @return the same `Instant` for all resource streams.
