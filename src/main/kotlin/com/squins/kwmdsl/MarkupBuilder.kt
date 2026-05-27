@@ -139,14 +139,6 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
     fun attrWicketEnclosure() = attr("wicket:enclosure", "")
 
     /**
-     * Create a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute without a child path.
-     *
-     * @return an 'attribute': a pair of the attribute name and the attribute value.
-     */
-    @Deprecated("Naming is different than HTML attributes.", replaceWith = ReplaceWith("attrWicketEnclosure()"))
-    fun wicketEnclosureAttribute() = attr("wicket:enclosure", "")
-
-    /**
      * Add a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute, using [childSupplier] to determine the component path to use for this attribute.
      *
      * @param childSupplier the supplier of the child Wicket component that determines the visibility of the element with this attribute.
@@ -156,32 +148,12 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         "wicket:enclosure" to DescendentReference(childSupplier)
 
     /**
-     * Add a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute, using [childSupplier] to determine the component path to use for this attribute.
-     *
-     * @param childSupplier the supplier of the child Wicket component that determines the visibility of the element with this attribute.
-     * @return an 'attribute': a pair of the attribute name and the attribute value.
-     */
-    @Deprecated("Naming is different than HTML attributes.", replaceWith = ReplaceWith("attrWicketEnclosure(childSupplier)"))
-    fun wicketEnclosureAttribute(childSupplier: KProperty1<TSupplier, Component>) =
-        "wicket:enclosure" to DescendentReference(childSupplier)
-
-    /**
      * Create a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute with child path [path].
      *
-     * @path the path to the child Wicket component that determines the visibility of the element with this attribute. The client is responsible for making sure the path references an actual Wicket component.
+     * @param path the path to the child Wicket component that determines the visibility of the element with this attribute. The client is responsible for making sure the path references an actual Wicket component.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
     fun attrWicketEnclosure(path: String) =
-        "wicket:enclosure" to Text(path)
-
-    /**
-     * Create a [`wicket:enclosure`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:enclosure) attribute with child path [path].
-     *
-     * @path the path to the child Wicket component that determines the visibility of the element with this attribute. The client is responsible for making sure the path references an actual Wicket component.
-     * @return an 'attribute': a pair of the attribute name and the attribute value.
-     */
-    @Deprecated("Naming is different than HTML attributes.", replaceWith = ReplaceWith("attrWicketEnclosure(path)"))
-    fun wicketEnclosureAttribute(path: String) =
         "wicket:enclosure" to Text(path)
 
     /**
@@ -205,32 +177,12 @@ abstract class MarkupBuilder<TSupplier : MarkupContainer> internal constructor()
         "wicket:for" to ForComponentReference(forComponentSupplier)
 
     /**
-     * Add a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute, using [forComponentSupplier] to determine the component path to use for this attribute.
-     *
-     * @param forComponentSupplier the supplier of the Wicket form component that the label containing this attribute is for.
-     * @return an 'attribute': a pair of the attribute name and the attribute value.
-     */
-    @Deprecated("Naming is different than HTML attributes.", replaceWith = ReplaceWith("attrWicketFor(forComponentSupplier)"))
-    fun wicketForAttribute(forComponentSupplier: KProperty1<TSupplier, MarkupContainer>) =
-        "wicket:for" to ForComponentReference(forComponentSupplier)
-
-    /**
      * Create a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute with child path [path].
      *
-     * @path the path to the Wicket form component that the label containing this attribute is for. The client is responsible for making sure the path references an actual Wicket component.
+     * @param path the path to the Wicket form component that the label containing this attribute is for. The client is responsible for making sure the path references an actual Wicket component.
      * @return an 'attribute': a pair of the attribute name and the attribute value.
      */
     fun attrWicketFor(path: String) =
-        "wicket:for" to Text(path)
-
-    /**
-     * Create a [`wicket:for`](https://cwiki.apache.org/confluence/display/WICKET/Wicket's+XHTML+tags#Wicket'sXHTMLtags-Attributewicket:for) attribute with child path [path].
-     *
-     * @path the path to the Wicket form component that the label containing this attribute is for. The client is responsible for making sure the path references an actual Wicket component.
-     * @return an 'attribute': a pair of the attribute name and the attribute value.
-     */
-    @Deprecated("Naming is different than HTML attributes.", replaceWith = ReplaceWith("attrWicketFor(path)"))
-    fun wicketForAttribute(path: String) =
         "wicket:for" to Text(path)
 
     /**

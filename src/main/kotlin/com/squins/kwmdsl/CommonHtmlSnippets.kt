@@ -4,6 +4,8 @@ import com.squins.kwmdsl.HttpHeader.CONTENT_TYPE
 
 /**
  * Add an HTML document type declaration with document type `html` to the markup.
+ *
+ * @receiver a markup builder.
  */
 fun MarkupBuilder<*>.docTypeHtml() {
     docType("html")
@@ -15,6 +17,8 @@ fun MarkupBuilder<*>.docTypeHtml() {
  * ```html
  * <meta name="viewport" content="width=device-width, initial-scale=1">
  * ```
+ *
+ * @receiver a markup builder.
  */
 fun MarkupBuilder<*>.metaViewportDeviceWidthInitialScale1() {
     meta(
@@ -29,6 +33,8 @@ fun MarkupBuilder<*>.metaViewportDeviceWidthInitialScale1() {
  * ```html
  * <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  * ```
+ *
+ * @receiver a markup builder.
  */
 fun MarkupBuilder<*>.metaTextHtmlUtf8() {
     meta(

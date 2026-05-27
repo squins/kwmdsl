@@ -4,6 +4,11 @@ import org.apache.wicket.Component
 import org.apache.wicket.MarkupContainer
 import kotlin.reflect.KProperty1
 
+/**
+ * The builder for a body markup of a fragment embedded in the markup of another component.
+ *
+ * @param TSupplier the type having the properties and functions to get the Wicket components.
+ */
 class FragmentBodyMarkupBuilder<TSupplier : MarkupContainer> : MarkupBuilder<TSupplier>() {
     // TODO("Check if this is correct for fragment bodies")
     override fun getPathAsList() = emptyList<String>()
@@ -18,9 +23,10 @@ class FragmentBodyMarkupBuilder<TSupplier : MarkupContainer> : MarkupBuilder<TSu
      * @return the root markup.
      */
     internal fun build(): FragmentBodyMarkup<TSupplier> {
-        val markupText = StringBuilder(1_000).apply {
+        val markupText = StringBuilder(1_000).run {
             appendParts(this)
-        }.toString()
+            toString()
+        }
         return FragmentBodyMarkup(markupText, buildChildren())
     }
 }

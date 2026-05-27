@@ -52,6 +52,10 @@ val generateConvenienceFunctions by tasks.registering {
         val packageDirectory = File(outputDirectory, "com/squins/kwmdsl")
         packageDirectory.mkdirs()
 
+        fun PrintWriter.receiverDoc() {
+            println(" * @receiver a markup builder.")
+        }
+
         fun PrintWriter.supplierDoc() {
             println(" * @param TSupplier the markup container type having the properties and functions to get the Wicket components.")
         }
@@ -139,6 +143,7 @@ val generateConvenienceFunctions by tasks.registering {
 
                     voidHtmlElements.forEach { elementName ->
                         freeElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         attributesDoc()
                         docEnd()
@@ -148,6 +153,7 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    voidElement("$elementName", *attributes)""")
                         println()
                         wicketIdElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         wicketIdDoc()
                         attributesDoc()
@@ -159,6 +165,7 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    voidElement("$elementName", attr("wicket:id", wicketId), *attributes)""")
                         println()
                         repeatedElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         repeatedDoc()
                         attributesDoc()
@@ -170,6 +177,7 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    voidElement("$elementName", attr("wicket:id", repeated.wicketId), *attributes)""")
                         println()
                         supplierPropertyElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         propertySupplierDoc()
                         attributesDoc()
@@ -187,6 +195,7 @@ val generateConvenienceFunctions by tasks.registering {
                     nonVoidHtmlElements.forEach { elementName ->
                         val functionName = if (elementName in elementNamesToQuote) "`$elementName`" else elementName
                         freeElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         attributesDoc()
                         blockDoc()
@@ -198,6 +207,7 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    element("$elementName", *attributes, block = block)""")
                         println()
                         wicketIdElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         wicketIdDoc()
                         attributesDoc()
@@ -211,6 +221,7 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    element("$elementName", attr("wicket:id", wicketId), *attributes, block = block)""")
                         println()
                         repeatedElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         repeatedDoc()
                         attributesDoc()
@@ -224,6 +235,7 @@ val generateConvenienceFunctions by tasks.registering {
                         println("""    element("$elementName", attr("wicket:id", repeated.wicketId), *attributes, block = block)""")
                         println()
                         supplierPropertyElementDocStart(elementName)
+                        receiverDoc()
                         supplierDoc()
                         propertySupplierDoc()
                         attributesDoc()
@@ -235,38 +247,6 @@ val generateConvenienceFunctions by tasks.registering {
                         blockDeclaration()
                         println(") =")
                         println("""    element(supplier, "$elementName", *attributes, block = block)""")
-                        println()
-                        println()
-                        println()
-                    }
-                }
-            }
-        }
-
-        val classHtmlElementsFile = File(packageDirectory, "ClassHtmlElements.kt")
-        classHtmlElementsFile.writer().use { fileWriter ->
-            PrintWriter(fileWriter).use { printWriter ->
-                with(printWriter) {
-                    println("package com.squins.kwmdsl")
-                    println()
-                    println("import org.apache.wicket.MarkupContainer")
-                    println()
-
-                    classElements.forEach { elementName ->
-                        println("/**")
-                        println(" * Add ${aOrAn(elementName)} `$elementName` element with a `class` attribute having the value of `cssClasses`.")
-                        println(" *")
-                        supplierDoc()
-                        println(" * @param cssClasses the value for attribute `class`. **Warning**: there is no validation and no escaping, so make sure the value is valid and safe.")
-                        blockDoc()
-                        docEnd()
-                        // No `ReplaceWith` as this is more cumbersome than doing a search & replace manually.
-                        println("""@Deprecated("Makes it cumbersome to switch between tag with attached component and without. Use `attrClass(...)` with `$elementName(...)` instead. Replace `class([A-Z][a-zA-Z0-9]*)\\((\"[^\"]*\")\\)` with `\\l$1(attrClass($2))` in your codebase.")""")
-                        println("fun <TSupplier : MarkupContainer> MarkupBuilder<TSupplier>.class${elementName[0].uppercase()}${elementName.substring(1)}(")
-                        println("    cssClasses: String,")
-                        blockDeclaration()
-                        println(") =")
-                        println("""    element("$elementName", attr("class", cssClasses), block = block)""")
                         println()
                         println()
                         println()
@@ -501,48 +481,6 @@ private val nonVoidHtmlElements = listOf(
 private val elementNamesToQuote = setOf(
     "object",
     "var",
-)
-
-private val classElements = listOf(
-    "a",
-    "article",
-    "aside",
-    "blockquote",
-    "body",
-    "button",
-    "code",
-    "div",
-    "fieldset",
-    "figcaption",
-    "figure",
-    "footer",
-    "form",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "header",
-    "hr",
-    "html",
-    "i",
-    "input",
-    "label",
-    "li",
-    "main",
-    "nav",
-    "ol",
-    "p",
-    "section",
-    "select",
-    "small",
-    "span",
-    "strong",
-    "svg",
-    "table",
-    "tr",
-    "ul",
 )
 
 private val LETTERS_REQUIRING_AN = setOf(

@@ -4,12 +4,29 @@ import org.apache.wicket.Application
 import org.apache.wicket.MarkupContainer
 import org.apache.wicket.markup.html.panel.Fragment
 
+/**
+ * A builder function for the markup of a [`wicket:fragment`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_working_with_markup_fragments) container embedded in the markup of another component, that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * If you want to check that the hierarchy matches the markup of another variant of the fragment, use the overload that takes another [FragmentBodyMarkup].
+ *
+ * @param TSupplier the type having the properties and functions to get the Wicket components.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the body markup for a fragment embedded in the markup of another component.
+ */
 fun <TSupplier : MarkupContainer> fragmentBodyMarkup(block: FragmentBodyMarkupBuilder<TSupplier>.() -> Unit) =
     FragmentBodyMarkupBuilder<TSupplier>().run {
         block()
         build()
     }
 
+/**
+ * A builder function for the markup of a [`wicket:fragment`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_working_with_markup_fragments) container embedded in the markup of another component, that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the type having the properties and functions to get the Wicket components.
+ * @param markupOfWhichToMatchComponentHierarchy a markup variant of the fragment of which the component hierarchy must match with the component hierarchy of this markup.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the body markup for a fragment embedded in the markup of another component.
+ */
 fun <TSupplier : MarkupContainer> fragmentBodyMarkup(
     markupOfWhichToMatchComponentHierarchy: FragmentBodyMarkup<TSupplier>,
     block: FragmentBodyMarkupBuilder<TSupplier>.() -> Unit
@@ -23,13 +40,13 @@ fun <TSupplier : MarkupContainer> fragmentBodyMarkup(
                 check(areCompatible(this, markupOfWhichToMatchComponentHierarchy)) {
                     """The children do not match the children of the markup that must be matched. Component hierarchy:
 ${
-    StringBuilder(500).also {
+    StringBuilder(1_000).also {
         getComponentHierarchyString(it, 0)
     }
 }
 Component hierarchy that must be matched:
 ${
-    StringBuilder(500).also {
+    StringBuilder(1_000).also {
         markupOfWhichToMatchComponentHierarchy.getComponentHierarchyString(it, 0)
     }
 }
@@ -38,6 +55,13 @@ ${
             }
         }
 
+/**
+ * Body markup for a [Fragment] embedded in the markup of another component.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param markupText the markup text of the border.
+ * @param children the tree of child markups associated with a Wicket component.
+ */
 class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
     override val markupText: String,
     children: List<ChildMarkup<TSupplier>>,
@@ -45,8 +69,7 @@ class FragmentBodyMarkup<TSupplier : MarkupContainer> internal constructor(
     /**
      * Add the component hierarchy of the markup to [supplier], where `supplier` itself supplies the components.
      *
-     * @param supplier a [Fragment] that supplies the components of the markup, and to which the component hierarchy
-     * will be added. A runtime check will be made to ensure it is actually a `Fragment`.
+     * @param supplier a [Fragment] that supplies the components of the markup, and to which the component hierarchy will be added. A runtime check will be made to ensure it is actually a `Fragment`.
      */
     fun addToFragment(supplier: TSupplier) {
         check(supplier is Fragment) {

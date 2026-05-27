@@ -4,7 +4,7 @@ import com.squins.kwmdsl.attrClass
 import com.squins.kwmdsl.attrLang
 import com.squins.kwmdsl.body
 import com.squins.kwmdsl.component.IKotlinWicketMarkupProvider
-import com.squins.kwmdsl.component.KotlinWicketMarkupWebPage
+import com.squins.kwmdsl.component.KotlinWicketMarkupGenericWebPage
 import com.squins.kwmdsl.div
 import com.squins.kwmdsl.docTypeHtml
 import com.squins.kwmdsl.head
@@ -15,7 +15,7 @@ import com.squins.kwmdsl.title
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import java.util.Locale.ENGLISH
 
-abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : KotlinWicketMarkupWebPage<Unit>(pageParameters) {
+abstract class ExamplesConvenienceBasePage(pageParameters: PageParameters?) : KotlinWicketMarkupGenericWebPage<Unit>(pageParameters) {
     constructor() : this(null)
 
     override fun onInitialize() {

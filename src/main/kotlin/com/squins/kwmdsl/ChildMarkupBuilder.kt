@@ -16,14 +16,31 @@ import kotlin.reflect.full.isSubclassOf
  * @param supplier the property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
  */
 internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private constructor(
+    /**
+     * The markup builder this builder is a child of.
+     */
     private val parent: MarkupBuilder<TSupplier>,
+
+    /**
+     * The Wicket ID this builder is expected to have.
+     */
     private val expectedWicketId: String,
+
+    /**
+     * The reference to the property creating the component attached to the element of this markup.
+     */
     private val supplier: KProperty1<TSupplier, Component>,
+
+    /**
+     * Whether this is child markup for a border.
+     */
     private val isForBorder: Boolean,
+
 ) : MarkupBuilder<TSupplier>() {
     /**
      * Create an instance with a property supplier.
      *
+     * @param parent the markup builder this builder is a child of.
      * @param supplier the property that will be used to retrieve the Wicket component when the component associated with this markup has to be added to its parent.
      */
     internal constructor(parent: MarkupBuilder<TSupplier>, supplier: KProperty1<TSupplier, Component>) :
@@ -84,5 +101,11 @@ internal class ChildMarkupBuilder<TSupplier : MarkupContainer> private construct
     override fun pathFromRootOfAsList(supplier: KProperty1<TSupplier, Component>) = parent.pathFromRootOfAsList(supplier)
 }
 
+/**
+ * Determine whether the given supplier will return a [Border].
+ *
+ * @param supplier the reference to the supplier property or function for which to determine if it returs a `Border`.
+ * @return `true` if [supplier] returns a `Border`, `false` otherwise.
+ */
 private fun doesSupplierReturnBorder(supplier: KCallable<Component>) =
     (supplier.returnType.classifier as? KClass<*>)?.isSubclassOf(Border::class) == true

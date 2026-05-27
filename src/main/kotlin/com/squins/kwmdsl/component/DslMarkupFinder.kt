@@ -8,7 +8,12 @@ import org.apache.wicket.util.resource.IResourceStream
 import kotlin.reflect.full.companionObjectInstance
 
 /**
+ * Call this function from [org.apache.wicket.markup.IMarkupResourceStreamProvider.getMarkupResourceStream] in component classes that cannot use the convenience base classes, so the DSL markup can be found for those classes.
+ *
  * Adapted from [`DefaultMarkupResourceStreamProvider`](org.apache.wicket.markup.DefaultMarkupResourceStreamProvider).
+ *
+ * @param container the markup container for which to find the markup.
+ * @param containerClass the container the markup should be associated with.
  */
 fun findMarkup(container: MarkupContainer, containerClass: Class<*>): IResourceStream? {
     val locator = Application.get().resourceSettings.resourceStreamLocator

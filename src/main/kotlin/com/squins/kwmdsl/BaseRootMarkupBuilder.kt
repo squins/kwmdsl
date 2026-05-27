@@ -22,6 +22,10 @@ abstract class BaseRootMarkupBuilder<TSupplier : MarkupContainer, TMarkup : Base
     /**
      * Build the root markup using the concatenation of its parts and the tree of child markups associated with Wicket components.
      *
+     * @param supplierClass the class of the component with the member properties and functions supplying the components.
+     * @param style the style for which the markup must be used.
+     * @param variation the variation for which the markup must be used.
+     * @param locale the locale for which the markup must be used.
      * @return the root markup.
      */
     internal fun build(
@@ -30,15 +34,20 @@ abstract class BaseRootMarkupBuilder<TSupplier : MarkupContainer, TMarkup : Base
         variation: String?,
         locale: Locale?,
     ): TMarkup {
-        val markupText = StringBuilder(1_000).apply {
+        val markupText = StringBuilder(1_000).run {
             appendParts(this)
-        }.toString()
+            toString()
+        }
         return createMarkup(supplierClass, style, variation, locale, markupText, buildChildren())
     }
 
     /**
      * Factory function to create an instance of the actual root markup type.
      *
+     * @param supplierClass the type of the component defining the supplier properties and functions that create the descendent components.
+     * @param style the style for which the markup must be used.
+     * @param variation the variation for which the markup must be used.
+     * @param locale the locale for which the markup must be used.
      * @param markupText the text of the root markup to create.
      * @param children the tree of child markups associated with a Wicket component.
      * @return the root markup.

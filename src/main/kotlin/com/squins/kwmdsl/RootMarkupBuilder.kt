@@ -4,6 +4,11 @@ import org.apache.wicket.MarkupContainer
 import java.util.Locale
 import kotlin.reflect.KClass
 
+/**
+ * A builder for the root markup of a component.
+ *
+ * @param TSupplier the component type the markup is for. This component type also defines the supplier properties and functions that create the descendent components.
+ */
 class RootMarkupBuilder<TSupplier : MarkupContainer> internal constructor() :
     BaseRootMarkupBuilder<TSupplier, RootMarkup<TSupplier>>() {
     override fun createMarkup(

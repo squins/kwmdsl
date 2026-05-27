@@ -14,27 +14,99 @@ import kotlin.reflect.KClass
 inline fun <reified TSupplier : Border> borderMarkup(noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, null, null, null, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param locale the locale for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkup(locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, null, null, locale, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param variation the variation for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkupVariation(variation: String, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, null, variation, null, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param variation the variation for which the markup must be used.
+ * @param locale the locale for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkupVariation(variation: String, locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, null, variation, locale, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param style the style for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkupStyle(style: String, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, style, null, null, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param style the style for which the markup must be used.
+ * @param locale the locale for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkupStyle(style: String, locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, style, null, locale, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param style the style for which the markup must be used.
+ * @param variation the variation for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkupStyleAndVariation(style: String, variation: String, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, style, variation, null, block)
 
+/**
+ * A builder function for the markup of a [`wicket:border`](https://nightlies.apache.org/wicket/guide/9.x/single.html#_surrounding_existing_markup_with_border) container that allows specifying the markup and the component hierarchy using the DSL.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param style the style for which the markup must be used.
+ * @param variation the variation for which the markup must be used.
+ * @param locale the locale for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 inline fun <reified TSupplier : Border> borderMarkupStyleAndVariation(style: String, variation: String, locale: Locale, noinline block: BorderRootMarkupBuilder<TSupplier>.() -> Unit) =
     _borderMarkup(TSupplier::class, style, variation, locale, block)
 
+/**
+ * The actual builder function for the markup for a specific style, variation and locale of a [Border] that allows specifying the markup and the component hierarchy using the DSL. Not intended to be used directly. Use one of the variation without an underscore as those allow for terser code.
+ *
+ * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param supplierClass the class of the border with the member properties and functions supplying the components.
+ * @param style the style for which the markup must be used.
+ * @param variation the variation for which the markup must be used.
+ * @param locale the locale for which the markup must be used.
+ * @param block the code specifying the markup and the component hierarchy.
+ * @return the border root markup.
+ */
 @Suppress("FunctionName")
 fun <TSupplier : Border> _borderMarkup(
     supplierClass: KClass<TSupplier>,
@@ -54,6 +126,10 @@ fun <TSupplier : Border> _borderMarkup(
  * Root markup for a [Border].
  *
  * @param TSupplier the border type having the properties and functions to get the Wicket components.
+ * @param supplierClass the class of the border with the member properties and functions supplying the components.
+ * @param style the style for which the markup must be used.
+ * @param variation the variation for which the markup must be used.
+ * @param locale the locale for which the markup must be used.
  * @param markupText the markup text of the border.
  * @param children the tree of child markups associated with a Wicket component.
  */
