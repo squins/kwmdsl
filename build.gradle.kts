@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.squins"
-version = "4-SNAPSHOT"
+version = "5-SNAPSHOT"
 
 tasks.wrapper {
     // https://gradle.org/releases/
