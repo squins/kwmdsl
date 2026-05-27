@@ -5,7 +5,10 @@ import java.util.Locale
 plugins {
     kotlin("jvm")
     `maven-publish`
+    signing
     id("com.google.cloud.artifactregistry.gradle-plugin")
+    id("io.github.sgtsilvio.gradle.maven-central-publishing")
+    id("io.jumpco.open.gradle.local-properties")
     id("org.jetbrains.dokka")
     id("org.jetbrains.dokka-javadoc")
 }
@@ -343,6 +346,7 @@ publishing {
             pom {
                 name.set("kwmdsl")
                 description.set("Kotlin DSL for writing Wicket markup.")
+                url = "https://github.com/squins/kwmdsl"
                 licenses {
                     license {
                         name.set("MIT License")
@@ -375,6 +379,10 @@ publishing {
             artifact(dokkaJavadocJar)
         }
     }
+}
+
+signing {
+    sign(publishing.publications["main"])
 }
 
 private val voidHtmlElements = listOf(

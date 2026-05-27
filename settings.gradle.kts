@@ -7,6 +7,12 @@ pluginManagement {
         // Do not upgrade unless https://github.com/GoogleCloudPlatform/artifact-registry-maven-tools/issues/106 has been resolved.
         id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.3"
 
+        // https://plugins.gradle.org/plugin/io.github.sgtsilvio.gradle.maven-central-publishing
+        id("io.github.sgtsilvio.gradle.maven-central-publishing") version "0.5.0"
+
+        // https://plugins.gradle.org/plugin/io.jumpco.open.gradle.local-properties
+        id("io.jumpco.open.gradle.local-properties") version "1.0.1"
+
         // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 

@@ -1,6 +1,7 @@
 /.gradle/
 /.kotlin/
 /build/
+/gradle.local.properties
 
 # Below copied from: https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 
