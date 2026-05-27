@@ -1,3 +1,4 @@
+import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
 import java.io.PrintWriter
 import java.util.Locale
 
@@ -300,7 +301,25 @@ java {
 
 dokka {
     dokkaSourceSets.main {
-        suppressGeneratedFiles.set(false)
+        suppressGeneratedFiles = false
+        jdkVersion = 17
+        languageVersion = "1.8"
+        apiVersion = "1.8"
+        documentedVisibilities = setOf(VisibilityModifier.Public, VisibilityModifier.Protected)
+        includes.from(
+            file("src/dokka/Module.md"),
+            file("src/dokka/Package com.squins.kwmdsl.component.md"),
+            file("src/dokka/Package com.squins.kwmdsl.md"),
+        )
+        sourceLink {
+            localDirectory = file("src/main/kotlin")
+            remoteUrl = uri("https://github.com/squins/kwmdsl/tree/main/src/main/kotlin")
+            remoteLineSuffix = "#L"
+        }
+    }
+
+    dokkaPublications.configureEach {
+        moduleName = "Kotlin Wicket Markup DSL"
     }
 }
 
