@@ -6,7 +6,6 @@ plugins {
     kotlin("jvm")
     `maven-publish`
     signing
-    id("com.google.cloud.artifactregistry.gradle-plugin")
     id("io.github.sgtsilvio.gradle.maven-central-publishing")
     id("io.jumpco.open.gradle.local-properties")
     id("org.jetbrains.dokka")
@@ -22,19 +21,8 @@ tasks.wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-publishing {
-    repositories {
-        maven {
-            setUrl("artifactregistry://europe-west4-maven.pkg.dev/squins-ci/squins-components-dwm8a3suqkvq")
-        }
-    }
-}
-
 repositories {
     mavenCentral()
-    maven {
-        setUrl("artifactregistry://europe-west4-maven.pkg.dev/squins-ci/squins-components-dwm8a3suqkvq")
-    }
 }
 
 sourceSets.register("examples") {
