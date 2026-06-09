@@ -47,7 +47,7 @@ kwmdsl = { group = "com.squins", name = "kotlin-wicket-markup-dsl", version = "4
 
 ## Basic Usage
 
-Here is the [_Hello World!_ example of Wicket](https://wicket.apache.org/learn/examples/helloworld.html) in Kotlin using the DSL. There is an simple mapping from the standard Wicket code to the DSL, so it is easy to convert, and the resulting code is easibly recognizable as Wicket code.
+Here is the [_Hello World!_ example of Wicket](https://wicket.apache.org/learn/examples/helloworld.html) in Kotlin using the DSL. There is a simple mapping from the standard Wicket code to the DSL, so it is easy to convert, and the resulting code is easibly recognizable as Wicket code.
 
 See below for an explanation of the lines the numbers are on:
 
